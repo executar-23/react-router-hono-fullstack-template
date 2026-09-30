@@ -1,0 +1,7 @@
+# Worker principal — desenvolvimento local (copie para .dev.vars). Sem segredos.
+ENVIRONMENT=development
+ALLOWED_ORIGIN=http://localhost:5173
+AUTH_ISSUER_URL=http://localhost:8788
+AUTH_CLIENT_ID=hub-editorial
+ADMIN_EMAIL=executar-rotina@outlook.com
+PROJECT_CONTACT=executar-rotina@outlook.com

@@ -14,7 +14,7 @@ export function Dashboard({
 	store: HubStore;
 	onNavigate: (moduleId: string, recordId?: string) => void;
 }) {
-	const content = store.data.content ?? [];
+	const content = useMemo(() => store.data.content ?? [], [store.data.content]);
 	const stats = useMemo(() => {
 		const st = (r: (typeof content)[number]) => String(r.Status_editorial ?? "");
 		return {

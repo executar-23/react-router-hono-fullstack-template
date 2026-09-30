@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ChevronRight, Plus, Search, Trash2, X } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -79,6 +79,31 @@ function FieldInput({
 	return <Input value={String(v)} onChange={(e) => onChange(e.target.value)} />;
 }
 
+const PUBLISHABLE = ["ACEITO", "VALIDADA", "PRONTO", "AGENDADO"];
+
+function PublishButton({ record, store }: { record: HubRecord; store: HubStore }) {
+	const [state, setState] = useState<"idle" | "running" | "done" | "error">("idle");
+	const status = String(record.Status_editorial ?? "");
+	if (store.mode !== "remote" || !PUBLISHABLE.includes(status)) return null;
+	return (
+		<Button
+			variant="outline"
+			disabled={state === "running"}
+			onClick={async () => {
+				setState("running");
+				try {
+					const result = await store.publish(record._id);
+					setState(result === "complete" || result === "already-published" ? "done" : "error");
+				} catch {
+					setState("error");
+				}
+			}}
+		>
+			{state === "running" ? "Publicando…" : state === "error" ? "Falhou — tentar de novo" : "Publicar"}
+		</Button>
+	);
+}
+
 function DetailPanel({
 	mod,
 	record,
@@ -96,8 +121,8 @@ function DetailPanel({
 	onDelete: () => void;
 	onClose: () => void;
 }) {
+	// O pai remonta o painel (key) ao trocar de registro, então o rascunho inicia limpo.
 	const [draft, setDraft] = useState<HubRecord>(record);
-	useEffect(() => setDraft(record), [record]);
 
 	return (
 		<div className="max-w-2xl p-6">
@@ -132,6 +157,7 @@ function DetailPanel({
 					</Button>
 				)}
 				<div className="flex-1" />
+				{mod.id === "content" && !isNew && <PublishButton record={record} store={store} />}
 				<Button variant="outline" onClick={onClose}>Cancelar</Button>
 				<Button onClick={() => onSave(draft)}>{isNew ? "Criar" : "Salvar"}</Button>
 			</div>
@@ -148,7 +174,7 @@ export function ModuleView({
 	store: HubStore;
 	initialSelectedId?: string | null;
 }) {
-	const records = store.data[mod.id] ?? [];
+	const records = useMemo(() => store.data[mod.id] ?? [], [store.data, mod.id]);
 	const [selectedId, setSelectedId] = useState<string | null>(initialSelectedId ?? null);
 	const [creating, setCreating] = useState(false);
 	const [query, setQuery] = useState("");
@@ -237,6 +263,7 @@ export function ModuleView({
 			<div className="min-w-0 flex-1 overflow-y-auto">
 				{creating ? (
 					<DetailPanel
+						key="new"
 						mod={mod}
 						record={blank}
 						store={store}

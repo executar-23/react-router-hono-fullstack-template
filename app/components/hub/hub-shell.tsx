@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Download, Moon, Monitor, Sun, Upload } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, LogOut, Moon, Monitor, Sun, Upload } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { MODULES, MODULES_BY_ID, NAV_GROUPS, toCSV } from "~/lib/hub/data";
 import type { HubData } from "~/lib/hub/types";
 import { useHubStore } from "~/lib/hub/use-hub-store";
 import { cn } from "~/lib/utils";
 import { AboutView } from "./about-view";
+import { LoginGate } from "./login-gate";
 import { ConfigView } from "./config-view";
 import { Dashboard } from "./dashboard";
 import { ICONS } from "./icons";
@@ -92,6 +93,10 @@ export function HubShell() {
 		reader.readAsText(file);
 	};
 
+	if (store.mode === "anonymous" || store.mode === "forbidden") {
+		return <LoginGate store={store} />;
+	}
+
 	return (
 		<div className="flex h-screen w-full overflow-hidden bg-background text-foreground">
 			<aside
@@ -156,6 +161,30 @@ export function HubShell() {
 					))}
 				</nav>
 				<div className="space-y-2 border-t p-3">
+					{!collapsed && (
+						<div className="flex items-center gap-2 text-[11px] text-muted-foreground" role="status">
+							<span
+								className={cn(
+									"size-2 shrink-0 rounded-full",
+									store.mode === "remote" ? "bg-[var(--color-brand-default)]" : "bg-[var(--color-attention-default)]",
+								)}
+							/>
+							<span className="min-w-0 flex-1 truncate">
+								{store.mode === "remote" ? (store.user ?? "Sincronizado") : store.mode === "loading" ? "Carregando…" : "Modo local"}
+							</span>
+							{store.mode === "remote" && (
+								<button
+									type="button"
+									title="Sair"
+									aria-label="Sair"
+									onClick={() => void store.logout()}
+									className="text-muted-foreground hover:text-foreground"
+								>
+									<LogOut className="size-3.5" />
+								</button>
+							)}
+						</div>
+					)}
 					<div className={cn("flex gap-0.5 rounded-lg bg-muted p-0.5", collapsed && "flex-col")} role="group" aria-label="Tema">
 						{([["light", Sun, "Claro"], ["system", Monitor, "Sistema"], ["dark", Moon, "Escuro"]] as const).map(([t, I, l]) => (
 							<button
@@ -195,6 +224,12 @@ export function HubShell() {
 						<input ref={fileRef} type="file" accept="application/json" className="hidden" onChange={importJSON} />
 					</div>
 				</header>
+				{store.error && (
+					<div role="alert" className="flex items-center justify-between gap-3 border-b bg-[var(--color-critical-subtle)] px-5 py-2 text-sm text-[var(--color-critical-default)]">
+						<span>Não foi possível salvar: {store.error}</span>
+						<button type="button" className="underline" onClick={store.clearError}>Fechar</button>
+					</div>
+				)}
 				<div className="min-h-0 flex-1 overflow-y-auto">
 					{route === "dashboard" ? (
 						<Dashboard store={store} onNavigate={go} />

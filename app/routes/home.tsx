@@ -1,7 +1,7 @@
 import type { Route } from "./+types/home";
 import { HubShell } from "~/components/hub/hub-shell";
 
-export function meta({}: Route.MetaArgs) {
+export function meta(_args: Route.MetaArgs) {
 	return [
 		{ title: "Hub Editorial · Risco Cognitivo" },
 		{
