@@ -11,11 +11,17 @@ OpenAuth, banco ou Workflows para este preview. É a aplicação EXECUTAR de dua
 o Hub React/Hono completo continua disponível apenas no modo fullstack.
 
 Alternativas: `npm run dev` ou `npm run preview` (Python 3); `npm run build` gera `dist-preview`
-com Node, sem pacotes externos. `npm run check` valida o preview e gera esse pacote. A CI usa somente esse fluxo.
+com Node, sem pacotes externos. `npm run check` valida o preview e gera esse pacote. A CI verifica esse fluxo e também o empacotamento com Wrangler em dry-run, sem publicação remota.
 
 A configuração padrão `wrangler.jsonc` agora publica **somente arquivos estáticos**, sem `vars`,
-D1, KV, Workflows, API ou OpenAuth. No Workers Builds, use build `npm run build` e deploy `npm run deploy`
-(ou `npx wrangler deploy -c wrangler.jsonc`). No Pages, diretório de saída `dist-preview`.
+D1, KV, Workflows, API ou OpenAuth. No Workers Builds, use build `npm run build` e deploy
+`npm exec --yes --package=wrangler@4.136.1 -- wrangler deploy --config=wrangler.jsonc`.
+O build do painel é explícito; `build.command` no Wrangler não é utilizado pelo Workers Builds.
+No Pages, diretório de saída `dist-preview`.
+
+**Guia ilustrado e comandos completos:** [Publicação Cloudflare](docs/executar-editorial/CLOUDFLARE-PUBLICACAO.md).
+`npm run deploy:check` valida o pacote; `npm run deploy` publica intencionalmente;
+`npm run deploy:version` cria uma versão sem ativá-la.
 Publicação hospedada continua exigindo autenticação da conta Cloudflare; o uso local não exige.
 Nenhum deploy remoto foi executado nesta alteração.
 
@@ -72,12 +78,12 @@ A estrutura, os arquivos de ambiente e os scripts já existem. Falta **somente**
 | `CLOUDFLARE_ACCOUNT_ID` | GitHub Actions / máquina de deploy | ID da conta |
 | `CLOUD_AI_BASE_URL`, `CLOUD_AI_API_KEY` | reservadas | confirmar o que é "cloud.ai" (ADR-001 §7) |
 
-### 2. Variáveis públicas (em `wrangler.jsonc` e `auth/wrangler.jsonc`)
+### 2. Variáveis públicas (em `wrangler.fullstack.jsonc` e `auth/wrangler.jsonc`)
 `ALLOWED_ORIGIN`, `AUTH_ISSUER_URL`, `AUTH_CLIENT_ID`, `ADMIN_EMAIL` (`executar-rotina@outlook.com`), `EMAIL_FROM`, `PROJECT_CONTACT`, `ENVIRONMENT`.
 Confirme as URLs `*.workers.dev` (ou domínio customizado) depois do primeiro deploy do `auth/`.
 
 ### 3. Recursos Cloudflare (já criados na sua conta)
-D1 `hub-editorial-db` e `hub-auth-db` (schema aplicado) e KV `hub-auth-storage`. IDs em `wrangler.jsonc` / `auth/wrangler.jsonc`.
+D1 `hub-editorial-db` e `hub-auth-db` (schema aplicado) e KV `hub-auth-storage`. IDs em `wrangler.fullstack.jsonc` / `auth/wrangler.jsonc`.
 
 ### 4. Comandos de lançamento (na ordem)
 ```bash
@@ -116,4 +122,5 @@ O service worker fica restrito a `/executar-editorial/` e não intercepta o Hub 
 - [Component Registry Handoff original](docs/executar-editorial/handoff/README.md)
 
 A publicação destes arquivos no GitHub não comprova um deploy Cloudflare nem a instalação PWA.
+
 

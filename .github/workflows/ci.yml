@@ -1,4 +1,4 @@
-name: Local preview checks
+name: Local preview and Wrangler checks
 
 on:
   pull_request:
@@ -16,6 +16,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # Built-in Node modules only: no npm ci, env, secrets or Cloudflare resources.
-      - run: npm run check
-
+      # O preview permanece independente de npm ci, env e recursos externos.
+      - name: Check application and deployment assets
+        run: npm run check
+      # Apenas o CLI Wrangler fixado é baixado; dry-run não publica nem exige bindings.
+      - name: Validate real Wrangler packaging
+        run: npm run check:wrangler

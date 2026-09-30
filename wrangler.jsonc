@@ -5,8 +5,6 @@
   "assets": {
     "directory": "./dist-preview",
     "not_found_handling": "404-page"
-  },
-  "build": {
-    "command": "node scripts/build-local-preview.mjs"
   }
 }
+
