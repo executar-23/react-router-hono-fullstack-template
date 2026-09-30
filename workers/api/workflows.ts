@@ -4,7 +4,7 @@ import { apiError, ERR, log } from "./http";
 import type { AppContext } from "./types";
 
 const idParam = z.string().regex(/^[A-Za-z0-9_-]{1,64}$/);
-const instanceIdParam = z.string().regex(/^[A-Za-z0-9_-]{1,100}$/);
+const instanceIdParam = z.string().regex(/^publish-[A-Za-z0-9_-]{1,92}$/);
 
 const statusOut = z.object({
 	success: z.literal(true),
@@ -54,22 +54,27 @@ export class PublishStart extends OpenAPIRoute {
 		// Id determinístico: repetir a chamada devolve a mesma instância.
 		const stamp = row.updated_at.replace(/[^0-9A-Za-z]/g, "");
 		const instanceId = `publish-${body.recordId}-${stamp}`.slice(0, 100);
+		// Idempotente sem depender de texto de erro: reaproveita a instância se ela já existe.
+		let instance: WorkflowInstance | undefined;
 		try {
-			await c.env.HUB_PUBLISH_WORKFLOW.create({
-				id: instanceId,
-				params: { recordId: body.recordId, actor: c.get("actor").email },
-			});
-		} catch (err) {
-			const message = err instanceof Error ? err.message : "";
-			if (!/already|exists|duplicate/i.test(message)) {
+			instance = await c.env.HUB_PUBLISH_WORKFLOW.get(instanceId);
+		} catch {
+			instance = undefined; // não existe ainda
+		}
+		if (!instance) {
+			try {
+				instance = await c.env.HUB_PUBLISH_WORKFLOW.create({
+					id: instanceId,
+					params: { recordId: body.recordId, actor: c.get("actor").email },
+				});
+			} catch (err) {
 				log("error", "workflow.create_failed", {
 					requestId: c.get("requestId"),
-					error: message,
+					error: err instanceof Error ? err.message : "unknown",
 				});
 				return apiError(c, 503, ERR.unavailable, "Workflow unavailable");
 			}
 		}
-		const instance = await c.env.HUB_PUBLISH_WORKFLOW.get(instanceId);
 		const s = await instance.status();
 		return c.json(
 			{ success: true, result: { instanceId, status: s.status } },

@@ -33,7 +33,8 @@ async function sendCode(env: AuthEnv, email: string, code: string) {
 	const key = env.RESEND_API_KEY;
 	const configured = !!key && !key.startsWith("CHANGE_ME");
 	if (!configured) {
-		if (env.ENVIRONMENT === "production") {
+		// Falha fechada: só desenvolvimento/teste explícitos podem expor o código no log.
+		if (env.ENVIRONMENT !== "development" && env.ENVIRONMENT !== "test") {
 			throw new Error("RESEND_API_KEY is not configured");
 		}
 		console.log(JSON.stringify({ level: "warn", message: "auth.code_dev_only", email, code }));

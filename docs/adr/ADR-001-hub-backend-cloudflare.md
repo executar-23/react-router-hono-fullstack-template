@@ -82,8 +82,15 @@ Instalado **no repositório** (não só referência):
 - Último a gravar vence pode sobrescrever edições concorrentes (aceito com 1 editor).
 - Um único D1 sem réplica de leitura (carga mínima).
 
+### Auditoria (`/audit` do Backend Design, 2026-09-30)
+Corrigidos: (1) login não expõe mais o código no log fora de `development`/`test` (falha fechada); (2) publish idempotente sem depender de texto de erro;
+(3) só erros do D1 viram 503, o resto é 500 logado; (4) `set-status` não publica se o status mudou após a validação; (5) testes das rotas `/api/auth/*` e teto de import (2000) antes de montar o batch.
+**Abertos (aceitos):** `PUT` pode gravar `PUBLICADO` direto (sem allowlist de campos/transições, 1 admin); listas sem paginação;
+métrica de negócio e propagação do `requestId` ao workflow. **Pendente de configuração (não resolvível em código):** regra de **rate limiting**
+da Cloudflare em `hub-editorial-auth` (POST de pedido de código) para evitar e-mail-bombing do administrador e consumo da cota do Resend.
+
 ## 9. Critérios de validação
-`npm run lint` · `npm run typecheck` · `npm test` (16 testes: 401/403/400/404/409, CSRF, CRUD idempotente, auditoria append-only, seed idempotente, workflow) ·
+`npm run lint` · `npm run typecheck` · `npm test` (22 testes: 401/403/400/404/409, CSRF, sessão `/api/auth/*`, CRUD idempotente, auditoria append-only, seed idempotente, workflow) ·
 `npm run build` · `npm run check:env` · `npm run validate:workflow` · `wrangler deploy --dry-run` (app e `auth/`) · `/api/health` = 200 no ambiente publicado.
 
 ## 10. Condições para produção (o que ainda depende de credencial externa)
@@ -92,7 +99,8 @@ Instalado **no repositório** (não só referência):
 3. Confirmar `ALLOWED_ORIGIN` (ou domínio customizado) no app **e** em `auth/wrangler.jsonc`.
 4. `npm run db:seed:remote` (opcional, dados de exemplo) e `npm run db:migrate:remote` (D1 do app já tem o schema aplicado).
 5. Confirmar a interpretação de **cloud.ai** (§7).
-6. Habilitar o plugin Cloudflare na conta (opcional).
+6. Criar a regra de **rate limiting** no Worker `hub-editorial-auth` (painel Cloudflare → Security → WAF → Rate limiting).
+7. Habilitar o plugin Cloudflare na conta (opcional).
 
 ## 11. Recursos criados na conta Cloudflare
 D1 `hub-editorial-db` (`e1e1d9c4-3ff3-4055-bd11-0613b93ca2fe`, schema aplicado), D1 `hub-auth-db` (`12ace2c0-2d3f-4f6a-ac07-748af5a39ea7`, schema aplicado),

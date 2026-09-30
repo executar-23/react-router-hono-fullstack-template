@@ -186,3 +186,48 @@ describe("workflow de publicação", () => {
 		expect(rec.result[0].Status_editorial).toBe("IDEIA");
 	});
 });
+
+describe("rotas de sessão (/api/auth)", () => {
+	it("/auth/me: 401 sem cookie, 403 para não-admin, 200 para o admin", async () => {
+		expect((await call("/auth/me", { cookie: null })).status).toBe(401);
+		expect((await call("/auth/me", { cookie: "hub_at=other-token" })).status).toBe(403);
+		const ok = await call("/auth/me");
+		expect(ok.status).toBe(200);
+		expect((await json(ok)).result.email).toBe("executar-rotina@outlook.com");
+	});
+
+	it("/auth/me com token inválido → 401 e limpa os cookies", async () => {
+		const r = await call("/auth/me", { cookie: "hub_at=lixo" });
+		expect(r.status).toBe(401);
+		expect(r.headers.get("set-cookie") ?? "").toMatch(/hub_at=;/);
+	});
+
+	it("/auth/logout exige Origin e limpa a sessão", async () => {
+		expect((await call("/auth/logout", { method: "POST", origin: null })).status).toBe(403);
+		const r = await call("/auth/logout", { method: "POST" });
+		expect(r.status).toBe(200);
+		expect(r.headers.get("set-cookie") ?? "").toMatch(/hub_at=;/);
+	});
+
+	it("/auth/callback com state inválido ou sem cookie → 400", async () => {
+		const r = await SELF.fetch(`${BASE}/auth/callback?code=abc&state=nope`, { redirect: "manual" });
+		expect(r.status).toBe(400);
+		expect((await json(r)).errors[0].code).toBe(4000);
+	});
+});
+
+describe("limites e validações extras", () => {
+	it("GET /workflows/:id só aceita ids de publicação (prefixo publish-)", async () => {
+		expect((await call("/workflows/qualquer-coisa")).status).toBe(400);
+		expect((await call("/workflows/publish-inexistente")).status).toBe(404);
+	});
+
+	it("import acima do teto → 400 sem tocar nos dados", async () => {
+		await call("/hub/brief/keep", { method: "PUT", body: { fields: { Titulo: "fica" } } });
+		const rows = Array.from({ length: 2001 }, (_, i) => ({ Titulo: `t${i}` }));
+		const r = await call("/hub/import", { method: "POST", body: { data: { brief: rows } } });
+		expect(r.status).toBe(400);
+		const list = await json(await call("/hub/brief"));
+		expect(list.result.map((x: any) => x._id)).toEqual(["keep"]);
+	});
+});

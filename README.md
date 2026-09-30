@@ -65,7 +65,10 @@ curl https://<seu-app>/api/health                             # {"success":true,
 `chanfana`, `zod`, `@openauthjs/openauth`, `valibot`, `hono`, `vitest`, `@cloudflare/vitest-pool-workers`, `eslint` (+ `typescript-eslint`,
 `eslint-plugin-react-hooks`). Lista completa com versões: `docs/adr/INSTALLED.md`. O `.npmrc` usa `legacy-peer-deps=true`.
 
-### 6. Opcional
+### 6. Rate limiting do login (painel Cloudflare)
+Crie uma regra de rate limiting para o Worker `hub-editorial-auth` (pedido de código) — protege o e-mail do admin e a cota do Resend (ADR-001, auditoria).
+
+### 7. Opcional
 Habilitar o plugin **Cloudflare** e o **Backend Design** na conta (claude.ai → Settings → Plugins). O plugin já está instalado neste repositório.
 
 > Limitação conhecida: em previews do Workers Builds o login não funciona (origem diferente de `ALLOWED_ORIGIN`); a API e o `/api/health` funcionam.

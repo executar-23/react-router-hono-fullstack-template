@@ -52,12 +52,23 @@ export class HubPublishWorkflow extends WorkflowEntrypoint<
 						`UPDATE records
 						 SET data = json_set(data, '$.Status_editorial', 'PUBLICADO'),
 						     updated_at = ?
-						 WHERE module = 'content' AND id = ?`,
+						 WHERE module = 'content' AND id = ?
+						   AND json_extract(data, '$.Status_editorial') IN ('ACEITO','VALIDADA','PRONTO','AGENDADO','PUBLICADO')`,
 					)
 					.bind(new Date().toISOString(), recordId)
 					.run();
 			},
 		);
+
+		// Se o status mudou depois da validação, o UPDATE acima não casa e nada é publicado.
+		const published = await step.do("confirm", async () => {
+			const row = await db
+				.prepare("SELECT json_extract(data, '$.Status_editorial') AS s FROM records WHERE module = 'content' AND id = ?")
+				.bind(recordId)
+				.first<{ s: string | null }>();
+			if (row?.s !== "PUBLICADO") throw new NonRetryableError("status mudou durante a publicação");
+			return true;
+		});
 
 		// 3. Auditoria (idempotente: uma linha por instância de workflow).
 		await step.do("audit", async () => {
@@ -73,6 +84,6 @@ export class HubPublishWorkflow extends WorkflowEntrypoint<
 				.run();
 		});
 
-		return { recordId, title, status: "PUBLICADO" };
+		return { recordId, title, status: published ? "PUBLICADO" : "?" };
 	}
 }

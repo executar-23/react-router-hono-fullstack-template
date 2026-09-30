@@ -54,10 +54,11 @@ async function guarded(c: AppContext, fn: () => Promise<Response>) {
 		if (isUniqueViolation(err)) {
 			return apiError(c, 409, ERR.conflict, "Code already in use");
 		}
-		log("error", "hub.db_error", {
-			requestId: c.get("requestId"),
-			error: err instanceof Error ? err.message : "unknown",
-		});
+		const message = err instanceof Error ? err.message : "unknown";
+		if (!/^D1_|D1 |Network connection lost|storage/i.test(message)) {
+			throw err; // defeito nosso: vira 500 no handler global (e é logado lá)
+		}
+		log("error", "hub.db_error", { requestId: c.get("requestId"), error: message });
 		return apiError(c, 503, ERR.unavailable, "Database unavailable");
 	}
 }
@@ -309,6 +310,10 @@ export class HubImport extends OpenAPIRoute {
 		const { body } = await this.getValidatedData<typeof this.schema>();
 		const db = c.env.DB;
 		const stamp = now();
+		const total = Object.values(body.data).reduce((n, rows) => n + rows.length, 0);
+		if (total > 2000) {
+			return apiError(c, 400, ERR.badRequest, "Too many records (max 2000)");
+		}
 		const stmts: D1PreparedStatement[] = [db.prepare("DELETE FROM records")];
 		let count = 0;
 		for (const [moduleId, rows] of Object.entries(body.data)) {
@@ -331,9 +336,6 @@ export class HubImport extends OpenAPIRoute {
 				);
 				count += 1;
 			}
-		}
-		if (count > 5000) {
-			return apiError(c, 400, ERR.badRequest, "Too many records");
 		}
 		if (body.vocab) {
 			stmts.push(db.prepare("DELETE FROM vocab"));
