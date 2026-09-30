@@ -97,6 +97,7 @@ try {
   await shot('mobile-map');
   await page.locator('#graphSelection [data-inspect]').click();
   check(await page.locator('#inspector').evaluate(e => e.getBoundingClientRect().width <= innerWidth), 'Mobile editor fits screen');
+  check(await page.locator('#inspector').evaluate(e => { const modal = e.getBoundingClientRect(), save = e.querySelector('[type="submit"]').getBoundingClientRect(); return save.top >= modal.top && save.bottom <= modal.bottom - 1; }), 'Mobile save button remains entirely visible');
   await shot('mobile-editor'); await page.locator('#cancelEdit').click();
   check(errors.length === 0, `No browser errors: ${errors.join('; ')}`);
   check(external.length === 0, `No external runtime requests: ${external.join('; ')}`);
