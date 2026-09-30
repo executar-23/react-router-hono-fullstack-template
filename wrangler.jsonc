@@ -10,6 +10,11 @@
 	"vars": {
 		"VALUE_FROM_CLOUDFLARE": "Hello from Hono/CF"
 	},
+	"previews": {
+		"vars": {
+			"VALUE_FROM_CLOUDFLARE": "Hello from Hono/CF (preview)"
+		}
+	},
 	"observability": {
 		"enabled": true
 	},
