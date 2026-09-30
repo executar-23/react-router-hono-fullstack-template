@@ -1,0 +1,13 @@
+{
+  "logicChecks": 21,
+  "logicResult": "PASS",
+  "nodes": 49,
+  "hierarchyEdges": 48,
+  "dependencyEdges": 14,
+  "browserTests": "NOT_RUN: Chromium executable unavailable",
+  "installationOffline": "NOT_RUN",
+  "printPagination": "NOT_RUN",
+  "accessibilityBrowser": "NOT_RUN",
+  "externalExecution": "NOT_IMPLEMENTED: local planning scope",
+  "schemaStructuralChecks": "PASS: types, required fields, additional properties, enums, constants and string lengths"
+}

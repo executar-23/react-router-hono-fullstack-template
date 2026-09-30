@@ -1,0 +1,28 @@
+{
+  "status": "VERIFIED_DOCUMENT_STRUCTURE_ONLY",
+  "checks": [
+    {
+      "check": "14 IDs únicos, dependências acíclicas e seções de handoff presentes",
+      "result": "PASS",
+      "count": 14
+    },
+    {
+      "check": "Aliases resolvem para tokens raw",
+      "result": "PASS",
+      "count": 45
+    },
+    {
+      "check": "Schema válido; 3 fixtures válidas e 2 inválidas rejeitadas no domínio",
+      "result": "PASS"
+    }
+  ],
+  "not_tested": [
+    "UI real",
+    "Integração backend",
+    "TypeScript compilado no app",
+    "Acessibilidade em navegador",
+    "Impressão/exportação real",
+    "Desempenho",
+    "Deploy"
+  ]
+}

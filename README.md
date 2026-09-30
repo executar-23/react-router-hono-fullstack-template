@@ -72,3 +72,20 @@ Crie uma regra de rate limiting para o Worker `hub-editorial-auth` (pedido de c�
 Habilitar o plugin **Cloudflare** e o **Backend Design** na conta (claude.ai → Settings → Plugins). O plugin já está instalado neste repositório.
 
 > Limitação conhecida: em previews do Workers Builds o login não funciona (origem diferente de `ALLOWED_ORIGIN`); a API e o `/api/health` funcionam.
+
+## EXECUTAR · Scroll Task e plano mental
+
+A PWA local está em [`public/executar-editorial/index.html`](public/executar-editorial/index.html).
+Depois do build/deploy existente, abra `/executar-editorial/index.html` na mesma origem do Hub.
+Para testar isoladamente: `python -m http.server 8080 --directory public` e abra
+`http://localhost:8080/executar-editorial/index.html`.
+
+Duas visões sincronizadas, 49 nós do Xmind, 14 dependências FS, timer, notas, edição,
+backup JSON e relatório para impressão. Persistência no navegador, sem execução de agentes externos.
+O service worker fica restrito a `/executar-editorial/` e não intercepta o Hub ou a API.
+
+- [Uso, instalação e limites](docs/executar-editorial/LEIA-ME.md)
+- [Evidência de verificação](docs/executar-editorial/VERIFICACAO.json)
+- [Component Registry Handoff original](docs/executar-editorial/handoff/README.md)
+
+A publicação destes arquivos no GitHub não comprova um deploy Cloudflare nem a instalação PWA.
