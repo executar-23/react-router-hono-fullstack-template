@@ -5,6 +5,7 @@ state.ui = { version: 1, mapPhase: state.meta[state.selected]?.phase || phases()
 if (!state.ui.version) state.ui.version = 1;
 state.zoom = Math.max(.5, Math.min(2, state.zoom || 1));
 function render() {
+  document.body.dataset.view = state.view;
   const n = current(); if (n) state.selected = n.id;
   const q = queue(), finished = q.filter(done).length;
   $('projectTitle').textContent = state.graph.nodes.find(n => n.kind === 'root')?.title || 'Plano editorial';
@@ -72,7 +73,8 @@ function renderMap() {
   $('graphMode').value = ui.graphMode; $('nodeSelectLabel').hidden = !deps; $('search').hidden = deps;
   $('nodeSelect').innerHTML = state.graph.nodes.map(n => `<option value="${n.id}">${esc(n.title)}</option>`).join('');
   $('nodeSelect').value = ui.graphSelected;
-  const phaseButton = (p, i) => { const actions = descendants(p.id).filter(n => state.meta[n.id].scope === 'action'); return `<button class="phase-button ${ui.mapPhase === p.id ? 'active' : ''}" data-phase="${p.id}" aria-pressed="${ui.mapPhase === p.id}"><span class="phase-num">${String(i + 1).padStart(2, '0')}</span><span><strong>${esc(p.title.replace(/^FASE \d+: /, ''))}</strong><small>${actions.filter(done).length}/${actions.length} ações concluídas</small></span></button>`; };
+  const activePhase = deps ? state.meta[ui.graphSelected]?.phase : ui.mapPhase;
+  const phaseButton = (p, i) => { const actions = descendants(p.id).filter(n => state.meta[n.id].scope === 'action'); return `<button class="phase-button ${activePhase === p.id ? 'active' : ''}" data-phase="${p.id}" aria-pressed="${activePhase === p.id}"><span class="phase-num">${String(i + 1).padStart(2, '0')}</span><span><strong>${esc(p.title.replace(/^FASE \d+: /, ''))}</strong><small>${actions.filter(done).length}/${actions.length} ações concluídas</small></span></button>`; };
   $('phaseNav').innerHTML = phases().map(phaseButton).join('') + `<button class="phase-button ${ui.mapPhase === 'all' ? 'active' : ''}" data-phase="all">Plano completo · 49 nós</button>`;
   $('canvas').hidden = state.list; $('outline').hidden = !state.list;
   $('listButton').textContent = state.list ? 'Ver em grafo' : 'Ver em lista';

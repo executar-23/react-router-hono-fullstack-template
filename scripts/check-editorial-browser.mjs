@@ -49,6 +49,10 @@ try {
   check(await page.locator('#stage [data-component="ForkConnector"]').count() === 2, 'Hierarchy has shared forks');
   check(await page.locator('#stage .flow-node').first().evaluate(n => Math.round(n.getBoundingClientRect().width)) === 300, 'Fixed node width');
   await page.locator('#stage [data-detail]').first().click(); await noOverlap(); await shot('desktop-map');
+  await page.locator('#stage [data-collapse]').first().click();
+  check(await page.locator('#stage .flow-node').count() === 1, 'Collapse hides only descendants');
+  await page.locator('#stage [data-collapse]').first().click();
+  check(await page.locator('#stage .flow-node').count() === 4, 'Expanding restores descendants');
   const beforeEdit = await state(); await page.locator('#graphSelection [data-inspect]').click();
   check((await state()).selected === beforeEdit.selected && (await state()).scope === beforeEdit.scope, 'Inspecting does not change execution scope');
   await page.locator('#editNotes').fill('Anotação da fase'); await page.locator('#editForm button[type=submit]').click();
@@ -59,7 +63,11 @@ try {
   check(await page.locator('#stage [data-component="ResourceNode"]').count() === targets[0].count, 'Every explicit prerequisite is shown');
   check(await page.locator('#stage [data-component="ForkConnector"][data-kind="merge"]').count() === 1, 'Multiple prerequisites own one merge trunk');
   check(await page.locator('#stage [data-kind="merge"] > path').evaluateAll(ps => ps.filter(p => / V /.test(p.getAttribute('d'))).length) === 1, 'One shared vertical segment');
-  await noOverlap(); await shot('desktop-dependencies');
+  await noOverlap();
+  await page.locator('#expandAll').click(); await noOverlap();
+  await page.locator('#collapseAll').click(); await page.locator('#plus').click();
+  check(await page.locator('#stage .flow-node').first().evaluate(n => Math.round(n.getBoundingClientRect().width)) === 375, 'Zoom scales without squeezing nodes');
+  await page.locator('#minus').click(); await shot('desktop-dependencies');
   await page.locator('#stage [data-component="PrimaryNode"] [data-execute]').click();
   check(await page.locator('#complete').isDisabled(), 'Blocked completion explains prerequisites');
   check(await page.locator('.blocker-box button').count() > 0, 'Prerequisites are actionable');
@@ -81,6 +89,7 @@ try {
   const mobileSelected = await selected(); await page.evaluate(() => { const e = document.getElementById('scrollView'); e.dispatchEvent(new TouchEvent('touchstart',{touches:[new Touch({identifier:1,target:e,clientX:100,clientY:600})]})); e.dispatchEvent(new TouchEvent('touchend',{changedTouches:[new Touch({identifier:1,target:e,clientX:100,clientY:200})]})); });
   check(await selected() === mobileSelected, 'Touch scrolling preserves selection');
   await page.locator('#mapTab').click();
+  check((await page.locator('#canvas').boundingBox()).y < 600, 'Mobile graph is reachable in the first screen');
   check(await page.locator('#canvas').evaluate(e => e.scrollWidth > e.clientWidth), 'Mobile canvas is horizontally scrollable');
   check(await page.locator('#stage .flow-node').first().evaluate(n => Math.round(n.getBoundingClientRect().width)) === 300, 'Mobile graph preserves geometry');
   await page.locator('#canvas').evaluate(e => { e.scrollLeft = 360; });
