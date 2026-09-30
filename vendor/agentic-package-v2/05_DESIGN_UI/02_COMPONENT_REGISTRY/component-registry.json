@@ -1,0 +1,314 @@
+{
+  "id": "EXEC-DS-REGISTRY-001",
+  "version": "0.1.0",
+  "status": "PREPARED",
+  "components": [
+    {
+      "id": "EXDS-CMP-001",
+      "name": "BranchCanvas",
+      "version": "0.1.0",
+      "priority": "P0",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Canvas com projeção hierárquica, fluxo, mapa mental ou agentes",
+      "depends_on": [],
+      "props": "graph: Graph; mode: hierarchy|flow|mindmap|agents; direction: TB|LR; readOnly: boolean=false",
+      "states": [
+        "default",
+        "empty",
+        "loading",
+        "error",
+        "readOnly"
+      ],
+      "spec": "handoff.md#branchcanvas",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-002",
+      "name": "NodeCard",
+      "version": "0.1.0",
+      "priority": "P0",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Nó raiz, ramo ou folha; título, descrição e metadados",
+      "depends_on": [
+        "EXDS-CMP-003",
+        "EXDS-CMP-004"
+      ],
+      "props": "node: Node; selected: boolean=false; onSelect(id); onOpen(id)",
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "selected",
+        "disabled",
+        "loading",
+        "error",
+        "missing"
+      ],
+      "spec": "handoff.md#nodecard",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-003",
+      "name": "StatusBadge",
+      "version": "0.1.0",
+      "priority": "P0",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Estado operacional com texto e ícone",
+      "depends_on": [],
+      "props": "status: WorkStatus; size: sm|md=md",
+      "states": [
+        "default",
+        "unknown"
+      ],
+      "spec": "handoff.md#statusbadge",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-004",
+      "name": "NodeExpander",
+      "version": "0.1.0",
+      "priority": "P0",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Expansão de descendentes",
+      "depends_on": [],
+      "props": "expanded: boolean=true; count: integer; onToggle()",
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "disabled",
+        "loading"
+      ],
+      "spec": "handoff.md#nodeexpander",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-005",
+      "name": "EdgeConnector",
+      "version": "0.1.0",
+      "priority": "P0",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Relação tipada entre nós",
+      "depends_on": [],
+      "props": "edge: Edge; selected: boolean=false; onSelect(id)",
+      "states": [
+        "default",
+        "focus",
+        "selected",
+        "error"
+      ],
+      "spec": "handoff.md#edgeconnector",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-006",
+      "name": "GroupFrame",
+      "version": "0.1.0",
+      "priority": "P1",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Agrupamento por agente, sistema ou etapa",
+      "depends_on": [],
+      "props": "id: string; title: string; nodeIds: string[]",
+      "states": [
+        "default",
+        "collapsed",
+        "empty"
+      ],
+      "spec": "handoff.md#groupframe",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-007",
+      "name": "CanvasToolbar",
+      "version": "0.1.0",
+      "priority": "P0",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Zoom, ajuste à tela, direção e visão em lista",
+      "depends_on": [],
+      "props": "zoom: number=1; onZoom(value); onFit(); onList()",
+      "states": [
+        "default",
+        "focus",
+        "disabled"
+      ],
+      "spec": "handoff.md#canvastoolbar",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-008",
+      "name": "NodeInspector",
+      "version": "0.1.0",
+      "priority": "P0",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Detalhes e edição de dados do nó",
+      "depends_on": [
+        "EXDS-CMP-002"
+      ],
+      "props": "node: Node|null; open: boolean=false; onSave(patch); onClose()",
+      "states": [
+        "default",
+        "dirty",
+        "saving",
+        "error",
+        "empty",
+        "readOnly"
+      ],
+      "spec": "handoff.md#nodeinspector",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-009",
+      "name": "DecisionNode",
+      "version": "0.1.0",
+      "priority": "P1",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Decisão com saídas nomeadas",
+      "depends_on": [
+        "EXDS-CMP-002"
+      ],
+      "props": "node: Node(kind=decision); choices: Edge[]",
+      "states": [
+        "default",
+        "focus",
+        "error",
+        "selected"
+      ],
+      "spec": "handoff.md#decisionnode",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-010",
+      "name": "AgentNode",
+      "version": "0.1.0",
+      "priority": "P1",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Agente, ferramenta ou aprovação humana",
+      "depends_on": [
+        "EXDS-CMP-002",
+        "EXDS-CMP-003"
+      ],
+      "props": "node: Node(kind=agent|tool|approval); execution: Execution|null",
+      "states": [
+        "idle",
+        "queued",
+        "running",
+        "awaitingApproval",
+        "succeeded",
+        "failed",
+        "cancelled"
+      ],
+      "spec": "handoff.md#agentnode",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-011",
+      "name": "ReportForm",
+      "version": "0.1.0",
+      "priority": "P1",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Formulário de dados de relatório",
+      "depends_on": [],
+      "props": "value: Report; errors: FieldError[]; onChange(patch); onGenerate()",
+      "states": [
+        "empty",
+        "dirty",
+        "validating",
+        "submitting",
+        "error",
+        "success"
+      ],
+      "spec": "handoff.md#reportform",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-012",
+      "name": "PrintReport",
+      "version": "0.1.0",
+      "priority": "P1",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Composição paginada para impressão",
+      "depends_on": [
+        "EXDS-CMP-003"
+      ],
+      "props": "report: Report; paper: A4; orientation: portrait|landscape=portrait",
+      "states": [
+        "ready",
+        "empty",
+        "overflow",
+        "error"
+      ],
+      "spec": "handoff.md#printreport",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-013",
+      "name": "InfographicPanel",
+      "version": "0.1.0",
+      "priority": "P2",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Composição editorial de grafo e legendas",
+      "depends_on": [
+        "EXDS-CMP-002",
+        "EXDS-CMP-005",
+        "EXDS-CMP-006"
+      ],
+      "props": "title: string; graph: Graph; caption: string|null; legend: Legend[]",
+      "states": [
+        "ready",
+        "empty",
+        "error"
+      ],
+      "spec": "handoff.md#infographicpanel",
+      "decision_status": "PROPOSED"
+    },
+    {
+      "id": "EXDS-CMP-014",
+      "name": "OutlineView",
+      "version": "0.1.0",
+      "priority": "P0",
+      "status": "SPECIFIED",
+      "implementation_status": "NOT_STARTED",
+      "owner": "A DEFINIR",
+      "description": "Alternativa textual completa e navegável ao canvas",
+      "depends_on": [
+        "EXDS-CMP-003",
+        "EXDS-CMP-004"
+      ],
+      "props": "graph: Graph; selectedId: string|null; onSelect(id)",
+      "states": [
+        "default",
+        "empty",
+        "loading",
+        "error"
+      ],
+      "spec": "handoff.md#outlineview",
+      "decision_status": "PROPOSED"
+    }
+  ]
+}

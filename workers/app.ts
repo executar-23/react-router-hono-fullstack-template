@@ -1,9 +1,14 @@
 import { Hono } from "hono";
 import { createRequestHandler } from "react-router";
+import { createApiApp } from "./api/app";
+import type { ApiEnv } from "./api/types";
 
-const app = new Hono();
+export { HubPublishWorkflow } from "./workflows/hub-publish";
 
-// Add more routes here
+const app = new Hono<{ Bindings: ApiEnv }>();
+
+// API do Hub (D1 + OpenAuth + Workflows). Tudo em /api/*.
+app.route("/api", createApiApp());
 
 app.get("*", (c) => {
 	const requestHandler = createRequestHandler(

@@ -1,0 +1,8 @@
+# Worker auth/ — desenvolvimento local (copie para auth/.dev.vars).
+# Sem RESEND_API_KEY em ambiente não produtivo, o código de login aparece no log do Worker.
+ENVIRONMENT=development
+ADMIN_EMAIL=executar-rotina@outlook.com
+EMAIL_FROM=executar-rotina@outlook.com
+AUTH_CLIENT_ID=hub-editorial
+ALLOWED_ORIGIN=http://localhost:5173
+RESEND_API_KEY=CHANGE_ME

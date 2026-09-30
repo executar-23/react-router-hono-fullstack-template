@@ -1,0 +1,304 @@
+{
+  "target": "APP-EDITORIAL-MVP-001",
+  "milestone": "APP-EDITORIAL-MVP-001",
+  "epics": [
+    {
+      "id": "EPIC-00",
+      "title": "Governança, SoT e registries",
+      "stages": [],
+      "gaps": [],
+      "dod": "Contratos do pacote V2 no repo, registries criados com A_DEFINIR e SoT de Skills verificada ou registrada como USER_ACTION_REQUIRED.",
+      "issues": [
+        {
+          "id": "ISS-001",
+          "title": "Verificar a SoT de Skills (Sas-Executar/02-Exe-Maestro)",
+          "status": "BLOCKED",
+          "owner": "Leonardo",
+          "automation": "A1",
+          "depends_on": [],
+          "evidence": "A_DEFINIR — repositório fora do escopo de acesso desta sessão (USER_ACTION_REQUIRED)",
+          "dod": "Registro de SoT confirmado com caminho e commit.",
+          "github": 12
+        },
+        {
+          "id": "ISS-002",
+          "title": "Pacote V2 (texto) em vendor/ + ADR-002",
+          "status": "VERIFIED",
+          "owner": "Claude",
+          "automation": "A4",
+          "depends_on": [],
+          "evidence": "vendor/agentic-package-v2/STATUS.md; docs/adr/ADR-002-agentic-editorial-execution.md",
+          "dod": "Contratos versionados e binários omitidos listados com checksum.",
+          "github": 13
+        }
+      ],
+      "github": 2
+    },
+    {
+      "id": "EPIC-01",
+      "title": "Modelo de dados da campanha (D1)",
+      "stages": [
+        "STG-000",
+        "STG-010"
+      ],
+      "gaps": [],
+      "dod": "Migração 0002 aplicada com campanhas, estágios, entregáveis e estados com invariantes no schema.",
+      "issues": [
+        {
+          "id": "ISS-010",
+          "title": "Migração 0002_campaign + seed dos 19 estágios",
+          "status": "IN_PROGRESS",
+          "owner": "Claude",
+          "automation": "A4",
+          "depends_on": [
+            "ISS-002"
+          ],
+          "evidence": "A_DEFINIR",
+          "dod": "Tabelas criadas, testes de schema verdes e migração aplicada local/preview/produção.",
+          "github": 14
+        }
+      ],
+      "github": 3
+    },
+    {
+      "id": "EPIC-02",
+      "title": "API e máquina de estados da campanha",
+      "stages": [
+        "STG-000",
+        "STG-180"
+      ],
+      "gaps": [],
+      "dod": "API cria campanha, lista estágios, aceita entregáveis e aprova gates com transições validadas.",
+      "issues": [
+        {
+          "id": "ISS-020",
+          "title": "Endpoints /api/campaigns com transições validadas",
+          "status": "NOT_READY",
+          "owner": "Claude",
+          "automation": "A4",
+          "depends_on": [
+            "ISS-010"
+          ],
+          "evidence": "A_DEFINIR",
+          "dod": "Testes de transição válidos/ inválidos, gate humano e evidência obrigatória passando.",
+          "github": 15
+        }
+      ],
+      "github": 4
+    },
+    {
+      "id": "EPIC-03",
+      "title": "Workflow de campanha com gates humanos",
+      "stages": [
+        "STG-000",
+        "STG-180"
+      ],
+      "gaps": [
+        "GAP-011"
+      ],
+      "dod": "CampaignWorkflow avança estágios automatizáveis e espera aprovação humana nos estágios do Creator.",
+      "issues": [
+        {
+          "id": "ISS-030",
+          "title": "CampaignWorkflow (Cloudflare Workflows)",
+          "status": "NOT_READY",
+          "owner": "Claude",
+          "automation": "A4",
+          "depends_on": [
+            "ISS-020"
+          ],
+          "evidence": "A_DEFINIR",
+          "dod": "Workflow testado: pausa no gate, retoma com evento, estágios A_DEFINIR ficam USER_ACTION_REQUIRED.",
+          "github": 16
+        }
+      ],
+      "github": 5
+    },
+    {
+      "id": "EPIC-04",
+      "title": "UI de campanhas no Hub",
+      "stages": [],
+      "gaps": [],
+      "dod": "Tela /campanhas lista, cria e mostra a linha do tempo dos 19 estágios com aprovação de gate.",
+      "issues": [
+        {
+          "id": "ISS-040",
+          "title": "Tela Campanhas (DS do blog)",
+          "status": "NOT_READY",
+          "owner": "Claude",
+          "automation": "A4",
+          "depends_on": [
+            "ISS-020"
+          ],
+          "evidence": "A_DEFINIR",
+          "dod": "Tela renderiza sem erros e aprova gate via API.",
+          "github": 17
+        }
+      ],
+      "github": 6
+    },
+    {
+      "id": "EPIC-05",
+      "title": "Plano Operacional Rastreável (CSV)",
+      "stages": [
+        "STG-090"
+      ],
+      "gaps": [
+        "GAP-009",
+        "GAP-010",
+        "GAP-015"
+      ],
+      "dod": "CSV com IDs, status, dependências e evidência exportado por campanha.",
+      "issues": [
+        {
+          "id": "ISS-050",
+          "title": "GET /api/campaigns/:id/plan.csv",
+          "status": "NOT_READY",
+          "owner": "Claude",
+          "automation": "A4",
+          "depends_on": [
+            "ISS-020"
+          ],
+          "evidence": "A_DEFINIR",
+          "dod": "CSV testado com cabeçalho canônico e uma linha por entregável.",
+          "github": 18
+        }
+      ],
+      "github": 7
+    },
+    {
+      "id": "EPIC-06",
+      "title": "Conteúdo editorial: pesquisa, peça-mãe, storyboard, QF, assets",
+      "stages": [
+        "STG-020",
+        "STG-030",
+        "STG-040",
+        "STG-050",
+        "STG-060",
+        "STG-070",
+        "STG-080"
+      ],
+      "gaps": [
+        "GAP-001",
+        "GAP-002",
+        "GAP-003",
+        "GAP-004",
+        "GAP-005",
+        "GAP-006"
+      ],
+      "dod": "Schemas de pesquisa, peça-mãe e assets definidos e ligados aos entregáveis.",
+      "issues": [
+        {
+          "id": "ISS-060",
+          "title": "TSK-0001 Formalizar schema da pesquisa inicial (Wide Search)",
+          "status": "USER_ACTION_REQUIRED",
+          "owner": "Leonardo",
+          "automation": "A1",
+          "depends_on": [
+            "ISS-001"
+          ],
+          "evidence": "A_DEFINIR",
+          "dod": "Schema aprovado pelo Creator e registrado.",
+          "github": 19
+        }
+      ],
+      "github": 8
+    },
+    {
+      "id": "EPIC-07",
+      "title": "Visual, vídeo e produção em lote",
+      "stages": [
+        "STG-100",
+        "STG-120",
+        "STG-130"
+      ],
+      "gaps": [
+        "GAP-011",
+        "GAP-012"
+      ],
+      "dod": "Plugin de vídeo e matriz plataforma×formato definidos.",
+      "issues": [
+        {
+          "id": "ISS-070",
+          "title": "Definir plugin de vídeo e matriz de formatos",
+          "status": "BLOCKED",
+          "owner": "Leonardo",
+          "automation": "A0",
+          "depends_on": [],
+          "evidence": "A_DEFINIR",
+          "dod": "Plugin e matriz registrados.",
+          "github": 20
+        }
+      ],
+      "github": 9
+    },
+    {
+      "id": "EPIC-08",
+      "title": "Revisão humana, distribuição, tracking e analytics",
+      "stages": [
+        "STG-140",
+        "STG-150",
+        "STG-160",
+        "STG-170",
+        "STG-180"
+      ],
+      "gaps": [
+        "GAP-007",
+        "GAP-008",
+        "GAP-013",
+        "GAP-014"
+      ],
+      "dod": "Gates de revisão e connectors de analytics definidos; nada publica sem aprovação.",
+      "issues": [
+        {
+          "id": "ISS-080",
+          "title": "Connectors de analytics e schema do formulário",
+          "status": "BLOCKED",
+          "owner": "Leonardo",
+          "automation": "A0",
+          "depends_on": [],
+          "evidence": "A_DEFINIR",
+          "dod": "Connectors e schema registrados.",
+          "github": 21
+        }
+      ],
+      "github": 10
+    },
+    {
+      "id": "EPIC-09",
+      "title": "Toolchain agentic e deploy",
+      "stages": [],
+      "gaps": [],
+      "dod": "agent-handoff e Backend Design instalados; deploy de produção verificado por smoke tests.",
+      "issues": [
+        {
+          "id": "ISS-090",
+          "title": "Instalar agent-handoff e registrar capabilities",
+          "status": "VERIFIED",
+          "owner": "Claude",
+          "automation": "A4",
+          "depends_on": [],
+          "evidence": "npm run validate:workflow (18 verificações)",
+          "dod": "Plugin íntegro e ligado.",
+          "github": 22
+        },
+        {
+          "id": "ISS-091",
+          "title": "Deploy de produção + smoke tests",
+          "status": "NOT_READY",
+          "owner": "Claude",
+          "automation": "A3",
+          "depends_on": [
+            "ISS-050",
+            "ISS-040",
+            "ISS-030"
+          ],
+          "evidence": "A_DEFINIR",
+          "dod": "/api/health 200 e /api/hub 401 em produção, evidência registrada.",
+          "github": 23
+        }
+      ],
+      "github": 11
+    }
+  ]
+}

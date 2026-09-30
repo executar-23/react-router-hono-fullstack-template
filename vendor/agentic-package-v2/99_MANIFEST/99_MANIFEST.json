@@ -1,0 +1,372 @@
+{
+  "package_id": "EXECUTAR-AGENTIC-EDITORIAL-SYSTEM-PACKAGE",
+  "version": "2.0.0",
+  "status": "PREPARED",
+  "files": [
+    {
+      "path": "00_CONTROL/00_INDEX.md",
+      "size": 1856,
+      "sha256": "895856bcb6fc9d083e80c75dc7173859811025342354160d9f3e1aa28c3b1733"
+    },
+    {
+      "path": "00_CONTROL/01_PACKAGE_SCOPE.md",
+      "size": 539,
+      "sha256": "bd127ad8559ea6dbcb2c63d44f2cab338a50dd36dd99b114247da8e2687c8691"
+    },
+    {
+      "path": "00_CONTROL/02_HANDOFF_AGENTIC_PRODUCTION.md",
+      "size": 4883,
+      "sha256": "7f8d6d87ef96fa51931af5ebb4c95eb48739a7a504c7c6275f15e962abc49656"
+    },
+    {
+      "path": "00_CONTROL/03_SKILL_DEPENDENCY_COLLECTION_CONTRACT.md",
+      "size": 1635,
+      "sha256": "d6c5b982541ae6d6f01b78a8a30f73a0bbb330e33d4eba90e44968e2e94d81b6"
+    },
+    {
+      "path": "00_CONTROL/04_ANTHROPIC_AGENTIC_TOOLCHAIN.md",
+      "size": 2196,
+      "sha256": "01e25a6521eb40559f16718e7bf0d8ec807d510c30a55a83bf410d1375bc11a0"
+    },
+    {
+      "path": "00_CONTROL/05_DIRECTORY_MAP.md",
+      "size": 864,
+      "sha256": "36ea790a9fdf02f3d038f29ac62fa48ab4b9bd2fee0bf3812b02bd553175c175"
+    },
+    {
+      "path": "01_GOVERNANCE/01_ADR_GOVERNANCE_SOURCE.txt",
+      "size": 5432,
+      "sha256": "038018a3a1cc035a5a9b68655afcd9cd80732051d3f4b28fe685693336242121"
+    },
+    {
+      "path": "01_GOVERNANCE/02_ADR_OWNER_AGENT_STACK_SOURCE.txt",
+      "size": 23581,
+      "sha256": "c84736a2aa5f4d0356d808670bfcb921119fbc16414a589062a408bd147baf59"
+    },
+    {
+      "path": "01_GOVERNANCE/03_ADR_STORE_ROUTES_UI.md",
+      "size": 1588,
+      "sha256": "611f04ae2917658b99b47cd0603218fe6d2b37fac375f4b3f9b43cb4bcbe340c"
+    },
+    {
+      "path": "01_GOVERNANCE/04_BRAND_TECHNICAL_OVERRIDE.md",
+      "size": 1493,
+      "sha256": "232cf2ad7090dc69725b0cb894d7c56005ff133528cfe22caccfea9cfa022b12"
+    },
+    {
+      "path": "02_STRATEGY_BRIEFING/01_BRIEFING_EDITORIAL_WORKFLOW_SOURCE.md",
+      "size": 2541,
+      "sha256": "3fad8bcd70d05728f9eb4ada2d30d2035a4b17e9f20f78a707678e1a3a57cf52"
+    },
+    {
+      "path": "02_STRATEGY_BRIEFING/02_PROCESS_DOC_PADRAO_MULTIPLATAFORMA.docx",
+      "size": 24146,
+      "sha256": "396067abc153cc0a1abbec882f15dee92c5bf510fbbd59b27324611c567b88b3"
+    },
+    {
+      "path": "02_STRATEGY_BRIEFING/03_PROCESS_DOC_INTEGRATION_NOTES.md",
+      "size": 1535,
+      "sha256": "cb69efd8fc5ac5ce985325c09ba59be6d9196c591a857b9c9927a75eae985be0"
+    },
+    {
+      "path": "03_AGENTIC_ARCHITECTURE/01_EDITORIAL_AGENTIC_TAXONOMY_v1.json",
+      "size": 21568,
+      "sha256": "f1b4a2861c5bc93e360675a0d98641ca7c03342ab53f574950092ed6266198bf"
+    },
+    {
+      "path": "03_AGENTIC_ARCHITECTURE/02_AGENTIC_OPERATING_MODEL_SOURCE.txt",
+      "size": 9274,
+      "sha256": "404ca7c565c7d6ec0c37843020a6f23d1887415a28132ab9dcb37dfab1e55f0e"
+    },
+    {
+      "path": "03_AGENTIC_ARCHITECTURE/03_EDITORIAL_CAMPAIGN_WORKFLOW_v0.2.json",
+      "size": 25861,
+      "sha256": "dd4f5a8d24b254732283b74d0f107ba48794a6a9ba350645eab6b32b9bb6cb73"
+    },
+    {
+      "path": "03_AGENTIC_ARCHITECTURE/04_PROMPT_DEPENDENCY_MAP_BPM_AGENTIC.md",
+      "size": 2802,
+      "sha256": "62cac4b145b6aca44bdad4241e4bc627504038ba2b50816eb09c5a5976ecaeec"
+    },
+    {
+      "path": "03_AGENTIC_ARCHITECTURE/05_VISUAL_TAXONOMY_A4_DEPENDENCY_MAP.md",
+      "size": 1540,
+      "sha256": "cd31f0d7108cae7e39cc8ecace0730b146113c3ffb1a3881f3d5fa28cec9d956"
+    },
+    {
+      "path": "04_EDITORIAL_PRODUCTION/01_MASTER_DEPENDENCY_CHECKLIST.md",
+      "size": 8521,
+      "sha256": "771811f7d16835da86e3ade9cddd20ff9160272048720a3ccc15af5b4287fa91"
+    },
+    {
+      "path": "04_EDITORIAL_PRODUCTION/02_ASSET_STORE_SKILL_DEPENDENCY_CHECKLIST.md",
+      "size": 1846,
+      "sha256": "e768d659aed19d95fb5029cb8660dbdcc35e1737718781e98f14b80122cf8caf"
+    },
+    {
+      "path": "04_EDITORIAL_PRODUCTION/03_ASSET_CTA_STORE_SCHEMA_PROMPT.md",
+      "size": 2298,
+      "sha256": "439a5322e312945edfcb30b41c987e95d072d4149ad1cffaf68655198b980360"
+    },
+    {
+      "path": "04_EDITORIAL_PRODUCTION/04_WF_ASSET_STORE_PILOT_PROMPT.md",
+      "size": 1878,
+      "sha256": "f92fe9e3a25966facfea6ff4dfb003991d01d52de91b6373b9534aa6d0cb8904"
+    },
+    {
+      "path": "05_DESIGN_UI/01_DESIGN_HANDOFF_PRF_FRD_SPECS_TOOLS_STORE.md",
+      "size": 2087,
+      "sha256": "0911c1ccfc3329c09a8d73107d887c125bffc606aa740ff4355465a8353aaa21"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/README.md",
+      "size": 2833,
+      "sha256": "93063ff5dfa29f6338dc0868914993197a489b1c90c780e7b0b084458eb3af16"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/component-registry.json",
+      "size": 8499,
+      "sha256": "b0279efc39cb7da5d86a2c51641756288736b22d9e3d368b6c73de53cc602321"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/evidence.json",
+      "size": 1690,
+      "sha256": "d30839353892656c62a55d2f31562704cea0649988e5c94a746c8bd6ff523497"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/examples.json",
+      "size": 3169,
+      "sha256": "e47091920720cbb77516006452fa1a42cfa98fec04da133099b4993190537887"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/graph.schema.json",
+      "size": 3151,
+      "sha256": "b0325029f828f1cd54adbd3f06d0bf5ec1108ad4e0e50d433b12c02fb2512bc3"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/handoff.md",
+      "size": 13195,
+      "sha256": "eff6ceb550b8e5ea52d69f2c246eec9344dfa4e138a392faff0ca71ba6ae817e"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/manifest.json",
+      "size": 1055,
+      "sha256": "77e054e24f440665b6e7340098654d3615a5c21312220a70c50b4502326249b9"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/production-plan.md",
+      "size": 3049,
+      "sha256": "043dc49744498671a373f25b6979c7065e0ef7fc327900133ff8904c02d0c2be"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/requirements.txt",
+      "size": 20,
+      "sha256": "4046ca1e3a64f4ea791fb4fb3d8566242086ff1c8e2431e2c349e1052ffc6ba0"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/tokens.json",
+      "size": 2952,
+      "sha256": "69404e7c818738e8ea0aed93e2d8626fc2a8852a28cb30c6e8afb0e74b84e02d"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/types.ts",
+      "size": 1620,
+      "sha256": "49efabe9b4828ebe9342fda27cfabc2666e308fc1f712ca45d5c7a7620ca3ad1"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/validate.py",
+      "size": 2427,
+      "sha256": "f1d8bccc3e7e679f1cd74e40ed3f7ac4240db401fd59fd43b376ffaad8b024cc"
+    },
+    {
+      "path": "05_DESIGN_UI/02_COMPONENT_REGISTRY/validation.json",
+      "size": 652,
+      "sha256": "806201d5d74305919b46dc4622f72c2fdecde2a88e14cf9562958f2dbe17bbb8"
+    },
+    {
+      "path": "05_DESIGN_UI/03_COMPONENT_REGISTRY_SOURCE.zip",
+      "size": 19071,
+      "sha256": "38e5464115fb8f25f0c0bc7bbf6d6d46b00525c05da1c21d725ff014a67ed962"
+    },
+    {
+      "path": "06_ROUTES_COPY/01_EXECUTAR_UX_COPY_REGISTRY_v1.csv",
+      "size": 69817,
+      "sha256": "c55642982e2782477eef35b7a7b590117282cf9f3023f12320c562c620afdd5d"
+    },
+    {
+      "path": "06_ROUTES_COPY/02_EXECUTAR_UX_COPY_ROUTE_MASTER_V2.csv",
+      "size": 210373,
+      "sha256": "021d8a7791eab8c83bc51f8c7108af241b65fbc2d33fc527118e78d9bc4e142e"
+    },
+    {
+      "path": "06_ROUTES_COPY/03_EXECUTAR_CAMPAIGN_TO_SITE_COPY_PROMPT_V2.md",
+      "size": 9349,
+      "sha256": "ae5929c96519879247be5bfee45d8831872d154c85bb5ec4c01936ec0fac88db"
+    },
+    {
+      "path": "06_ROUTES_COPY/04_BLOG_ROUTE_ARCHITECTURE_NOTES.md",
+      "size": 1646,
+      "sha256": "493a1ff050d6c31aeb468d3bbb71cacfb3963a7a6656be6ba522d94dd582df70"
+    },
+    {
+      "path": "06_ROUTES_COPY/05_DEV_STORE_ROUTES_AGENT_PROMPT.md",
+      "size": 1719,
+      "sha256": "b442a319a25c1cd543b1d949089dad80df55ff0ac87f6f5060ac99b4ca1d5fea"
+    },
+    {
+      "path": "07_SKILLS_DEPENDENCIES/00_README.md",
+      "size": 383,
+      "sha256": "a388f2e87839a81de0c5ef3d9d3d3a2e7d9ef825fdf5a5fd3496b32792c4fba9"
+    },
+    {
+      "path": "07_SKILLS_DEPENDENCIES/01_EXECUTAR_PROMPT_SKILL_SOURCE.zip",
+      "size": 12384,
+      "sha256": "11db88676269d97fede48455de4bfb5047cc63fec8eb329414c9f0d3825cc535"
+    },
+    {
+      "path": "07_SKILLS_DEPENDENCIES/02_DEPENDENCY_REPOSITORY_DISCOVERY.md",
+      "size": 1915,
+      "sha256": "b042c3e040de505a197ecd6b4c47bd9ddcd055f077b7144293fb492b6bcbc093"
+    },
+    {
+      "path": "08_CLOUDFLARE_IMPORT/IMG_1487.PNG",
+      "size": 1127150,
+      "sha256": "37371f5f683824b25fcf2656afeedc48a7bdf79767409e2b16a620afad4f7f7e"
+    },
+    {
+      "path": "08_CLOUDFLARE_IMPORT/IMG_1488.PNG",
+      "size": 1298383,
+      "sha256": "77fb70c6cee97f2b0d4726e9cfb03580d030b08306edef89ddff0ee312887674"
+    },
+    {
+      "path": "08_CLOUDFLARE_IMPORT/IMG_1489.PNG",
+      "size": 1205724,
+      "sha256": "0a43f7ef1e19ae9037b9322b0a99dc9779aebd05ad9bb6ae9ade706eca349d31"
+    },
+    {
+      "path": "08_CLOUDFLARE_IMPORT/IMG_1490.PNG",
+      "size": 924401,
+      "sha256": "de542323f6eb291a72e99d6c146a371ce7c12178fd3174bb2c010bc7a2f521d3"
+    },
+    {
+      "path": "08_CLOUDFLARE_IMPORT/IMG_1491.PNG",
+      "size": 1041483,
+      "sha256": "af6396dfa9d555efd75b93c2a10e6467063b368244459f4b125704eaae99c7fb"
+    },
+    {
+      "path": "08_CLOUDFLARE_IMPORT/IMG_1492.PNG",
+      "size": 1176290,
+      "sha256": "a2d50b1ceb2893a402a826b3be2c4299ee6a48973d87dfa04a0da71ad82108fa"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3518.jpeg",
+      "size": 14763,
+      "sha256": "9a529c7eda349a7b0f373dac92f192950e54fc0000cfd8a41b06f9774f16fb9d"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3520.jpeg",
+      "size": 178968,
+      "sha256": "dd7ec494c2d60e0dbfebba8dbe3eb4dea883617dd29f4a8f7a7d4b4cfc84d04a"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3521.jpeg",
+      "size": 135459,
+      "sha256": "b8abac7cc0298f799a7de9812a022270eb2fe03e0169f8900eb9df40d94a0f3d"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3522(1).png",
+      "size": 776027,
+      "sha256": "33c5d12c784265a9d6123ddd4bd1447d099b3a9464bc4565244c81080fa94930"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3522.png",
+      "size": 776027,
+      "sha256": "33c5d12c784265a9d6123ddd4bd1447d099b3a9464bc4565244c81080fa94930"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3523(1).jpeg",
+      "size": 192521,
+      "sha256": "fabef3ed41019881c56b97ed11f301d42e07d3facd86f1ddd903d69eab3d1641"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3523.jpeg",
+      "size": 192521,
+      "sha256": "fabef3ed41019881c56b97ed11f301d42e07d3facd86f1ddd903d69eab3d1641"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3524(1).png",
+      "size": 409854,
+      "sha256": "42ba3baa8caea0eb85906562ee62923e3906407a848ed0087fdc509ee196a9fa"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3524.png",
+      "size": 409854,
+      "sha256": "42ba3baa8caea0eb85906562ee62923e3906407a848ed0087fdc509ee196a9fa"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3525(1).jpeg",
+      "size": 89868,
+      "sha256": "80b6eeab892d40c83aa9b72b127e99ec85e827ddafc341e06a46cd112e48de71"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3525.jpeg",
+      "size": 89868,
+      "sha256": "80b6eeab892d40c83aa9b72b127e99ec85e827ddafc341e06a46cd112e48de71"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3526(1).jpeg",
+      "size": 236997,
+      "sha256": "a253b03d29476e5ae1d20988d63e23e6613cbe86decf6c595e69d9cf28024a64"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3526.jpeg",
+      "size": 236997,
+      "sha256": "a253b03d29476e5ae1d20988d63e23e6613cbe86decf6c595e69d9cf28024a64"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3527(1).png",
+      "size": 1015194,
+      "sha256": "f6904c2ad7c1a1a338e5a5b4469f1117add6e95a42d74f77e88b199563ee2aec"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3527.png",
+      "size": 1015194,
+      "sha256": "f6904c2ad7c1a1a338e5a5b4469f1117add6e95a42d74f77e88b199563ee2aec"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3528.jpeg",
+      "size": 147258,
+      "sha256": "6834ebe52d2250c8c0a1e4b3ef5ca032814ef125fbaa7934fe1c7530fa91dbb3"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3529.jpeg",
+      "size": 191271,
+      "sha256": "ed48a17c86d5a07cf127346485990dde5dbdfa7243a4d03ff4264cf333e62838"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3530.jpeg",
+      "size": 131079,
+      "sha256": "1d8d97bcac37ded0eda9e00f610591b1e2c4ddefd40a2efa631a4acc81ca2c57"
+    },
+    {
+      "path": "90_REFERENCES/IMG_3531.jpeg",
+      "size": 114475,
+      "sha256": "5eda6881713e77fb916ee408b69776aace8a29adef81c96655f573037d2937bb"
+    },
+    {
+      "path": "91_SOURCE_INPUTS/01_STACK_ORIGINAL.zip",
+      "size": 11981445,
+      "sha256": "8440a0f663a6de8034c7e21d2fa288e91bb84cff6580591ba786ba1ea622a398"
+    },
+    {
+      "path": "91_SOURCE_INPUTS/02_PREVIOUS_PACKAGE_v1.zip",
+      "size": 5485162,
+      "sha256": "033e88372f25c9c336de1848d5ea3d1b1620b5787247c83a8b1da8c339cc414c"
+    },
+    {
+      "path": "91_SOURCE_INPUTS/03_PROCESS_DOC_ORIGINAL.docx",
+      "size": 24146,
+      "sha256": "396067abc153cc0a1abbec882f15dee92c5bf510fbbd59b27324611c567b88b3"
+    }
+  ]
+}

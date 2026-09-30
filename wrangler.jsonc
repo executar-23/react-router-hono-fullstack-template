@@ -1,6 +1,8 @@
 /**
- * For more details on how to configure Wrangler, refer to:
- * https://developers.cloudflare.com/workers/wrangler/configuration/
+ * Worker principal: app React Router + API Hono (/api/*).
+ * Docs: https://developers.cloudflare.com/workers/wrangler/configuration/
+ * Variáveis públicas ficam em "vars"; segredos NUNCA aqui (wrangler secret put).
+ * Inventário completo: docs/adr/ENV-INVENTORY.md
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
@@ -8,40 +10,52 @@
 	"compatibility_date": "2025-10-08",
 	"main": "./workers/app.ts",
 	"vars": {
-		"VALUE_FROM_CLOUDFLARE": "Hello from Hono/CF"
+		"ENVIRONMENT": "production",
+		// Origem do app (CSRF). Troque se usar domínio customizado.
+		"ALLOWED_ORIGIN": "https://react-router-hono-fullstack-template.executar-rotina-8b7.workers.dev",
+		// Servidor OpenAuth (Worker separado em auth/).
+		"AUTH_ISSUER_URL": "https://hub-editorial-auth.executar-rotina-8b7.workers.dev",
+		"AUTH_CLIENT_ID": "hub-editorial",
+		"ADMIN_EMAIL": "executar-rotina@outlook.com",
+		"PROJECT_CONTACT": "executar-rotina@outlook.com"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "hub-editorial-db",
+			"database_id": "e1e1d9c4-3ff3-4055-bd11-0613b93ca2fe",
+			"migrations_dir": "migrations"
+		}
+	],
+	"workflows": [
+		{
+			"name": "hub-publish",
+			"binding": "HUB_PUBLISH_WORKFLOW",
+			"class_name": "HubPublishWorkflow"
+		}
+	],
+	"previews": {
+		// Previews usam um D1 de staging próprio (nunca o de produção). Migrações:
+		// wrangler d1 migrations apply DB --remote --config wrangler.preview-migrations.jsonc
+		// O Workflow só pode ser ligado a um Workflow já existente (após o 1º deploy de produção).
+		"d1_databases": [
+			{
+				"binding": "DB",
+				"database_name": "hub-editorial-db-preview",
+				"database_id": "4266dc35-c9f3-4f4e-83a8-8468f8da4478"
+			}
+		],
+		"vars": {
+			"ENVIRONMENT": "preview",
+			"ALLOWED_ORIGIN": "REPLACE_IN_PREVIEW",
+			"AUTH_ISSUER_URL": "REPLACE_IN_PREVIEW",
+			"AUTH_CLIENT_ID": "hub-editorial",
+			"ADMIN_EMAIL": "executar-rotina@outlook.com",
+			"PROJECT_CONTACT": "executar-rotina@outlook.com"
+		}
 	},
 	"observability": {
 		"enabled": true
 	},
-	/**
-	 * Smart Placement
-	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
-	 */
-	// "placement": { "mode": "smart" },
-	/**
-	 * Bindings
-	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
-	 * databases, object storage, AI inference, real-time communication and more.
-	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
-	 */
-	/**
-	 * Environment Variables
-	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
-	 */
-	// "vars": { "MY_VARIABLE": "production_value" },
-	/**
-	 * Note: Use secrets to store sensitive data.
-	 * https://developers.cloudflare.com/workers/configuration/secrets/
-	 */
-	/**
-	 * Static Assets
-	 * https://developers.cloudflare.com/workers/static-assets/binding/
-	 */
-	// "assets": { "directory": "./public/", "binding": "ASSETS" },
-	/**
-	 * Service Bindings (communicate between multiple Workers)
-	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
-	 */
-	// "services": [{ "binding": "MY_SERVICE", "service": "my-service" }]
 	"upload_source_maps": true
 }

@@ -1,0 +1,115 @@
+Estruturei o primeiro ADR em formato híbrido: legível por pessoa e determinístico para agentes de AI.
+
+Baixar ADR-001 — Governança⁠￼
+
+O arquivo tem 534 linhas e usa schema: executar.adr.v1, IDs estáveis, estados controlados, decisões numeradas, gaps, conflitos, dependências, critérios de aceite, evidências e handoff.
+
+A base ficou assim:
+
+id: ADR-001
+version: 0.1.0
+title: Governança do Programa de Lançamento
+area: A01.04-Governanca
+program: PROGAMA-LANCAMENTO
+repository: executar-23/PROGAMA-LANCAMENTO
+branch: main
+target_path: docs/adr/ADR-001-governanca.md
+status: PREPARED
+decision_status: PROPOSED
+language_standard: Plain Language / ISO 24495-1
+automation_level: A2
+source_of_truth_status: BLOCKED_WRITE
+null_policy: A_DEFINIR
+
+A estrutura A01–A10 existente no seu arquivo foi preservada como referência de governança, inclusive A08 para agentes/skills/workflows, A09 para schemas e A10 para o Workbook. 
+
+As principais decisões registradas são:
+
+* GOV-DEC-001: CLP é o entry point operacional único.
+* GOV-DEC-002: executar-23/PROGAMA-LANCAMENTO é a fonte de verdade lógica.
+* GOV-DEC-003: desenvolvimento segue obrigatoriamente TEMPLATE_FIRST.
+* GOV-DEC-004: cada macroárea recebe um owner lógico.
+* GOV-DEC-005: cada owner terá stack próprio de agentes, skills, workflows, plugins, conectores e ferramentas.
+* GOV-DEC-006: Risco Cognitivo é a marca/superfície pública.
+
+A regra de código ficou explícita para qualquer agente:
+
+GOV-CODE-001
+ANTES DE ESCREVER CÓDIGO:
+1. Ler os requisitos.
+2. Pesquisar os templates oficiais Cloudflare.
+3. Mapear requisito → template existente.
+4. Combinar o menor número possível de templates.
+5. Identificar os gaps reais.
+6. Personalizar antes de desenvolver do zero.
+7. Criar código customizado somente para os gaps.
+8. Registrar a decisão no ADR técnico.
+
+Isso está alinhado ao modelo atual da Cloudflare: os templates oficiais são apresentados como pontos de partida para projetos Workers, e Astro possui suporte documentado no ecossistema Cloudflare. 
+
+Também não tratei automaticamente os nomes “SaaS Admin Template”, “Dashboard Template” e “Cloudflare DevOps Stack” como nomes oficiais confirmados. Eles ficaram no registro como candidatos NOME_EXATO_NAO_VALIDADO. Isso impede um agente de inventar um template só porque o nome apareceu no briefing.
+
+Há um conflito de arquitetura importante registrado como CONFLICT-001: usar GitHub como fonte central faz sentido para documentação, código, schemas, metadados e dados estruturados, mas não é adequado assumir que todo o grande volume de arquivos ficará fisicamente dentro do Git. O GitHub recomenda limites para o tamanho do repositório, aplica limite de 100 MB a objetos normais e recomenda armazenamento externo para determinados arquivos grandes/gerados. 
+
+Por isso, a regra ficou:
+
+GitHub = fonte de verdade lógica.
+GitHub contém:
+manifesto
+ID
+checksum
+metadata
+localização
+owner
+estado
+Storage físico de grandes volumes = A DEFINIR.
+
+Cloudflare R2 aparece somente como possibilidade técnica, não como decisão.
+
+Também tratei os termos ditados sem corrigi-los silenciosamente:
+
+GAP-TERM-001
+CloudMD → A CONFIRMAR
+GAP-TERM-002
+Cloud Code → A CONFIRMAR
+
+Se “Cloud Code” significar de fato Claude Code, então há fundamento para normalizar CloudMD para CLAUDE.md: a documentação do Claude Code define ./CLAUDE.md como arquivo de instruções compartilhadas do projeto. 
+
+Para os owners, preparei codinomes operacionais:
+
+ID	Área	Owner
+OWN-A01	Governança e Negócio	OSTROM
+OWN-A02	Produto e Engenharia	LOVELACE
+OWN-A03	Operação Corporativa	DEMING
+OWN-A04	Dados e Conhecimento	SHANNON
+OWN-A05	Conteúdo e Execução	MILLER
+OWN-A06	Documentação, Ferramentas e Ativos	BUSH
+OWN-A07	Stakeholders e Ecossistema	MEADOWS
+OWN-A08	Agentes, Skills e Workflows	TURING
+OWN-A09	Schemas	CODD
+OWN-A10	Workbook	NIGHTINGALE
+
+São codinomes de agentes/owners, não responsáveis humanos. As subáreas herdam o owner da macroárea enquanto não existir um SUBOWNER_ID.
+
+Também já inseri o PLATFORM_REGISTRY inicial com Blog, LinkedIn, Instagram, Facebook, YouTube, TikTok, X, Threads, Pinterest e e-mail/newsletter, definindo objetivo de cada canal e formatos possíveis. A pesquisa atual confirma, por exemplo, documentos/artigos/vídeos no LinkedIn; Shorts, Live e Community Posts no YouTube; mídia, polls e Spaces no X; e Pins estáticos, vídeo, carrossel e collections no Pinterest.  Meta documenta Reels para Instagram/Facebook, e TikTok documenta vídeo e carrossel entre seus formatos atuais. 
+
+O e-mail operacional foi registrado exatamente como informado:
+
+rotina-executar@outlook.com
+
+O e-mail associado ao GitHub ficou A_DEFINIR; não fiz inferência sobre uma informação que não foi fornecida.
+
+Status operacional atual:
+
+ADR-001:              PREPARED
+Pesquisa externa:     EXECUTADA
+Plain Language:       APLICADO
+Controle por IDs:     APLICADO
+Owners:               PROPOSTOS
+Platform Registry:    PREPARADO
+GitHub SoT:            CONFIRMADO
+Commit no GitHub:      BLOCKED
+Motivo:                conexão atual pull=true / push=false
+Próximo ADR:           ADR-002 — Estratégia
+
+O arquivo também foi preservado na Library como /ADR-001-governanca.md. O único passo que ainda não foi possível executar é gravá-lo em docs/adr/ADR-001-governanca.md no repositório, porque a conexão GitHub continua sem permissão de push.

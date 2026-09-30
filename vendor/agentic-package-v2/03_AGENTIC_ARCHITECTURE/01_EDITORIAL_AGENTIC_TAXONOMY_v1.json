@@ -1,0 +1,812 @@
+{
+  "schema": {
+    "id": "EXECUTAR-AI-EDITORIAL-TAXONOMY-001",
+    "version": "1.0.0",
+    "language": "pt-BR",
+    "status": "DRAFT",
+    "type": "agent_operating_model",
+    "area": "Linha de Producao Editorial",
+    "workflow": "Editorial AI Production",
+    "owner": "A_DEFINIR",
+    "source": "conteudo_fornecido_pelo_usuario"
+  },
+  "objective": {
+    "primary": "Estruturar uma linha de producao editorial controlada, rastreavel e orientada por agentes de IA.",
+    "secondary": [
+      "Definir quem faz o que",
+      "Definir o que cada ator entrega",
+      "Definir quando cada ator entra no processo",
+      "Separar orquestracao, agentes, skills, ferramentas e dados",
+      "Controlar autonomia e permissoes",
+      "Exigir verificacao e evidencia antes de considerar trabalho concluido"
+    ]
+  },
+  "core_principles": [
+    {
+      "id": "PRINCIPLE-001",
+      "rule": "LLM_NAO_E_WORKFLOW_ENGINE",
+      "description": "Estados, condicoes, retries, permissoes, timeouts, versionamento, transacoes e aprovacoes devem permanecer no orquestrador sempre que forem deterministicos."
+    },
+    {
+      "id": "PRINCIPLE-002",
+      "rule": "WIP_1",
+      "description": "Executar somente um no operacional por vez, salvo paralelismo explicitamente definido pelo workflow."
+    },
+    {
+      "id": "PRINCIPLE-003",
+      "rule": "NO_SILENT_INFERENCE",
+      "description": "Dados ausentes nao devem ser inventados. Utilizar A_DEFINIR."
+    },
+    {
+      "id": "PRINCIPLE-004",
+      "rule": "DONE_REQUIRES_EVIDENCE",
+      "description": "Um agente nao pode declarar DONE apenas porque produziu uma resposta. O resultado deve ser verificado e evidenciado."
+    },
+    {
+      "id": "PRINCIPLE-005",
+      "rule": "LEAST_PRIVILEGE",
+      "description": "Cada agente, skill e connector recebe somente as permissoes necessarias para sua funcao."
+    }
+  ],
+  "taxonomy": {
+    "production_line": {
+      "id": "EDITORIAL-LINE-001",
+      "name": "Linha de Producao Editorial",
+      "hierarchy": [
+        "BPM",
+        "Workflow",
+        "Agent",
+        "Skill",
+        "Tool_or_Connector",
+        "Data",
+        "Observability"
+      ]
+    },
+    "semantic_definition": {
+      "BPM": "Define O QUE acontece no processo de negocio.",
+      "Workflow": "Define QUANDO acontece e EM QUE ORDEM.",
+      "Agent": "Resolve tarefas nao deterministicas dentro de limites definidos.",
+      "Skill": "Define COMO executar uma capacidade ou procedimento conhecido.",
+      "Connector": "Concede acesso controlado a um sistema externo.",
+      "Tool": "Executa uma acao concreta.",
+      "Policy": "Define SE a acao pode ocorrer.",
+      "Data": "Fornece entradas e contexto autorizado.",
+      "Log_or_Evidence": "Comprova O QUE realmente aconteceu."
+    }
+  },
+  "actors": [
+    {
+      "actor_id": "ACT-LEO-001",
+      "name": "Leo",
+      "type": "human_creator",
+      "role": "Creator Humano",
+      "authority": "human_final_authority",
+      "responsibilities": [
+        "Definir direcao criativa quando necessario",
+        "Fornecer conhecimento, opiniao, experiencia e materia-prima humana",
+        "Resolver decisoes exclusivamente humanas",
+        "Aprovar conteudo quando o workflow exigir human-in-the-loop",
+        "Autorizar acoes externas quando requerido",
+        "Intervir em conflitos ou excecoes nao solucionaveis automaticamente"
+      ],
+      "deliverables": [
+        {
+          "deliverable": "input_criativo",
+          "when": "inicio_do_workflow_ou_quando_solicitado"
+        },
+        {
+          "deliverable": "decisao_humana",
+          "when": "human_approval_gate"
+        },
+        {
+          "deliverable": "aprovacao_final",
+          "when": "quando_configurada_como_obrigatoria"
+        }
+      ],
+      "automation_level": "HUMAN"
+    },
+    {
+      "actor_id": "AGT-CLP-001",
+      "name": "CLP",
+      "expanded_name": "Creator Lead Platform",
+      "type": "principal_agent",
+      "role": "Orchestrator",
+      "authority": "bounded_orchestration",
+      "responsibilities": [
+        "Receber o objetivo editorial",
+        "Interpretar o estado do workflow",
+        "Selecionar o proximo no executavel",
+        "Delegar trabalho para subagentes especializados",
+        "Aplicar contratos de handoff",
+        "Verificar dependencias",
+        "Aplicar policies e limites",
+        "Solicitar intervencao humana quando necessario",
+        "Consolidar resultados",
+        "Garantir verificacao e evidencia",
+        "Atualizar estado operacional"
+      ],
+      "must_not": [
+        "Ignorar approval gates",
+        "Inventar dados ausentes",
+        "Conceder permissoes a si mesmo",
+        "Substituir regras deterministicas do workflow",
+        "Declarar DONE sem verificacao"
+      ],
+      "deliverables": [
+        {
+          "deliverable": "execution_plan",
+          "when": "apos_intake"
+        },
+        {
+          "deliverable": "task_assignment",
+          "when": "antes_de_cada_handoff"
+        },
+        {
+          "deliverable": "consolidated_output",
+          "when": "apos_execucao_dos_subagentes"
+        },
+        {
+          "deliverable": "verification_record",
+          "when": "antes_de_DONE"
+        },
+        {
+          "deliverable": "run_evidence",
+          "when": "encerramento_do_run"
+        }
+      ]
+    },
+    {
+      "actor_id": "AGT-SUB-PLACEHOLDER",
+      "name": "Subagentes Especialistas",
+      "type": "specialized_subagents",
+      "role": "Especialistas por Area e Funcao",
+      "status": "PLACEHOLDER",
+      "instances": [
+        {
+          "agent_id": "AGT-EDITORIAL-STRATEGY-001",
+          "area": "estrategia_editorial",
+          "function": "Planejamento e enquadramento",
+          "status": "A_DEFINIR"
+        },
+        {
+          "agent_id": "AGT-RESEARCH-001",
+          "area": "pesquisa",
+          "function": "Pesquisa, fontes e evidencias",
+          "status": "A_DEFINIR"
+        },
+        {
+          "agent_id": "AGT-WRITING-001",
+          "area": "redacao",
+          "function": "Producao textual",
+          "status": "A_DEFINIR"
+        },
+        {
+          "agent_id": "AGT-EDITOR-001",
+          "area": "edicao",
+          "function": "Revisao estrutural e editorial",
+          "status": "A_DEFINIR"
+        },
+        {
+          "agent_id": "AGT-FACTCHECK-001",
+          "area": "evidencia",
+          "function": "Validacao factual e de fontes",
+          "status": "A_DEFINIR"
+        },
+        {
+          "agent_id": "AGT-SEO-001",
+          "area": "discovery",
+          "function": "SEO e estrutura de descoberta",
+          "status": "A_DEFINIR"
+        },
+        {
+          "agent_id": "AGT-MDX-001",
+          "area": "publicacao",
+          "function": "Conversao e estruturacao para formato de publicacao",
+          "status": "A_DEFINIR"
+        },
+        {
+          "agent_id": "AGT-QA-001",
+          "area": "quality_assurance",
+          "function": "Verificacao final",
+          "status": "A_DEFINIR"
+        }
+      ]
+    }
+  ],
+  "editorial_workflow": {
+    "workflow_id": "WF-EDITORIAL-001",
+    "version": "0.1.0",
+    "status": "DRAFT",
+    "stages": [
+      {
+        "stage_id": "STG-01",
+        "name": "INTAKE",
+        "purpose": "Receber e normalizar a materia-prima.",
+        "primary_actor": "AGT-CLP-001",
+        "supporting_actors": [
+          "ACT-LEO-001"
+        ],
+        "input": [
+          "audio",
+          "texto",
+          "notas",
+          "briefing",
+          "referencias"
+        ],
+        "output": [
+          "normalized_input",
+          "initial_context",
+          "identified_gaps"
+        ],
+        "done_when": "entrada_normalizada_e_contexto_registrado"
+      },
+      {
+        "stage_id": "STG-02",
+        "name": "BRIEFING",
+        "purpose": "Converter a entrada em contrato editorial executavel.",
+        "primary_actor": "AGT-CLP-001",
+        "output": [
+          "objective",
+          "audience",
+          "scope",
+          "constraints",
+          "deliverables",
+          "acceptance_criteria"
+        ],
+        "done_when": "execution_contract_ready"
+      },
+      {
+        "stage_id": "STG-03",
+        "name": "RESEARCH",
+        "purpose": "Coletar fatos, referencias e evidencias necessarias.",
+        "primary_actor": "AGT-RESEARCH-001",
+        "output": [
+          "research_package",
+          "sources",
+          "evidence",
+          "conflicts",
+          "gaps"
+        ],
+        "depends_on": [
+          "STG-02"
+        ],
+        "done_when": "research_requirements_satisfied"
+      },
+      {
+        "stage_id": "STG-04",
+        "name": "EDITORIAL_ARCHITECTURE",
+        "purpose": "Definir a estrutura narrativa e informacional.",
+        "primary_actor": "AGT-EDITORIAL-STRATEGY-001",
+        "output": [
+          "content_structure",
+          "narrative_flow",
+          "section_plan",
+          "content_requirements"
+        ],
+        "depends_on": [
+          "STG-02",
+          "STG-03"
+        ],
+        "done_when": "architecture_approved_or_auto_validated"
+      },
+      {
+        "stage_id": "STG-05",
+        "name": "DRAFT",
+        "purpose": "Produzir a primeira versao completa.",
+        "primary_actor": "AGT-WRITING-001",
+        "output": [
+          "draft_content"
+        ],
+        "depends_on": [
+          "STG-04"
+        ],
+        "done_when": "full_draft_exists"
+      },
+      {
+        "stage_id": "STG-06",
+        "name": "EDITORIAL_REVIEW",
+        "purpose": "Revisar clareza, estrutura, consistencia e aderencia.",
+        "primary_actor": "AGT-EDITOR-001",
+        "output": [
+          "reviewed_content",
+          "change_log"
+        ],
+        "depends_on": [
+          "STG-05"
+        ],
+        "done_when": "editorial_acceptance_criteria_pass"
+      },
+      {
+        "stage_id": "STG-07",
+        "name": "FACT_CHECK",
+        "purpose": "Validar afirmacoes verificaveis e evidencias.",
+        "primary_actor": "AGT-FACTCHECK-001",
+        "output": [
+          "verified_claims",
+          "source_map",
+          "unresolved_claims"
+        ],
+        "depends_on": [
+          "STG-06"
+        ],
+        "done_when": "all_required_claims_verified_or_flagged"
+      },
+      {
+        "stage_id": "STG-08",
+        "name": "DISCOVERY_OPTIMIZATION",
+        "purpose": "Aplicar requisitos de descoberta, distribuicao e SEO quando aplicavel.",
+        "primary_actor": "AGT-SEO-001",
+        "output": [
+          "metadata",
+          "search_structure",
+          "internal_linking_requirements",
+          "distribution_requirements"
+        ],
+        "depends_on": [
+          "STG-06"
+        ],
+        "done_when": "discovery_requirements_pass"
+      },
+      {
+        "stage_id": "STG-09",
+        "name": "PUBLICATION_TRANSFORM",
+        "purpose": "Converter o conteudo para o formato tecnico de publicacao.",
+        "primary_actor": "AGT-MDX-001",
+        "output": [
+          "publication_ready_artifact"
+        ],
+        "depends_on": [
+          "STG-07",
+          "STG-08"
+        ],
+        "done_when": "artifact_is_technically_valid"
+      },
+      {
+        "stage_id": "STG-10",
+        "name": "HUMAN_APPROVAL",
+        "purpose": "Obter decisao humana quando exigida.",
+        "primary_actor": "ACT-LEO-001",
+        "condition": "human_approval_required_equals_true",
+        "output": [
+          "approved",
+          "rejected",
+          "revision_requested"
+        ],
+        "depends_on": [
+          "STG-09"
+        ],
+        "done_when": "human_decision_registered"
+      },
+      {
+        "stage_id": "STG-11",
+        "name": "PUBLISH",
+        "purpose": "Executar a publicacao quando autorizada.",
+        "primary_actor": "AGT-CLP-001",
+        "required_automation_level": "A3_or_A4",
+        "output": [
+          "publication_reference",
+          "execution_log"
+        ],
+        "depends_on": [
+          "STG-09",
+          "STG-10_if_required"
+        ],
+        "done_when": "publication_action_confirmed"
+      },
+      {
+        "stage_id": "STG-12",
+        "name": "VERIFY",
+        "purpose": "Confirmar que o estado final esperado realmente foi alcancado.",
+        "primary_actor": "AGT-QA-001",
+        "output": [
+          "verification_result",
+          "evidence"
+        ],
+        "depends_on": [
+          "STG-11"
+        ],
+        "done_when": "expected_state_verified"
+      },
+      {
+        "stage_id": "STG-13",
+        "name": "LEARNING",
+        "purpose": "Registrar resultado e aprendizado reutilizavel.",
+        "primary_actor": "AGT-CLP-001",
+        "output": [
+          "learning_record",
+          "metrics",
+          "improvement_candidates"
+        ],
+        "depends_on": [
+          "STG-12"
+        ],
+        "done_when": "run_closed_with_evidence"
+      }
+    ]
+  },
+  "handoff_contract": {
+    "id": "HANDOFF-EDITORIAL-001",
+    "required_fields": [
+      "handoff_id",
+      "from_actor",
+      "to_actor",
+      "task_id",
+      "objective",
+      "input",
+      "constraints",
+      "expected_output",
+      "acceptance_criteria",
+      "permissions",
+      "deadline_or_sequence",
+      "depends_on",
+      "evidence_required"
+    ],
+    "rule": "Nenhum subagente recebe apenas uma instrucao vaga. Todo handoff deve conter objetivo, entrada, saida e criterio de aceite."
+  },
+  "agent_execution_contract": {
+    "workflow_id": "WF-EDITORIAL-001",
+    "process_id": "BPM-EDITORIAL-001",
+    "owner": "A_DEFINIR",
+    "trigger": "A_DEFINIR",
+    "input": [],
+    "output": [],
+    "agents": [],
+    "skills": [],
+    "tools": [],
+    "mcp_servers": [],
+    "data_sources": [],
+    "automation_level": "A2",
+    "permissions": {
+      "read": [],
+      "write": [],
+      "delete": [],
+      "external_communication": []
+    },
+    "human_approval": {
+      "required": true,
+      "approval_actor": "ACT-LEO-001"
+    },
+    "limits": {
+      "max_steps": "A_DEFINIR",
+      "max_tool_calls": "A_DEFINIR",
+      "max_runtime": "A_DEFINIR",
+      "max_cost": "A_DEFINIR"
+    },
+    "rollback": "A_DEFINIR",
+    "acceptance_criteria": [],
+    "evidence": [],
+    "done_when": "resultado_executado_verificado_e_evidenciado"
+  },
+  "automation_levels": {
+    "A0": {
+      "name": "ORIENTAR",
+      "external_action": false,
+      "description": "Somente analise ou orientacao."
+    },
+    "A1": {
+      "name": "PREPARAR",
+      "external_action": false,
+      "description": "Produz plano ou artefato sem modificar sistemas externos."
+    },
+    "A2": {
+      "name": "HUMAN_IN_THE_LOOP",
+      "external_action": "after_human_approval",
+      "description": "Agente prepara e humano autoriza."
+    },
+    "A3": {
+      "name": "EXECUTAR",
+      "external_action": true,
+      "description": "Agente executa operacoes previamente autorizadas."
+    },
+    "A4": {
+      "name": "EXECUTAR_VERIFICAR_EVIDENCIAR",
+      "external_action": true,
+      "description": "Executa, valida o resultado e registra evidencia."
+    }
+  },
+  "maturity_path": [
+    "READ_ONLY",
+    "SHADOW_MODE",
+    "A1_PREPARE",
+    "A2_APPROVAL",
+    "A3_CONTROLLED_WRITE",
+    "A4_VERIFIED_AUTOMATION"
+  ],
+  "risk_register": [
+    {
+      "risk_id": "AI-R01",
+      "risk": "Alucinacao ou resultado incorreto",
+      "minimum_control": [
+        "validation",
+        "acceptance_criteria"
+      ]
+    },
+    {
+      "risk_id": "AI-R02",
+      "risk": "Prompt injection",
+      "minimum_control": [
+        "external_content_untrusted_by_default"
+      ]
+    },
+    {
+      "risk_id": "AI-R03",
+      "risk": "Tool abuse",
+      "minimum_control": [
+        "tool_allowlist"
+      ]
+    },
+    {
+      "risk_id": "AI-R04",
+      "risk": "Permissao excessiva",
+      "minimum_control": [
+        "least_privilege"
+      ]
+    },
+    {
+      "risk_id": "AI-R05",
+      "risk": "Exfiltracao de dados",
+      "minimum_control": [
+        "data_segregation",
+        "secrets_management"
+      ]
+    },
+    {
+      "risk_id": "AI-R06",
+      "risk": "Execucao destrutiva",
+      "minimum_control": [
+        "approval_gate",
+        "rollback"
+      ]
+    },
+    {
+      "risk_id": "AI-R07",
+      "risk": "Acoes duplicadas",
+      "minimum_control": [
+        "idempotency_key",
+        "run_id"
+      ]
+    },
+    {
+      "risk_id": "AI-R08",
+      "risk": "Loop de agentes",
+      "minimum_control": [
+        "max_steps",
+        "token_limit",
+        "runtime_limit",
+        "cost_limit"
+      ]
+    },
+    {
+      "risk_id": "AI-R09",
+      "risk": "Memory poisoning",
+      "minimum_control": [
+        "controlled_memory",
+        "validated_memory",
+        "versioned_memory"
+      ]
+    },
+    {
+      "risk_id": "AI-R10",
+      "risk": "Uso indevido de outro agente",
+      "minimum_control": [
+        "agent_identity",
+        "handoff_contract"
+      ]
+    },
+    {
+      "risk_id": "AI-R11",
+      "risk": "Mudanca de modelo ou API",
+      "minimum_control": [
+        "versioning",
+        "regression_tests"
+      ]
+    },
+    {
+      "risk_id": "AI-R12",
+      "risk": "Connector ou MCP comprometido",
+      "minimum_control": [
+        "trust_registry",
+        "scoped_permissions"
+      ]
+    },
+    {
+      "risk_id": "AI-R13",
+      "risk": "Falta de rastreabilidade",
+      "minimum_control": [
+        "input_log",
+        "decision_log",
+        "tool_call_log",
+        "output_log"
+      ]
+    },
+    {
+      "risk_id": "AI-R14",
+      "risk": "Falha parcial do workflow",
+      "minimum_control": [
+        "checkpoint",
+        "controlled_retry"
+      ]
+    },
+    {
+      "risk_id": "AI-R15",
+      "risk": "Agente declarar DONE sem executar",
+      "minimum_control": [
+        "external_verification",
+        "evidence_required"
+      ]
+    }
+  ],
+  "canonical_registries": [
+    {
+      "registry_id": "AI-PROCESS-CATALOG",
+      "purpose": "Catalogar processos BPM."
+    },
+    {
+      "registry_id": "AI-WORKFLOW-REGISTRY",
+      "purpose": "Catalogar workflows e versoes."
+    },
+    {
+      "registry_id": "AI-AGENT-REGISTRY",
+      "purpose": "Catalogar agentes, identidade, funcao e autoridade."
+    },
+    {
+      "registry_id": "AI-SKILL-REGISTRY",
+      "purpose": "Catalogar capacidades reutilizaveis."
+    },
+    {
+      "registry_id": "AI-TOOL-CONNECTOR-REGISTRY",
+      "purpose": "Catalogar tools, APIs, connectors e MCP."
+    },
+    {
+      "registry_id": "AI-RISK-REGISTER",
+      "purpose": "Controlar riscos, controles e exposicao."
+    }
+  ],
+  "operating_model": {
+    "id": "AI-BPM-CONTROL-001",
+    "nodes": {
+      "GOV_AI": [
+        "AI-POLICY",
+        "AI-RISK-REGISTER",
+        "AUTONOMY-MATRIX",
+        "PERMISSION-MATRIX"
+      ],
+      "BPM": [
+        "BPM-xxx"
+      ],
+      "WORKFLOWS": [
+        "WF-xxx"
+      ],
+      "AGENTS": [
+        "AGT-xxx"
+      ],
+      "SKILLS": [
+        "SKL-xxx"
+      ],
+      "CONNECTORS": [
+        "MCP-xxx"
+      ],
+      "TOOLS": [
+        "TOOL-xxx"
+      ],
+      "RUNS": [
+        "RUN-xxxxxxxx"
+      ]
+    }
+  },
+  "run_schema": {
+    "run_id": "RUN-xxxxxxxx",
+    "sections": [
+      "INPUT",
+      "PLAN",
+      "ACTIONS",
+      "TOOL_CALLS",
+      "OUTPUT",
+      "VERIFICATION",
+      "EVIDENCE"
+    ],
+    "state_machine": [
+      "NOT_READY",
+      "READY",
+      "IN_PROGRESS",
+      "BLOCKED",
+      "USER_ACTION_REQUIRED",
+      "DECLARED_DONE",
+      "VERIFIED"
+    ]
+  },
+  "traceability_chain": [
+    "PROBLEM",
+    "BPM",
+    "WORKFLOW",
+    "TASK",
+    "AGENT",
+    "SKILL",
+    "TOOL_OR_MCP",
+    "ACTION",
+    "RESULT",
+    "VERIFICATION",
+    "EVIDENCE",
+    "LEARNING"
+  ],
+  "orchestrator_decision_logic": {
+    "sequence": [
+      "inspect_current_state",
+      "validate_inputs",
+      "identify_gaps",
+      "check_dependencies",
+      "check_permissions",
+      "select_one_unblocked_node",
+      "assign_actor",
+      "execute_or_prepare",
+      "verify_result",
+      "record_evidence",
+      "update_state",
+      "recalculate_dependency_graph"
+    ],
+    "wip_limit": 1
+  },
+  "done_definition": {
+    "formula": "EXECUTED + EXPECTED_STATE_REACHED + VERIFIED + EVIDENCE_RECORDED",
+    "forbidden_shortcuts": [
+      "response_generated_equals_done",
+      "agent_claim_equals_verified",
+      "plan_created_equals_executed",
+      "tool_called_equals_success"
+    ]
+  },
+  "gaps": [
+    {
+      "gap_id": "GAP-001",
+      "field": "workflow_owner",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-002",
+      "field": "subagent_catalog_complete",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-003",
+      "field": "skills_per_subagent",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-004",
+      "field": "tools_and_connectors_per_agent",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-005",
+      "field": "permission_matrix",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-006",
+      "field": "human_approval_rules",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-007",
+      "field": "editorial_acceptance_criteria",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-008",
+      "field": "publishing_connector",
+      "status": "A_DEFINIR"
+    }
+  ],
+  "next_execution_node": {
+    "id": "NEXT-001",
+    "action": "Definir o catalogo completo de subagentes da linha editorial, relacionando AREA -> FUNCAO -> ENTREGA -> QUANDO_ATUA -> SKILLS -> TOOLS -> PERMISSOES -> HANDOFF.",
+    "status": "READY",
+    "automation_level": "A1",
+    "blocks": [
+      "AI-AGENT-REGISTRY definitivo",
+      "AI-SKILL-REGISTRY definitivo",
+      "PERMISSION-MATRIX",
+      "workflow editorial executavel"
+    ]
+  }
+}

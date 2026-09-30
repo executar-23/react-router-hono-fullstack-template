@@ -1,0 +1,37 @@
+/**
+ * Servidor OpenAuth (base: vendor/cloudflare-templates/openauth-template).
+ * Deploy: npm run deploy:auth
+ * Segredos (wrangler secret put -c auth/wrangler.jsonc): RESEND_API_KEY
+ */
+{
+	"$schema": "../node_modules/wrangler/config-schema.json",
+	"name": "hub-editorial-auth",
+	"main": "./index.ts",
+	"compatibility_date": "2025-10-08",
+	"compatibility_flags": ["nodejs_compat"],
+	"vars": {
+		"ENVIRONMENT": "production",
+		"ADMIN_EMAIL": "executar-rotina@outlook.com",
+		"EMAIL_FROM": "executar-rotina@outlook.com",
+		"AUTH_CLIENT_ID": "hub-editorial",
+		// Origem do app autorizada a redirecionar de volta após o login.
+		"ALLOWED_ORIGIN": "https://react-router-hono-fullstack-template.executar-rotina-8b7.workers.dev"
+	},
+	"kv_namespaces": [
+		{
+			"binding": "AUTH_STORAGE",
+			"id": "3cae01e853154d62acd06d5e3be4664e"
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "AUTH_DB",
+			"database_name": "hub-auth-db",
+			"database_id": "12ace2c0-2d3f-4f6a-ac07-748af5a39ea7",
+			"migrations_dir": "migrations"
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
+}
