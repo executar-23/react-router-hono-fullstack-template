@@ -1,0 +1,48 @@
+:root {
+ --flow-node-h:58px; --flow-node-expanded-min-h:180px;
+ --flow-radius-sm:8px; --flow-radius-md:12px; --flow-radius-lg:16px;
+ --flow-gap-xs:8px; --flow-gap-sm:12px; --flow-gap-md:20px; --flow-gap-lg:32px;
+ --flow-node-gap-y:20px; --flow-column-gap:80px;
+ --flow-padding-node-x:18px; --flow-padding-node-y:14px;
+ --flow-bg:#fff; --flow-canvas-bg:#fdfdfd; --flow-text:#202020;
+ --flow-text-secondary:#6f6f6f; --flow-text-muted:#8a8a8a;
+ --flow-border:#d8d8d8; --flow-divider:#e5e5e5;
+ --flow-connector:#9c9c9c; --flow-connector-width:2px;
+ --flow-badge-bg:#d3d3d3; --flow-badge-text:#626262;
+ --flow-active:#178cff; --flow-success:#00a67d;
+ --flow-shadow:0 1px 2px rgb(0 0 0 / 7%),0 2px 5px rgb(0 0 0 / 4%);
+ --flow-font:system-ui,-apple-system,sans-serif;
+ --flow-title-size:16px; --flow-body-size:15px; --flow-meta-size:14px;
+ --flow-title-weight:500; --flow-body-weight:400; --flow-badge-weight:600;
+}
+.canvas {overflow:auto; overscroll-behavior:contain; touch-action:pan-x pan-y; background:var(--flow-canvas-bg); border:1px solid var(--flow-border); border-radius:var(--flow-radius-md); min-height:360px; height:clamp(360px,65vh,750px); position:relative; cursor:grab; scrollbar-gutter:stable}
+.graphstage {position:relative; min-width:100%; min-height:100%}
+.graph-inner {position:absolute;transform-origin:top left}
+.edges-layer {position:absolute;inset:0;pointer-events:none;overflow:visible}
+.flow-edge {stroke:var(--flow-connector);stroke-width:var(--flow-connector-width);fill:none;stroke-linecap:round;stroke-linejoin:round}
+.flow-edge.dependency {stroke:#0a6fdb}
+.flow-junction {fill:var(--flow-connector)} .flow-junction.dependency {fill:#0a6fdb}
+.flow-column-label {position:absolute;top:16px;font:500 12px var(--flow-font);color:var(--flow-text-secondary);text-transform:uppercase;letter-spacing:.07em}
+[data-component="FlowColumn"] {position:absolute;top:0;width:300px}
+.flow-node {position:absolute;width:300px;min-height:var(--flow-node-h);background:var(--flow-bg);border:1px solid var(--flow-border);border-radius:var(--flow-radius-md);box-shadow:var(--flow-shadow);color:var(--flow-text);font-family:var(--flow-font);cursor:default;overflow:hidden}
+.flow-node:hover {border-color:#a1a1a1}
+.flow-node.selected {border-color:var(--flow-active);box-shadow:0 0 0 2px rgb(23 140 255 / 15%)}
+.flow-node[data-status="BLOCKED"] .status-dot {background:#8a5a00}
+.flow-node[data-status="DECLARED_DONE"] .status-dot,.flow-node[data-status="VERIFIED"] .status-dot {background:var(--flow-success)}
+.flow-node[data-status="NOT_READY"] {opacity:.6}
+.flow-node-header {display:flex;align-items:center;gap:8px;padding:8px 12px;min-height:58px}
+.node-title {font-size:var(--flow-title-size);font-weight:var(--flow-title-weight);line-height:20px;flex:1;min-width:0;text-align:left;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;border:0;background:none;padding:0;min-height:40px;color:inherit}
+.flow-node.expanded .node-title {-webkit-line-clamp:unset}
+.node-chevron {flex:none;border:0;background:transparent;padding:0;min-width:32px;min-height:40px;font-size:20px;color:var(--flow-text-secondary)}
+.count-badge {border-radius:6px;background:var(--flow-badge-bg);color:var(--flow-badge-text);font-size:12px;font-weight:var(--flow-badge-weight);padding:2px 5px}
+.status-dot {width:7px;height:7px;border-radius:100%;background:var(--flow-active);flex:none}
+.node-body {padding:0 var(--flow-padding-node-x) var(--flow-padding-node-y);font-size:var(--flow-body-size);display:grid;gap:12px}
+.node-body .badge {justify-self:start;max-width:100%;font-size:12px}
+.node-body p {margin:0;font-size:var(--flow-meta-size);line-height:1.5;color:var(--flow-text-secondary);overflow-wrap:anywhere}
+.node-actions {display:flex;gap:8px;border-top:1px solid var(--flow-divider);padding-top:12px}
+.node-actions button {flex:1;font-size:13px;padding:4px 8px;min-height:36px}
+.collapse-handle {width:100%;border:0;border-top:1px solid var(--flow-divider);border-radius:0;padding:6px;color:var(--flow-text-secondary);font-size:12px;min-height:36px}
+.flow-node.primary {border-top:3px solid var(--flow-active)}
+.flow-empty {padding:24px;margin:0;color:var(--flow-text-secondary);font-size:14px;position:absolute;top:300px;width:300px}
+.graph-hint {font-size:13px;color:var(--muted-foreground);margin:8px 0 0}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}

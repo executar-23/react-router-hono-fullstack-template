@@ -211,3 +211,7 @@ dist
 dist-preview/
 __pycache__/
 
+
+# Browser QA only
+.qa-runtime/
+qa-results/

@@ -1,1 +1,25 @@
-{"id":"./","name":"EXECUTAR · Produção editorial","short_name":"EXECUTAR","lang":"pt-BR","start_url":"./index.html","scope":"./","display":"standalone","background_color":"#F4F5F6","theme_color":"#2563EB","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},{"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}
+{
+  "id": "./",
+  "name": "EXECUTAR · Produção editorial",
+  "short_name": "EXECUTAR",
+  "lang": "pt-BR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

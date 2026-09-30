@@ -1,0 +1,494 @@
+{
+  "sourceRepository": "executar-23/Risco-cognitivo-blog",
+  "sourceCommit": "11f78e42a9c10df077b50c169b05ec4da7718f68",
+  "files": [
+    {
+      "source": "public/fonts/dm-sans/DMSans-Bold.ttf",
+      "dest": "public/fonts/dm-sans/DMSans-Bold.ttf",
+      "sha": "9864c2f552f85bedffa791e659e3f027050d8722",
+      "size": 56368,
+      "same": true
+    },
+    {
+      "source": "public/fonts/dm-sans/DMSans-Medium.ttf",
+      "dest": "public/fonts/dm-sans/DMSans-Medium.ttf",
+      "sha": "fc8a5ebd85506a29b33d040042d3e27bba3ad8d1",
+      "size": 73300,
+      "same": true
+    },
+    {
+      "source": "public/fonts/dm-sans/DMSans-Regular.ttf",
+      "dest": "public/fonts/dm-sans/DMSans-Regular.ttf",
+      "sha": "40c9bfd60a545793cc5205294913a82d0d2a8416",
+      "size": 73524,
+      "same": true
+    },
+    {
+      "source": "public/fonts/dm-sans/DMSans-SemiBold.ttf",
+      "dest": "public/fonts/dm-sans/DMSans-SemiBold.ttf",
+      "sha": "019f9a6d7d4301587ba638d733cc55495c2f2fd0",
+      "size": 56368,
+      "same": true
+    },
+    {
+      "source": "src/components/plain/AsciiDiagram.css",
+      "dest": "app/components/plain/AsciiDiagram.css",
+      "sha": "12d544ef90c8a8dada1e9cb67cddd257ff69cf5c",
+      "size": 871,
+      "same": true
+    },
+    {
+      "source": "src/components/plain/AsciiDiagram.tsx",
+      "dest": "app/components/plain/AsciiDiagram.tsx",
+      "sha": "82daa2d62dc4886549a781c439809a4d6df0bd1d",
+      "size": 2009,
+      "same": true
+    },
+    {
+      "source": "src/components/plain/CopyButton.tsx",
+      "dest": "app/components/plain/CopyButton.tsx",
+      "sha": "084b6eb9bef4710d9de1059f27bd9837cbe992dc",
+      "size": 503,
+      "same": true
+    },
+    {
+      "source": "src/components/plain/PlainSurface.css",
+      "dest": "app/components/plain/PlainSurface.css",
+      "sha": "581a7ab155a9cc3932fedbfc8821b3390ed71466",
+      "size": 3039,
+      "same": true
+    },
+    {
+      "source": "src/components/plain/PlainSurface.tsx",
+      "dest": "app/components/plain/PlainSurface.tsx",
+      "sha": "3528f1897b90452e9f238d018a3f317efa102d28",
+      "size": 2273,
+      "same": true
+    },
+    {
+      "source": "src/components/plain/PlainTextPanel.css",
+      "dest": "app/components/plain/PlainTextPanel.css",
+      "sha": "29581db8de298ceb1b60f513ee3a2272e3625a15",
+      "size": 542,
+      "same": true
+    },
+    {
+      "source": "src/components/plain/PlainTextPanel.tsx",
+      "dest": "app/components/plain/PlainTextPanel.tsx",
+      "sha": "7cef6a51275334ae0f657f6c52220db1e5a2d3ab",
+      "size": 1570,
+      "same": true
+    },
+    {
+      "source": "src/components/plain/index.ts",
+      "dest": "app/components/plain/index.ts",
+      "sha": "b1d68c708d5d76a9706fd741c4649701e592cee8",
+      "size": 466,
+      "same": true
+    },
+    {
+      "source": "src/components/plain/plain.types.ts",
+      "dest": "app/components/plain/plain.types.ts",
+      "sha": "a5c45b5dd8d9affa4eb90c1fd714f72960928cf0",
+      "size": 1235,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/accordion.tsx",
+      "dest": "app/components/ui/accordion.tsx",
+      "sha": "d21b65f7a5c153c673c25e2851e429275f55c400",
+      "size": 2039,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/alert-dialog.tsx",
+      "dest": "app/components/ui/alert-dialog.tsx",
+      "sha": "935eecf3f1453d5e4674b79c722cc49eaa1c3b2c",
+      "size": 3850,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/alert.tsx",
+      "dest": "app/components/ui/alert.tsx",
+      "sha": "14213546e5ac051dd33c8359f261f9f76051d66f",
+      "size": 1614,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/aspect-ratio.tsx",
+      "dest": "app/components/ui/aspect-ratio.tsx",
+      "sha": "3df3fd02a6a30b60b6e1474664065b0d3437bf48",
+      "size": 280,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/avatar.tsx",
+      "dest": "app/components/ui/avatar.tsx",
+      "sha": "b7224f001c6936de3a05a469a37bd13d4e8dd870",
+      "size": 1083,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/badge.tsx",
+      "dest": "app/components/ui/badge.tsx",
+      "sha": "02054139a9a72f2ce2c4defd14861b4129312950",
+      "size": 1631,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/breadcrumb.tsx",
+      "dest": "app/components/ui/breadcrumb.tsx",
+      "sha": "eb88f32122082ae2dac61dd033939459215347f4",
+      "size": 2357,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/button-group.tsx",
+      "dest": "app/components/ui/button-group.tsx",
+      "sha": "8600af03eabb4dbef01dbf618fda5dfe96464b82",
+      "size": 2209,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/button.tsx",
+      "dest": "app/components/ui/button.tsx",
+      "sha": "21409a0666890b99eda16fb2be1c2ddc60d8baae",
+      "size": 2142,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/calendar.tsx",
+      "dest": "app/components/ui/calendar.tsx",
+      "sha": "4d7c46afb52b047267c94d60b1a16ed5d3d2400b",
+      "size": 7660,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/callout-registry.ts",
+      "dest": "app/components/ui/callout-registry.ts",
+      "sha": "7894fd8d71424d6e32dde468c9523c6fe8b0e616",
+      "size": 2945,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/callout.tsx",
+      "dest": "app/components/ui/callout.tsx",
+      "sha": "5b9b9c5d5cb82cce3bdcd39aae19561b86698f24",
+      "size": 9854,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/card.tsx",
+      "dest": "app/components/ui/card.tsx",
+      "sha": "681ad980f27a34dd3d4ba08c7614ce1f7c006143",
+      "size": 1987,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/carousel.tsx",
+      "dest": "app/components/ui/carousel.tsx",
+      "sha": "71cff4c91ef2ec4b67e6bd36e3a1f86064c545c0",
+      "size": 5542,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/chart.tsx",
+      "dest": "app/components/ui/chart.tsx",
+      "sha": "8b42f2109667ebb5755b55b250eb43ca9411b02a",
+      "size": 10069,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/checkbox.tsx",
+      "dest": "app/components/ui/checkbox.tsx",
+      "sha": "cb0b07b4680d227019516331d19cbd56d91c4d36",
+      "size": 1219,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/collapsible.tsx",
+      "dest": "app/components/ui/collapsible.tsx",
+      "sha": "77f86bedad365cfe9d8fe4877628478e4e55d746",
+      "size": 786,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/command.tsx",
+      "dest": "app/components/ui/command.tsx",
+      "sha": "e5bd56bbd20ddc599508c6129871063908ccc22f",
+      "size": 4804,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/context-menu.tsx",
+      "dest": "app/components/ui/context-menu.tsx",
+      "sha": "f024a9ce29f90673d6c3af2e03229ba6d83a850e",
+      "size": 8274,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/dialog.tsx",
+      "dest": "app/components/ui/dialog.tsx",
+      "sha": "6cb123b385417dc8a589ad9c8e3c5ec9f4efd79c",
+      "size": 3968,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/drawer.tsx",
+      "dest": "app/components/ui/drawer.tsx",
+      "sha": "8aa69230a087be1fb8efe2067d1cf793de87acd4",
+      "size": 4255,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/dropdown-menu.tsx",
+      "dest": "app/components/ui/dropdown-menu.tsx",
+      "sha": "eaed9baffa5f42d6a253d14e66aee9446ee91d7e",
+      "size": 8410,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/empty.tsx",
+      "dest": "app/components/ui/empty.tsx",
+      "sha": "df91e9d802c9143fd129a21b86eef08f5d53ea2f",
+      "size": 2396,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/field.tsx",
+      "dest": "app/components/ui/field.tsx",
+      "sha": "bd6d4281264fd273fe83007eb44051eea71de56e",
+      "size": 6018,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/form.tsx",
+      "dest": "app/components/ui/form.tsx",
+      "sha": "524b986b3ceea3e50204597e5ad38d04f93ffb5d",
+      "size": 3759,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/hover-card.tsx",
+      "dest": "app/components/ui/hover-card.tsx",
+      "sha": "e7541864c7dee7bf024ad96e7b6d0234e0b49f8b",
+      "size": 1532,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/input-group.tsx",
+      "dest": "app/components/ui/input-group.tsx",
+      "sha": "3d1f9d9238a867cbf61c474e31c965b246531929",
+      "size": 5065,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/input-otp.tsx",
+      "dest": "app/components/ui/input-otp.tsx",
+      "sha": "3101752858e651ef71a8fad3d7ea576480918d44",
+      "size": 2240,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/input.tsx",
+      "dest": "app/components/ui/input.tsx",
+      "sha": "89169058d054c972608ac3115cc655f267eedaa9",
+      "size": 962,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/item.tsx",
+      "dest": "app/components/ui/item.tsx",
+      "sha": "d97de21e260464e25dfe5e1e05317adc268b35a4",
+      "size": 4494,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/kbd.tsx",
+      "dest": "app/components/ui/kbd.tsx",
+      "sha": "253c69f3dbcbd8a0015938fbd346372a4058d8c1",
+      "size": 862,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/label.tsx",
+      "dest": "app/components/ui/label.tsx",
+      "sha": "fb5fbc3eee891a5c118bb00fd153273c16959c9e",
+      "size": 611,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/menubar.tsx",
+      "dest": "app/components/ui/menubar.tsx",
+      "sha": "cb45a86e1d83b2e49e2a9a220f8227ec89f3b2f8",
+      "size": 8380,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/navigation-menu.tsx",
+      "dest": "app/components/ui/navigation-menu.tsx",
+      "sha": "1199945c49485cc3fb9f86c0372ac550fe01cce5",
+      "size": 6664,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/pagination.tsx",
+      "dest": "app/components/ui/pagination.tsx",
+      "sha": "0d185410e7bbf2a1326d7af4b55f1b4b8e14d16a",
+      "size": 2712,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/popover.tsx",
+      "dest": "app/components/ui/popover.tsx",
+      "sha": "01e468b6783992d04775aa52376221b8fa4b0f95",
+      "size": 1635,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/progress.tsx",
+      "dest": "app/components/ui/progress.tsx",
+      "sha": "10af7e63408f4fd5722e748bbb3a711a2dd0523e",
+      "size": 726,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/radio-group.tsx",
+      "dest": "app/components/ui/radio-group.tsx",
+      "sha": "5e6778cb48d88b52f09ef333e1dd5df7c30f72d2",
+      "size": 1466,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/resizable.tsx",
+      "dest": "app/components/ui/resizable.tsx",
+      "sha": "fe0ebbdea8501cb57975939bc03020370da6347a",
+      "size": 2014,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/scroll-area.tsx",
+      "dest": "app/components/ui/scroll-area.tsx",
+      "sha": "8e4fa13f668a62de3a4b8eaebf23eba1b0421e7d",
+      "size": 1645,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/select.tsx",
+      "dest": "app/components/ui/select.tsx",
+      "sha": "d34798fafea1f948f09e7767766247d51d7a1796",
+      "size": 6281,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/separator.tsx",
+      "dest": "app/components/ui/separator.tsx",
+      "sha": "275381cab0adbc778ea634e7c46fbf80db821bf3",
+      "size": 699,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/sheet.tsx",
+      "dest": "app/components/ui/sheet.tsx",
+      "sha": "6906f5b2b1d6f6e1f4e699e369cb967d9eef9c64",
+      "size": 4076,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/sidebar.tsx",
+      "dest": "app/components/ui/sidebar.tsx",
+      "sha": "1ee5a457ea2b67b750e93d6be8311c7645a5cc6f",
+      "size": 21633,
+      "same": false
+    },
+    {
+      "source": "src/components/ui/skeleton.tsx",
+      "dest": "app/components/ui/skeleton.tsx",
+      "sha": "32ea0ef7fb4d4f7cb0affa7a3b329533b5f2af23",
+      "size": 276,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/slider.tsx",
+      "dest": "app/components/ui/slider.tsx",
+      "sha": "1a1bd735a27f86d75f86585f6674f1244ac4f7ab",
+      "size": 1996,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/spinner.tsx",
+      "dest": "app/components/ui/spinner.tsx",
+      "sha": "a70e713c5b4ecb2af186efe3fadea51805f26ba5",
+      "size": 331,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/switch.tsx",
+      "dest": "app/components/ui/switch.tsx",
+      "sha": "6a2b5241d8c0b3df98dec769e9999df4978975bf",
+      "size": 1177,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/table.tsx",
+      "dest": "app/components/ui/table.tsx",
+      "sha": "d7239470f84424f6617645c1803b090171b629dc",
+      "size": 2078,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/tabs.tsx",
+      "dest": "app/components/ui/tabs.tsx",
+      "sha": "497ba5ea34247f6843e0c58ccd7da61b7c8edb46",
+      "size": 1969,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/textarea.tsx",
+      "dest": "app/components/ui/textarea.tsx",
+      "sha": "7f21b5e78a4c1c23bf41b6be206f3f81dc84fe99",
+      "size": 759,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/toggle-group.tsx",
+      "dest": "app/components/ui/toggle-group.tsx",
+      "sha": "5efb7baf99e80ff8d1c98c6d4e6ec8ce7bb6855e",
+      "size": 1911,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/toggle.tsx",
+      "dest": "app/components/ui/toggle.tsx",
+      "sha": "b9662212c3c3edc6657e4d06d3dd54c6db1c0438",
+      "size": 1556,
+      "same": true
+    },
+    {
+      "source": "src/components/ui/tooltip.tsx",
+      "dest": "app/components/ui/tooltip.tsx",
+      "sha": "a4e90d4e9afdf42949ac9a3d231ac176350f192e",
+      "size": 1892,
+      "same": true
+    },
+    {
+      "source": "src/lib/utils.ts",
+      "dest": "app/lib/utils.ts",
+      "sha": "a5ef193506d07d0459fec4f187af08283094d7c8",
+      "size": 169,
+      "same": true
+    },
+    {
+      "source": "src/styles/global.css",
+      "dest": "app/app.css",
+      "sha": "3aacda4d4b2fc98af7b0a4c21523776665141bc0",
+      "size": 23433,
+      "same": true
+    }
+  ],
+  "adaptations": [
+    "sidebar.tsx: type-only VariantProps import for verbatimModuleSyntax",
+    "Static adapter: UI tokens + native HTML controls; no React/Tailwind runtime required"
+  ],
+  "identity": "DESIGN-HANDOFF-001 / DM Sans"
+}

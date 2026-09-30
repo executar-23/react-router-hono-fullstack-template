@@ -1,3 +1,4 @@
+import { previewAssets } from './preview-assets.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -5,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const output = join(root, 'dist-preview');
-const expected = ['_headers', 'index.html', ...['index.html', 'sw.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'graph.json', 'source-metadata.json'].map(name => `executar-editorial/${name}`)].sort();
+const expected = ['_headers', 'index.html', ...previewAssets.map(name => `executar-editorial/${name}`)].sort();
 function list(dir, prefix = '') {
   return readdirSync(dir, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? list(join(dir, entry.name), `${prefix}${entry.name}/`) : [`${prefix}${entry.name}`]);
 }

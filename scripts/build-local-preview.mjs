@@ -1,3 +1,5 @@
+import './assemble-editorial.mjs';
+import { previewAssets } from './preview-assets.mjs';
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
@@ -6,7 +8,7 @@ import { join } from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const source = join(root, 'public/executar-editorial');
 const output = join(root, 'dist-preview');
-const required = ['index.html', 'sw.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'graph.json', 'source-metadata.json'];
+const required = previewAssets;
 for (const file of required) {
   if (!existsSync(join(source, file))) throw new Error(`Arquivo ausente: ${file}`);
 }
@@ -23,7 +25,7 @@ if (!cachePattern.test(sw)) throw new Error('Marcador de cache do service worker
 
 rmSync(output, { recursive: true, force: true });
 mkdirSync(join(output, 'executar-editorial'), { recursive: true });
-for (const file of required) cpSync(join(source, file), join(output, 'executar-editorial', file));
+for (const file of required) { const dest = join(output, 'executar-editorial', file); mkdirSync(join(dest, '..'), {recursive:true}); cpSync(join(source, file), dest); }
 writeFileSync(join(output, 'executar-editorial/sw.js'), sw.replace(cachePattern, `const CACHE='executar-editorial-${release}'`));
 writeFileSync(join(output, 'index.html'), '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./executar-editorial/index.html"><title>EXECUTAR · Preview local</title></head><body><a href="./executar-editorial/index.html">Abrir EXECUTAR</a></body></html>');
 writeFileSync(join(output, '_headers'), `/\n  Cache-Control: no-cache\n/index.html\n  Cache-Control: no-cache\n/executar-editorial/\n  Cache-Control: no-cache\n/executar-editorial/index.html\n  Cache-Control: no-cache\n/executar-editorial/sw.js\n  Cache-Control: no-cache\n/executar-editorial/manifest.webmanifest\n  Cache-Control: no-cache\n`);

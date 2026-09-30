@@ -1,6 +1,5 @@
-/* global self, caches, fetch, Response */
 const CACHE='executar-editorial-1.0.0';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+const ASSETS=["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./graph.json", "./source-metadata.json", "./ui/blog-ui.css", "./ui/flow.css", "./ui/flow.js", "./fonts/dm-sans/DMSans-Regular.ttf", "./fonts/dm-sans/DMSans-Medium.ttf", "./fonts/dm-sans/DMSans-SemiBold.ttf", "./fonts/dm-sans/DMSans-Bold.ttf"];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('executar-editorial-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{if(event.request.method!=='GET'||new URL(event.request.url).origin!==self.location.origin)return;event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{if(response.ok){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy))}return response}).catch(()=>event.request.mode==='navigate'?caches.match('./index.html'):Response.error())))});
