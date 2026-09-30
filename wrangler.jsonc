@@ -35,6 +35,16 @@
 		}
 	],
 	"previews": {
+		// Previews usam um D1 de staging próprio (nunca o de produção). Migrações:
+		// wrangler d1 migrations apply DB --remote --config wrangler.preview-migrations.jsonc
+		// O Workflow só pode ser ligado a um Workflow já existente (após o 1º deploy de produção).
+		"d1_databases": [
+			{
+				"binding": "DB",
+				"database_name": "hub-editorial-db-preview",
+				"database_id": "4266dc35-c9f3-4f4e-83a8-8468f8da4478"
+			}
+		],
 		"vars": {
 			"ENVIRONMENT": "preview",
 			"ALLOWED_ORIGIN": "REPLACE_IN_PREVIEW",

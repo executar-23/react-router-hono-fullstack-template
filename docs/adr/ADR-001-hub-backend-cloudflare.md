@@ -104,4 +104,5 @@ da Cloudflare em `hub-editorial-auth` (POST de pedido de código) para evitar e-
 
 ## 11. Recursos criados na conta Cloudflare
 D1 `hub-editorial-db` (`e1e1d9c4-3ff3-4055-bd11-0613b93ca2fe`, schema aplicado), D1 `hub-auth-db` (`12ace2c0-2d3f-4f6a-ac07-748af5a39ea7`, schema aplicado),
-KV `hub-auth-storage` (`3cae01e853154d62acd06d5e3be4664e`). Nenhum recurso existente foi alterado.
+KV `hub-auth-storage` (`3cae01e853154d62acd06d5e3be4664e`), D1 `hub-editorial-db-preview` (`4266dc35-c9f3-4f4e-83a8-8468f8da4478`, staging só para previews; `npm run db:migrate:preview`). Nenhum recurso existente foi alterado.
+Previews não têm o binding do Workflow (só pode apontar para um Workflow já existente, isto é, depois do 1º deploy de produção); `POST /api/workflows/publish` responde 503 no preview.

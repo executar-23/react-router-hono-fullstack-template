@@ -96,6 +96,7 @@
 		"check:env": "node scripts/check-env.mjs",
 		"db:migrate:auth:remote": "wrangler d1 migrations apply AUTH_DB --remote -c auth/wrangler.jsonc",
 		"db:migrate:local": "wrangler d1 migrations apply DB --local",
+		"db:migrate:preview": "wrangler d1 migrations apply DB --remote --config wrangler.preview-migrations.jsonc",
 		"db:migrate:remote": "wrangler d1 migrations apply DB --remote",
 		"db:seed:generate": "node scripts/generate-seed.mjs",
 		"db:seed:local": "wrangler d1 execute DB --local --file db/seed.sql",
