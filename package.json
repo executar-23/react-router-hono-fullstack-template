@@ -106,9 +106,11 @@
 		"dev": "react-router dev",
 		"dev:auth": "wrangler dev -c auth/wrangler.jsonc --port 8788",
 		"lint": "eslint . --max-warnings 0",
+		"plan:generate": "node scripts/generate-execution-plan.mjs",
 		"preview": "npm run build && vite preview",
 		"test": "vitest run",
 		"typecheck": "npm run cf-typegen && react-router typegen && tsc -b",
+		"validate:state": "node scripts/validate-execution-state.mjs",
 		"validate:workflow": "node scripts/validate-workflow.mjs"
 	},
 	"type": "module"

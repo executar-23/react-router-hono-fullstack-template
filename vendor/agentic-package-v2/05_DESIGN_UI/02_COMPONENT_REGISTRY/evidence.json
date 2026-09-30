@@ -1,0 +1,46 @@
+{
+  "source": "Briefing do usuário e imagens exibidas na conversa em 2026-09-30",
+  "references": [
+    {
+      "id": "REF-01",
+      "file": "IMG_3533.jpeg",
+      "library_file_id": "libfile_975dd5e93ec88191a4df9fb915b269b9",
+      "purpose": "Cards operacionais e conexões — Cloudflare",
+      "sha256": "fbc8d583656ff493949b0f579cdeec0ab759aeea7268c69b4c6bb73313f22858"
+    },
+    {
+      "id": "REF-02",
+      "file": "IMG_3522(2).png",
+      "library_file_id": "libfile_e32945d890a4819197a13f5af8a27025",
+      "purpose": "Xmind — direção cromática, não tokens oficiais",
+      "sha256": "33c5d12c784265a9d6123ddd4bd1447d099b3a9464bc4565244c81080fa94930"
+    },
+    {
+      "id": "REF-03",
+      "file": "IMG_3519.jpeg",
+      "library_file_id": "libfile_df12f27a6fa0819180351ee37f9c4182",
+      "purpose": "Modelo editorial de relatório",
+      "sha256": "72f1371c90396b79932d9503e75ba2bc9a605bd82c034b7a0fad725bd5c1d4d2"
+    },
+    {
+      "id": "REF-04",
+      "file": "IMG_3520(1).jpeg",
+      "library_file_id": "libfile_328d91f00c808191a217fd8c3bd88dc3",
+      "purpose": "Wireframe de fluxo MCP",
+      "sha256": "dd7ec494c2d60e0dbfebba8dbe3eb4dea883617dd29f4a8f7a7d4b4cfc84d04a"
+    },
+    {
+      "id": "REF-05",
+      "file": "IMG_3521(1).jpeg",
+      "library_file_id": "libfile_f060d54ce3448191b1cc7ed00f39a0e5",
+      "purpose": "Wireframe principal de ramos e cards",
+      "sha256": "b8abac7cc0298f799a7de9812a022270eb2fe03e0169f8900eb9df40d94a0f3d"
+    }
+  ],
+  "limits": [
+    "Não auditado código do aplicativo",
+    "Sem especificações extraídas de Figma",
+    "Nenhum teste visual de implementação realizado",
+    "Nenhum deploy realizado"
+  ]
+}

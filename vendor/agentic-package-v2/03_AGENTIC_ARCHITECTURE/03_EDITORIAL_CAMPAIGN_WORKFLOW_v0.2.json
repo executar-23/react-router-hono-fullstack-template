@@ -1,0 +1,915 @@
+{
+  "metadata": {
+    "id": "EDITORIAL-PRODUCTION-WORKFLOW-001",
+    "version": "0.2.0",
+    "area": "Linha de Producao Editorial",
+    "workflow": "Campanha Editorial Multiplataforma",
+    "owner": "A_DEFINIR",
+    "status": "DRAFT_READY_FOR_MODELING",
+    "automation_level_target": "A4",
+    "language": "pt-BR"
+  },
+  "context": {
+    "scenario": "Linha de producao editorial orientada por campanha, com Creator Humano, CLP Orchestrator, subagentes, skills, geracao de assets, video, publicacao e acompanhamento de analytics.",
+    "problem": "Transformar um pilar estrategico em uma campanha editorial completa, rastreavel, distribuida em multiplos formatos e acompanhada por analytics.",
+    "current_state": "Fluxo conceitual definido pelo Creator Humano. Schemas, alguns agentes, algumas rotas e integracoes ainda precisam ser formalizados.",
+    "expected_result": "Executar de ponta a ponta uma campanha editorial, desde o pilar estrategico ate distribuicao multiplataforma, monitoramento e registro de desempenho."
+  },
+  "actors": {
+    "creator_human": {
+      "actor_id": "ACT-LEO-001",
+      "name": "Leo",
+      "role": "Creator Humano",
+      "responsibilities": [
+        "Definir o pilar estrategico da campanha",
+        "Analisar a pesquisa inicial",
+        "Escrever a peca-mae textual",
+        "Definir a taxonomia e os topicos do artigo",
+        "Criar o storyboard",
+        "Separar termos tecnicos para Quick Frameworks",
+        "Definir copy de assets",
+        "Definir CTAs",
+        "Revisar imagens e declarar OK",
+        "Revisar pecas finais",
+        "Solicitar correcoes quando necessario",
+        "Validar a campanha antes da distribuicao"
+      ]
+    },
+    "orchestrator": {
+      "actor_id": "AGT-CLP-001",
+      "name": "CLP",
+      "role": "Orchestrator Principal",
+      "responsibilities": [
+        "Receber triggers da plataforma",
+        "Aplicar schemas",
+        "Selecionar agentes e skills",
+        "Executar pesquisa ampla",
+        "Coletar artefatos produzidos",
+        "Aplicar workflows de conversao",
+        "Gerar contratos operacionais",
+        "Associar IDs",
+        "Controlar naming e armazenamento de assets",
+        "Subir assets aprovados para a plataforma",
+        "Controlar handoffs",
+        "Preparar distribuicao",
+        "Coletar analytics",
+        "Registrar evidencias"
+      ]
+    },
+    "subagents": {
+      "status": "PLACEHOLDER",
+      "rule": "Cada subagente deve possuir AREA, FUNCAO, INPUT, OUTPUT, SKILLS, TOOLS, PERMISSOES e HANDOFF definidos."
+    }
+  },
+  "core_entities": {
+    "campaign": "Campanha editorial",
+    "strategic_pillar": "Pilar estrategico",
+    "mother_piece": "Peca-mae textual",
+    "storyboard": "Storyboard principal",
+    "quick_frameworks": "Conteudos derivados de termos, conceitos e estruturas tecnicas",
+    "assets": "Materiais derivados para captura, distribuicao e conversao",
+    "cta": "Call to Action",
+    "operational_plan": "Plano operacional rastreavel",
+    "distribution_plan": "Plano multiplataforma",
+    "analytics_record": "Registro de desempenho"
+  },
+  "production_flow": [
+    {
+      "sequence": 0,
+      "stage_id": "STG-000",
+      "name": "DEFINE_STRATEGIC_PILLAR",
+      "primary_actor": "ACT-LEO-001",
+      "trigger": "Creator inicia uma nova campanha",
+      "input": [
+        "objetivo da campanha",
+        "direcao estrategica"
+      ],
+      "actions": [
+        "Definir pilar estrategico",
+        "Registrar pilar na plataforma"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0001",
+          "name": "Pilar Estrategico",
+          "format": "structured_record",
+          "required": true
+        }
+      ],
+      "done_when": "Pilar estrategico registrado e disponivel para o Orchestrator"
+    },
+    {
+      "sequence": 1,
+      "stage_id": "STG-010",
+      "name": "INITIAL_TRIGGER",
+      "primary_actor": "ACT-LEO-001",
+      "trigger": "Creator pressiona o botao de inicio na plataforma",
+      "actions": [
+        "Criar RUN_ID",
+        "Ativar CLP Orchestrator",
+        "Carregar pilar estrategico"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0010",
+          "name": "Campaign Run",
+          "format": "execution_record"
+        }
+      ],
+      "evidence_required": [
+        "run_id",
+        "timestamp",
+        "campaign_id"
+      ],
+      "done_when": "Orchestrator ativado com campanha e pilar corretos"
+    },
+    {
+      "sequence": 2,
+      "stage_id": "STG-020",
+      "name": "RESEARCH_SCHEMA_APPLICATION",
+      "primary_actor": "AGT-CLP-001",
+      "schema_id": "A_DEFINIR",
+      "actions": [
+        "Selecionar agente ou skill de pesquisa",
+        "Aplicar schema de coleta",
+        "Combinar conteudo inicial com pilar estrategico",
+        "Executar Wide Search",
+        "Estruturar resultados"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0020",
+          "name": "Mapa de Topicos, Argumentos e Dados",
+          "format": [
+            "Markdown",
+            "structured_data"
+          ],
+          "contains": [
+            "topicos",
+            "subtopicos",
+            "argumentos",
+            "fontes",
+            "evidencias",
+            "dados disponiveis",
+            "lacunas",
+            "perguntas de desenvolvimento"
+          ]
+        }
+      ],
+      "destination": "Plataforma editorial",
+      "done_when": "Pesquisa estruturada armazenada e disponivel para o Creator"
+    },
+    {
+      "sequence": 3,
+      "stage_id": "STG-030",
+      "name": "MOTHER_PIECE_AUTHORING",
+      "primary_actor": "ACT-LEO-001",
+      "input": [
+        "DLV-0020"
+      ],
+      "actions": [
+        "Analisar mapa de pesquisa",
+        "Escrever peca-mae",
+        "Definir todos os topicos",
+        "Definir taxonomia editorial",
+        "Construir DX do artigo"
+      ],
+      "constraints": [
+        "Dados quantitativos adicionais podem ser inseridos posteriormente"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0030",
+          "name": "Peca-Mae Textual",
+          "format": "Markdown",
+          "contains": [
+            "estrutura completa",
+            "topicos",
+            "subtopicos",
+            "argumentacao",
+            "taxonomia",
+            "texto principal"
+          ]
+        }
+      ],
+      "done_when": "Peca textual completa registrada"
+    },
+    {
+      "sequence": 4,
+      "stage_id": "STG-040",
+      "name": "STORYBOARD",
+      "primary_actor": "ACT-LEO-001",
+      "input": [
+        "DLV-0030"
+      ],
+      "actions": [
+        "Transformar peca textual em storyboard"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0040",
+          "name": "Storyboard",
+          "format": "structured_markdown"
+        }
+      ],
+      "done_when": "Storyboard registrado"
+    },
+    {
+      "sequence": 5,
+      "stage_id": "STG-050",
+      "name": "QUICK_FRAMEWORK_EXTRACTION",
+      "primary_actor": "ACT-LEO-001",
+      "input": [
+        "DLV-0030"
+      ],
+      "actions": [
+        "Identificar termos tecnicos",
+        "Identificar conceitos",
+        "Identificar modelos reutilizaveis",
+        "Separar entradas para Quick Frameworks"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0050",
+          "name": "Quick Framework Input Package",
+          "format": "structured_data"
+        }
+      ],
+      "workflow_reference": "WF-QUICK-FRAMEWORK-A_DEFINIR",
+      "done_when": "Todos os candidatos a Quick Framework registrados"
+    },
+    {
+      "sequence": 6,
+      "stage_id": "STG-060",
+      "name": "ASSET_AND_CTA_DEFINITION",
+      "primary_actor": "ACT-LEO-001",
+      "actions": [
+        "Definir copies",
+        "Definir CTAs",
+        "Definir derivados da campanha"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0060",
+          "name": "Asset and CTA Brief",
+          "format": "structured_data"
+        }
+      ],
+      "asset_classes": [
+        {
+          "asset_type": "HTML",
+          "target_quantity": "A_DEFINIR"
+        },
+        {
+          "asset_type": "Spreadsheet",
+          "target_quantity": 3
+        },
+        {
+          "asset_type": "PDF_or_Ebook",
+          "target_quantity": 3
+        },
+        {
+          "asset_type": "AI_Prompt",
+          "target_quantity": 3
+        },
+        {
+          "asset_type": "Script_or_Agent",
+          "target_quantity": 3
+        },
+        {
+          "asset_type": "Newsletter",
+          "target_quantity": 3
+        }
+      ],
+      "business_rule": "A campanha deve possuir pluralidade de formatos para distribuicao e reaproveitamento.",
+      "done_when": "Catalogo de assets e CTAs definido"
+    },
+    {
+      "sequence": 7,
+      "stage_id": "STG-070",
+      "name": "SECOND_PLATFORM_TRIGGER",
+      "primary_actor": "ACT-LEO-001",
+      "trigger": "Creator pressiona novamente o botao da plataforma",
+      "preconditions": [
+        "DLV-0030 complete",
+        "DLV-0040 complete",
+        "DLV-0050 complete",
+        "DLV-0060 complete"
+      ],
+      "actions": [
+        "Ativar CLP para fase de processamento e conversao"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0070",
+          "name": "Conversion Run",
+          "format": "execution_record"
+        }
+      ],
+      "done_when": "Novo RUN_ID ativo e inputs carregados"
+    },
+    {
+      "sequence": 8,
+      "stage_id": "STG-080",
+      "name": "CONTENT_CONVERSION",
+      "primary_actor": "AGT-CLP-001",
+      "input": [
+        "Peca-mae",
+        "Storyboard",
+        "Quick Framework Inputs",
+        "Asset and CTA Brief"
+      ],
+      "skills": [
+        {
+          "skill_id": "PPS01",
+          "status": "EXISTING_REFERENCE"
+        },
+        {
+          "skill_id": "PPS02",
+          "status": "EXISTING_REFERENCE"
+        },
+        {
+          "skill_id": "PPS03",
+          "status": "EXISTING_REFERENCE"
+        },
+        {
+          "skill_id": "SKL-STORE-TDH",
+          "name": "Store Loja TDH"
+        },
+        {
+          "skill_id": "SKL-QUICK-FRAMEWORKS",
+          "name": "Quick Frameworks"
+        },
+        {
+          "skill_id": "SKL-ASSETS-CTA",
+          "name": "Assets e CTAs"
+        },
+        {
+          "skill_id": "SKL-FRANKS-WATCHING-EDITOR",
+          "name": "Frank's Watching Editor"
+        }
+      ],
+      "working_formats": [
+        "YAML",
+        "MDX",
+        "CSV",
+        "code"
+      ],
+      "rendering_required": false,
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0080",
+          "name": "Converted Content Package",
+          "format": "multi_artifact_package"
+        }
+      ],
+      "done_when": "Todos os workflows aplicaveis executados"
+    },
+    {
+      "sequence": 9,
+      "stage_id": "STG-090",
+      "name": "TRACEABLE_OPERATIONAL_PLAN",
+      "primary_actor": "AGT-CLP-001",
+      "skill": "Plano Operacional Rastreavel",
+      "actions": [
+        "Coletar todos os insumos",
+        "Aplicar workflow operacional",
+        "Mapear plataformas",
+        "Mapear formatos",
+        "Associar IDs",
+        "Definir frames",
+        "Definir videos",
+        "Definir derivados",
+        "Definir distribuicao",
+        "Calcular relacao entre formatos e tempo",
+        "Preparar inputs de geracao"
+      ],
+      "video_upgrade": {
+        "required": true,
+        "purpose": [
+          "planejar frames",
+          "planejar duracoes",
+          "sincronizar formatos",
+          "preparar video principal e derivados"
+        ]
+      },
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0090",
+          "name": "Operational Production CSV",
+          "format": "CSV",
+          "contains": [
+            "task_id",
+            "asset_id",
+            "campaign_id",
+            "content_id",
+            "platform",
+            "format",
+            "frame_id",
+            "video_id",
+            "route",
+            "prompt_reference",
+            "visual_identity_reference",
+            "dependency",
+            "status",
+            "evidence"
+          ]
+        }
+      ],
+      "done_when": "CSV valido, IDs atribuidos e producao planejada"
+    },
+    {
+      "sequence": 10,
+      "stage_id": "STG-100",
+      "name": "VISUAL_GENERATION",
+      "primary_actor": "A_DEFINIR",
+      "human_reviewer": "ACT-LEO-001",
+      "input": [
+        "DLV-0090"
+      ],
+      "actions": [
+        "Gerar imagem por IA ou React",
+        "Visualizar imagem",
+        "Solicitar validacao humana"
+      ],
+      "state_machine": [
+        "PLANNED",
+        "GENERATED",
+        "REVIEW_PENDING",
+        "APPROVED",
+        "REJECTED",
+        "REVISION_REQUIRED",
+        "SAVED",
+        "UPLOADED",
+        "VERIFIED"
+      ],
+      "approval_command": "OK",
+      "on_approval": [
+        "Orchestrator associa asset_id correto",
+        "Salva arquivo com naming padronizado",
+        "Envia arquivo para plataforma",
+        "Associa asset a rota correta",
+        "Registra evidencia"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0100",
+          "name": "Approved Visual Asset Set",
+          "format": "image_assets"
+        }
+      ],
+      "done_when": "Todas as imagens obrigatorias aprovadas, identificadas e armazenadas"
+    },
+    {
+      "sequence": 11,
+      "stage_id": "STG-110",
+      "name": "ROUTE_ASSEMBLY",
+      "primary_actor": "AGT-CLP-001",
+      "actions": [
+        "Associar imagens aos artigos",
+        "Associar frames aos videos",
+        "Associar assets a loja",
+        "Associar HTMLs a suas rotas",
+        "Associar CTAs a suas rotas",
+        "Montar estrutura de campanha"
+      ],
+      "examples": {
+        "store": "Loja TDH",
+        "article": "rota editorial",
+        "quick_framework": "rota Quick Framework",
+        "asset": "rota de asset",
+        "cta": "rota de conversao"
+      },
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0110",
+          "name": "Campaign Route Map",
+          "format": "structured_manifest"
+        }
+      ],
+      "done_when": "Todos os assets associados a rotas validas"
+    },
+    {
+      "sequence": 12,
+      "stage_id": "STG-120",
+      "name": "VIDEO_PRODUCTION",
+      "primary_actor": "A_DEFINIR",
+      "tool_or_plugin": "A_DEFINIR",
+      "preconditions": [
+        "Visual assets approved",
+        "Storyboard approved",
+        "Operational CSV ready"
+      ],
+      "actions": [
+        "Gerar video principal",
+        "Usar identidade visual nos prompts",
+        "Usar storyboard",
+        "Usar frames planejados",
+        "Respeitar duracao planejada",
+        "Preparar cortes e derivados"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0120",
+          "name": "Master Video",
+          "format": "video"
+        },
+        {
+          "deliverable_id": "DLV-0121",
+          "name": "Video Derivatives",
+          "format": "multi_platform_video_set"
+        }
+      ],
+      "done_when": "Video principal e derivados produzidos e registrados"
+    },
+    {
+      "sequence": 13,
+      "stage_id": "STG-130",
+      "name": "PRODUCTION_BATCH",
+      "batch_reference": "IP-0101",
+      "status": "TERM_TO_BE_NORMALIZED",
+      "actions": [
+        "Executar lote de geracao",
+        "Registrar cada artefato",
+        "Associar evidencia",
+        "Atualizar CSV"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0130",
+          "name": "Completed Production Batch",
+          "format": "production_manifest"
+        }
+      ],
+      "done_when": "Todos os itens do lote possuem estado e evidencia"
+    },
+    {
+      "sequence": 14,
+      "stage_id": "STG-140",
+      "name": "HUMAN_FINAL_REVIEW",
+      "primary_actor": "ACT-LEO-001",
+      "actions": [
+        "Visualizar pecas prontas",
+        "Validar coerencia",
+        "Identificar correcoes",
+        "Aprovar ou solicitar revisao"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0140",
+          "name": "Final Creative Approval",
+          "format": "approval_record"
+        }
+      ],
+      "done_when": "Todas as pecas obrigatorias aprovadas"
+    },
+    {
+      "sequence": 15,
+      "stage_id": "STG-150",
+      "name": "MULTIPLATFORM_SCHEDULING",
+      "primary_actor": "AGT-CLP-001",
+      "automation_level": "A2_TO_A4",
+      "actions": [
+        "Quebrar conteudo matriz em derivados",
+        "Associar formato a plataforma",
+        "Associar data e horario",
+        "Agendar distribuicao"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0150",
+          "name": "Multiplatform Distribution Schedule",
+          "format": "structured_schedule"
+        }
+      ],
+      "done_when": "Todas as pecas distribuidas possuem destino e agenda"
+    },
+    {
+      "sequence": 16,
+      "stage_id": "STG-160",
+      "name": "CAMPAIGN_TRACKING_FORM",
+      "primary_actor": "AGT-CLP-001",
+      "actions": [
+        "Gerar formulario de acompanhamento",
+        "Listar todas as pecas",
+        "Listar todas as plataformas",
+        "Preparar campos de analytics"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0160",
+          "name": "Campaign Tracking Form",
+          "format": [
+            "printable",
+            "digital"
+          ]
+        }
+      ],
+      "fields": [
+        "asset_id",
+        "content_id",
+        "platform",
+        "publication_date",
+        "publication_url",
+        "views",
+        "reach",
+        "impressions",
+        "engagement",
+        "clicks",
+        "ctr",
+        "leads",
+        "conversions",
+        "revenue_if_applicable",
+        "notes"
+      ],
+      "done_when": "Formulario contem todas as pecas e canais"
+    },
+    {
+      "sequence": 17,
+      "stage_id": "STG-170",
+      "name": "ANALYTICS_COLLECTION",
+      "primary_actor": "AGT-CLP-001",
+      "actions": [
+        "Coletar analytics por plataforma",
+        "Relacionar analytics aos IDs",
+        "Enviar dados para plataforma",
+        "Enviar relatorio por email quando configurado",
+        "Preparar registro para workbook"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0170",
+          "name": "Campaign Analytics Dataset",
+          "format": "structured_data"
+        },
+        {
+          "deliverable_id": "DLV-0171",
+          "name": "Analytics Report",
+          "format": "report"
+        }
+      ],
+      "manual_component": {
+        "actor": "ACT-LEO-001",
+        "action": "Registrar ou acompanhar resultados no workbook quando necessario"
+      },
+      "done_when": "Analytics relacionados a campaign_id, content_id e asset_id"
+    },
+    {
+      "sequence": 18,
+      "stage_id": "STG-180",
+      "name": "LEARNING_LOOP",
+      "primary_actor": "AGT-CLP-001",
+      "actions": [
+        "Consolidar resultados",
+        "Comparar formatos",
+        "Comparar plataformas",
+        "Registrar aprendizados",
+        "Identificar melhorias",
+        "Alimentar campanha seguinte"
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "DLV-0180",
+          "name": "Campaign Learning Record",
+          "format": "structured_record"
+        }
+      ],
+      "done_when": "Aprendizados vinculados a campanha e reutilizaveis"
+    }
+  ],
+  "deliverable_register": {
+    "tracking_required": true,
+    "rule": "Cada etapa deve produzir um entregavel ou evidencia de estado.",
+    "minimum_fields": [
+      "deliverable_id",
+      "campaign_id",
+      "run_id",
+      "stage_id",
+      "name",
+      "owner",
+      "status",
+      "created_at",
+      "verified_at",
+      "location",
+      "evidence"
+    ],
+    "statuses": [
+      "NOT_STARTED",
+      "IN_PROGRESS",
+      "PREPARED",
+      "REVIEW_PENDING",
+      "APPROVED",
+      "REJECTED",
+      "SUBMITTED",
+      "RELEASED",
+      "VERIFIED",
+      "BLOCKED"
+    ]
+  },
+  "id_architecture": {
+    "campaign_id": "CMP-XXXX",
+    "run_id": "RUN-XXXXXXXX",
+    "deliverable_id": "DLV-XXXX",
+    "content_id": "CNT-XXXX",
+    "article_id": "ART-XXXX",
+    "asset_id": "AST-XXXX",
+    "cta_id": "CTA-XXXX",
+    "quick_framework_id": "QF-XXXX",
+    "frame_id": "FRM-XXXX",
+    "video_id": "VID-XXXX",
+    "distribution_id": "DST-XXXX",
+    "analytics_id": "ANL-XXXX"
+  },
+  "traceability_chain": [
+    "CAMPAIGN",
+    "STRATEGIC_PILLAR",
+    "RESEARCH",
+    "TOPIC_MAP",
+    "MOTHER_PIECE",
+    "STORYBOARD",
+    "QUICK_FRAMEWORKS",
+    "ASSETS_AND_CTAS",
+    "CONVERSION",
+    "OPERATIONAL_CSV",
+    "VISUAL_ASSETS",
+    "ROUTES",
+    "MASTER_VIDEO",
+    "DERIVATIVES",
+    "HUMAN_APPROVAL",
+    "DISTRIBUTION",
+    "TRACKING",
+    "ANALYTICS",
+    "LEARNING"
+  ],
+  "platform_requirements": {
+    "button_1": {
+      "name": "Iniciar Pesquisa",
+      "effect": "Ativar pesquisa a partir do pilar estrategico"
+    },
+    "button_2": {
+      "name": "Processar Campanha",
+      "effect": "Ativar conversao, operacionalizacao e preparacao de producao"
+    },
+    "asset_approval_command": {
+      "command": "OK",
+      "effect": [
+        "aprovar asset",
+        "renomear por ID",
+        "salvar",
+        "upload",
+        "vincular a rota",
+        "registrar evidencia"
+      ]
+    },
+    "campaign_dashboard": {
+      "required": true,
+      "should_show": [
+        "etapa atual",
+        "entregaveis concluidos",
+        "entregaveis pendentes",
+        "bloqueios",
+        "assets",
+        "IDs",
+        "progresso",
+        "distribuicao",
+        "analytics"
+      ]
+    }
+  },
+  "first_app_mvp": {
+    "id": "APP-EDITORIAL-MVP-001",
+    "objective": "Testar o fluxo editorial completo em ambiente controlado.",
+    "minimum_scope": [
+      "Criar campanha",
+      "Definir pilar",
+      "Executar Wide Search",
+      "Armazenar mapa de topicos",
+      "Receber peca-mae",
+      "Receber storyboard",
+      "Receber Quick Framework inputs",
+      "Receber assets e CTAs",
+      "Executar segundo trigger",
+      "Aplicar skills",
+      "Gerar CSV operacional",
+      "Associar IDs",
+      "Registrar assets gerados",
+      "Aprovar assets com comando OK",
+      "Subir assets",
+      "Montar rotas",
+      "Registrar video",
+      "Preparar distribuicao",
+      "Gerar formulario de acompanhamento",
+      "Coletar analytics",
+      "Exibir analytics na plataforma"
+    ],
+    "excluded_from_initial_mvp": [
+      "Automacao destrutiva sem aprovacao humana",
+      "Publicacao irreversivel sem approval gate",
+      "Autonomia irrestrita de subagentes"
+    ],
+    "success_condition": "Uma campanha piloto percorre o fluxo completo com IDs, estados, entregaveis e evidencias rastreaveis."
+  },
+  "gaps": [
+    {
+      "gap_id": "GAP-001",
+      "item": "Schema aplicado antes da Wide Search",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-002",
+      "item": "Agente ou skill responsavel pela Wide Search",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-003",
+      "item": "Schema definitivo da peca-mae",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-004",
+      "item": "Definicao formal de DX",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-005",
+      "item": "Quantidade-alvo de HTMLs",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-006",
+      "item": "Schemas PPS01, PPS02 e PPS03",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-007",
+      "item": "Contrato da Store Loja TDH",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-008",
+      "item": "Contrato do Frank's Watching Editor",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-009",
+      "item": "Upgrade de video do Plano Operacional Rastreavel",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-010",
+      "item": "Significado e schema de IP-0101",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-011",
+      "item": "Plugin de geracao de video",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-012",
+      "item": "Matriz plataforma x formato x duracao",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-013",
+      "item": "Schema do formulario de acompanhamento",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-014",
+      "item": "Connectors de analytics por plataforma",
+      "status": "A_DEFINIR"
+    },
+    {
+      "gap_id": "GAP-015",
+      "item": "Schema do workbook",
+      "status": "A_DEFINIR"
+    }
+  ],
+  "critical_rules": [
+    "Nenhuma entrega deve desaparecer entre etapas.",
+    "Todo entregavel deve possuir ID.",
+    "Todo asset deve estar relacionado a uma campanha.",
+    "Todo asset visual aprovado deve ser salvo com o ID correto.",
+    "A aprovacao humana OK deve gerar evento rastreavel.",
+    "O Orchestrator nao deve substituir decisao criativa humana quando o workflow reservar essa decisao ao Creator.",
+    "Nenhuma publicacao deve ser considerada concluida sem verificacao.",
+    "Analytics devem ser relacionados aos mesmos IDs utilizados na producao.",
+    "A peca-mae deve funcionar como fonte principal para derivados.",
+    "O storyboard deve funcionar como fonte principal para composicao audiovisual.",
+    "O CSV operacional deve funcionar como manifest de producao e distribuicao."
+  ],
+  "next_execution_node": {
+    "task_id": "TSK-0001",
+    "title": "Formalizar schema da pesquisa inicial",
+    "action": "Definir o schema que o CLP aplica ao pilar estrategico antes de executar a Wide Search.",
+    "expected_output": "Schema estruturado com perguntas, campos, fontes, dados, argumentos, topicos, evidencias, lacunas e formato final do mapa de pesquisa.",
+    "status": "READY",
+    "automation_level": "A1",
+    "blocks": [
+      "Implementacao definitiva da STG-020",
+      "Contrato da Wide Search",
+      "Primeiro teste end-to-end do MVP"
+    ]
+  }
+}

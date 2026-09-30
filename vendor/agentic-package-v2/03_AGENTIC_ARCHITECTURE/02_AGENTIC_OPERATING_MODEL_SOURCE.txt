@@ -1,0 +1,337 @@
+Para começar de forma controlada, eu separaria seu sistema em seis camadas: BPM → Workflow → Agente → Skill → Tool/Connector → Dados. O erro mais comum é misturar tudo e deixar o agente decidir processo, permissão, ferramenta e execução ao mesmo tempo.
+
+O NIST AI RMF é uma boa camada de governança geral, enquanto o OWASP já mantém referências específicas para sistemas agênticos, incluindo prompt injection, abuso de ferramentas, escalada de privilégio, exfiltração de dados e envenenamento de memória. 
+
+1. Arquitetura inicial que eu adotaria
+
+AI OPERATING MODEL
+│
+├── 01. GOVERNANÇA
+│     ├── políticas
+│     ├── riscos
+│     ├── autonomia
+│     ├── identidade
+│     └── auditoria
+│
+├── 02. BPM
+│     └── processo de negócio
+│
+├── 03. WORKFLOW
+│     ├── trigger
+│     ├── etapas
+│     ├── condições
+│     ├── loops
+│     ├── aprovação humana
+│     └── resultado
+│
+├── 04. AGENTES
+│     ├── Agent_ID
+│     ├── objetivo
+│     ├── escopo
+│     ├── contexto
+│     ├── memória
+│     └── autoridade
+│
+├── 05. SKILLS
+│     └── procedimento reutilizável
+│
+├── 06. TOOLS / MCP / CONNECTORS
+│     ├── GitHub
+│     ├── Drive
+│     ├── banco
+│     ├── APIs
+│     └── outros sistemas
+│
+└── 07. OBSERVABILIDADE
+      ├── run_id
+      ├── logs
+      ├── tool calls
+      ├── custos
+      ├── evidências
+      └── resultado verificado
+
+O princípio importante é:
+
+BPM define O QUE acontece.
+Workflow define QUANDO e EM QUE ORDEM.
+Agent decide COMO resolver uma tarefa não determinística.
+Skill define COMO executar uma capacidade conhecida.
+MCP/Connector concede acesso a um sistema externo.
+Tool executa a ação.
+Policy define SE a ação pode ocorrer.
+Log/Evidence comprova O QUE realmente aconteceu.
+
+2. Os riscos que você deveria registrar desde o primeiro workflow
+
+ID	Risco	Controle mínimo
+AI-R01	Alucinação / resultado incorreto	validação e critérios de aceite
+AI-R02	Prompt injection	tratar conteúdo externo como não confiável
+AI-R03	Tool abuse	allowlist de ferramentas
+AI-R04	Permissão excessiva	least privilege por agente
+AI-R05	Exfiltração de dados	segregação de dados + secrets management
+AI-R06	Execução destrutiva	approval gate + rollback
+AI-R07	Ações duplicadas	idempotency key / run_id
+AI-R08	Loop de agentes	limites de etapas, tokens, tempo e custo
+AI-R09	Memory poisoning	memória controlada, validada e versionada
+AI-R10	Agente usando outro agente indevidamente	identidade + contratos de handoff
+AI-R11	Mudança de modelo/API	versionamento + testes de regressão
+AI-R12	MCP/connector comprometido	trust registry + permissões específicas
+AI-R13	Falta de rastreabilidade	log de entrada → decisão → tool call → output
+AI-R14	Falha parcial do workflow	checkpoint + retry controlado
+AI-R15	Agente declarar DONE sem executar	verificação externa e evidência
+
+O Google, inclusive, recomenda explicitamente para MCP identidade própria do agente, princípio de menor privilégio e atenção especial às operações autônomas. A documentação distingue agentes com aprovação humana de agentes que executam sozinhos e destaca riscos de prompt injection, tool chaining e ações irreversíveis. 
+
+Isso combina diretamente com sua escala operacional A0–A4:
+
+A0  ORIENTAR
+    nenhuma ação externa
+A1  PREPARAR
+    gera plano/artefato
+    não modifica sistema externo
+A2  HUMAN-IN-THE-LOOP
+    agente prepara
+    humano autoriza execução
+A3  EXECUTAR
+    agente pode modificar sistemas
+    somente operações previamente autorizadas
+A4  EXECUTAR + VERIFICAR + EVIDENCIAR
+    executar
+    validar resultado
+    registrar evidência
+    produzir estado final
+
+Eu não começaria em A3/A4 para workflows novos. O caminho seguro é:
+
+READ ONLY
+   ↓
+SHADOW MODE
+   ↓
+A1 PREPARE
+   ↓
+A2 APPROVAL
+   ↓
+A3 CONTROLLED WRITE
+   ↓
+A4 VERIFIED AUTOMATION
+
+3. O registro mínimo
+
+Antes de criar muitos agentes, crie seis registros canônicos.
+
+AI-PROCESS-CATALOG
+AI-WORKFLOW-REGISTRY
+AI-AGENT-REGISTRY
+AI-SKILL-REGISTRY
+AI-TOOL-CONNECTOR-REGISTRY
+AI-RISK-REGISTER
+
+Cada workflow deveria ter algo parecido com:
+
+WORKFLOW_ID: WF-AI-001
+VERSION: 0.1.0
+STATUS: DRAFT
+PROCESS_ID: BPM-001
+OWNER: A_DEFINIR
+TRIGGER:
+INPUT:
+OUTPUT:
+AGENTS:
+SKILLS:
+TOOLS:
+MCP_SERVERS:
+DATA_SOURCES:
+AUTOMATION_LEVEL: A2
+PERMISSIONS:
+  read:
+  write:
+  delete:
+  external_communication:
+HUMAN_APPROVAL:
+  required: true
+LIMITS:
+  max_steps:
+  max_tool_calls:
+  max_runtime:
+  max_cost:
+RISKS:
+  - AI-R02
+  - AI-R03
+  - AI-R06
+ACCEPTANCE_CRITERIA:
+ROLLBACK:
+EVIDENCE:
+OBSERVABILITY:
+  run_id: required
+  logs: required
+  tool_calls: required
+DONE_WHEN:
+
+Isso vira praticamente seu Execution Contract para agentes.
+
+4. Sobre o Cloud Code
+
+Se você está falando do Google Cloud Code, sim, existe uma estrutura bastante próxima do que você está procurando.
+
+O Agent Mode do Gemini Code Assist consegue utilizar ferramentas, executar tarefas multi-etapas e conectar servidores MCP. Ele também possui mecanismo de aprovação para chamadas que alteram arquivos ou recursos. Atualmente essa funcionalidade é indicada como Preview na documentação. 
+
+Mas eu não usaria o Cloud Code como seu BPM central.
+
+Para o seu caso, existe algo ainda mais próximo: o Gemini Enterprise Workflow Builder. Ele oferece atualmente:
+
+Natural Language → Workflow
+Triggers
+Conditional branching
+Loops
+Data filters
+Gemini Agent steps
+MCP servers
+     ↓
+workflow tools
+Human-in-the-loop
+     ↓
+review
+approval
+request information
+Agent → Agent handoff
+Versionamento
+Execution logs
+Connectors
+     ↓
+Gmail
+Calendar
+Chat
+Drive
+Slack
+Jira
+ServiceNow
+Confluence
+OneDrive
+SharePoint
+Outlook
+
+Tudo isso aparece como funcionalidade documentada do Workflow Builder. 
+
+Portanto, para BPM + automação corporativa + agentes, ele é conceitualmente mais próximo do que você está tentando construir do que o Cloud Code isoladamente.
+
+5. E se você quis dizer Claude Code
+
+Também existe, e a arquitetura é extremamente compatível com o modelo que você está estruturando.
+
+No Claude Code, a divisão atual é aproximadamente:
+
+CLAUDE.md
+    ↓
+regras persistentes
+Skills
+    ↓
+procedimentos/workflows reutilizáveis
+Subagents
+    ↓
+agentes especializados
+Agent Teams
+    ↓
+coordenação multiagente
+Hooks
+    ↓
+eventos/automações determinísticas
+MCP
+    ↓
+sistemas externos
+Plugins
+    ↓
+empacotamento
+    ├── Skills
+    ├── Agents
+    ├── Hooks
+    └── MCP
+
+A própria documentação do Claude Code descreve MCP como a camada que conecta serviços externos, Skills como workflows/conhecimento reutilizável, subagents como contextos isolados, hooks como automações acionadas por eventos e plugins como o pacote que pode reunir esses componentes. 
+
+E no Claude Code Desktop os Connectors são, tecnicamente, servidores MCP com configuração gráfica. A documentação cita integrações como GitHub, Slack, Linear, Google Calendar e outras; para integrações não disponíveis na interface, pode-se configurar um MCP manualmente. 
+
+Então, se sua referência era Claude Code, a resposta curta é:
+
+MCP        = Connector layer
+Skill      = Workflow procedural
+Subagent   = Specialized worker
+Hook       = Event automation
+Plugin     = Distribution package
+CLAUDE.md  = Governance/context
+Agent Team = Multi-agent orchestration
+
+6. Estrutura que eu usaria no seu Programa EXECUTAR
+
+Eu começaria com este controle:
+
+AI-BPM-CONTROL-001
+│
+├── GOV-AI
+│   ├── AI-POLICY
+│   ├── AI-RISK-REGISTER
+│   ├── AUTONOMY-MATRIX
+│   └── PERMISSION-MATRIX
+│
+├── BPM
+│   └── BPM-xxx
+│
+├── WORKFLOWS
+│   └── WF-xxx
+│
+├── AGENTS
+│   └── AGT-xxx
+│
+├── SKILLS
+│   └── SKL-xxx
+│
+├── CONNECTORS
+│   └── MCP-xxx
+│
+├── TOOLS
+│   └── TOOL-xxx
+│
+└── RUNS
+    └── RUN-xxxxxxxx
+        ├── INPUT
+        ├── PLAN
+        ├── ACTIONS
+        ├── TOOL_CALLS
+        ├── OUTPUT
+        ├── VERIFICATION
+        └── EVIDENCE
+
+Isso permite que você tenha uma cadeia rastreável:
+
+PROBLEMA
+   ↓
+BPM
+   ↓
+WORKFLOW
+   ↓
+TAREFA
+   ↓
+AGENTE
+   ↓
+SKILL
+   ↓
+TOOL / MCP
+   ↓
+AÇÃO
+   ↓
+RESULTADO
+   ↓
+VERIFICAÇÃO
+   ↓
+EVIDÊNCIA
+   ↓
+LEARNING
+
+E eu colocaria uma regra estrutural acima de tudo:
+
+LLM NÃO É O WORKFLOW ENGINE.
+
+Tudo que puder ser determinístico — condições, estados, permissões, retries, timeout, versionamento, transações e aprovação — deve ficar no orquestrador.
+
+O agente entra nos pontos em que existe necessidade real de interpretação, planejamento, classificação, geração, pesquisa ou tomada de decisão dentro de limites definidos.
+
+Esse desenho reduz substancialmente o risco de criar uma rede de agentes difícil de controlar e, ao mesmo tempo, prepara sua estrutura para MCP, Claude Code, Google Cloud/Gemini ou outro runtime sem tornar a governança dependente de um fornecedor específico. 

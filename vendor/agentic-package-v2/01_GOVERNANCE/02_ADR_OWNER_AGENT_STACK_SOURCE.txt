@@ -1,0 +1,515 @@
+schema: executar.adr.v1 id: ADR-001 version: 0.1.0 title: Governança do Programa de Lançamento area: A01.04-Governanca program: PROGAMA-LANCAMENTO repository: executar-23/PROGAMA-LANCAMENTO branch: main target_path: docs/adr/ADR-001-governanca.md status: PREPARED decision_status: PROPOSED owner: A_DEFINIR language: pt-BR language_standard: Plain Language / ISO 24495-1 created_at: 2026-09-30 automation_level: A2 source_of_truth_status: BLOCKED_WRITE null_policy: A_DEFINIR
+
+ADR-001 — Governança do Programa de Lançamento
+
+0. CONTRATO DE INTERPRETAÇÃO POR AGENTE
+
+0.1 Regras de leitura
+
+• Cada decisão tem um ID estável.
+• Cada sistema, owner, plataforma, risco, gap e dependência tem um ID estável.
+• A_DEFINIR significa que o dado não foi fornecido ou validado.
+• O agente não deve substituir A_DEFINIR por inferência.
+• DECIDIDO = decisão dada pelo owner do programa.
+• VALIDADO = decisão confirmada por evidência externa ou estado real.
+• PROPOSTO = estrutura preparada, ainda sujeita a aprovação.
+• BLOCKED = ação impedida por dependência externa.
+• VERIFIED = estado confirmado por evidência.
+
+0.2 Estados permitidos
+
+DRAFT | PROPOSED | PREPARED | READY | IN_PROGRESS | BLOCKED | SUBMITTED | APPROVED | RELEASED | VERIFIED
+
+0.3 Hierarquia de autoridade
+
+1. Decisão explícita do owner do programa.
+2. ADR aprovado mais recente.
+3. Registro canônico no repositório.
+4. Evidência técnica atual.
+5. Hipótese registrada como A_DEFINIR.
+
+────────
+
+1. DECISÃO EXECUTIVA
+
+GOV-DEC-001 — CLP como entry point único
+
+Status: DECIDIDO
+
+A CLP — Creator Lead Platform será o entry point operacional principal do programa. Ela funcionará como o hub único para criação, planejamento, publicação, acompanhamento e execução do trabalho.
+
+GOV-DEC-002 — GitHub como fonte de verdade do programa
+
+Status: DECIDIDO_COM_RESTRICAO
+
+O repositório executar-23/PROGAMA-LANCAMENTO será a fonte de verdade lógica para documentos, conteúdo estruturado, dados de controle, decisões, metadados, schemas, evidências e referências do programa.
+
+Arquivos grandes, bancos pesados e mídia em grande volume exigem política específica de armazenamento. O GitHub permanece como catálogo e fonte de verdade de referência, mas o armazenamento físico de objetos grandes deve ser definido separadamente.
+
+GOV-DEC-003 — Template-first para desenvolvimento
+
+Status: DECIDIDO
+
+Antes de desenvolver código novo, o agente deve pesquisar primeiro os templates oficiais disponíveis na Cloudflare e verificar se um ou mais templates existentes atendem aos requisitos.
+
+Código novo só deve ser criado para requisitos não atendidos pelos templates existentes.
+
+GOV-DEC-004 — Owner por macroárea
+
+Status: PROPOSTO
+
+Cada macroárea terá um owner lógico identificado por um codinome de personalidade científica. Os subdomínios herdam esse owner até que um owner específico seja definido.
+
+GOV-DEC-005 — Stack por owner
+
+Status: DECIDIDO
+
+Cada owner terá seu próprio stack de agentes, skills, workflows, ferramentas, plugins e conectores. Esse stack deve ser registrado e versionado.
+
+GOV-DEC-006 — Risco Cognitivo como marca e superfície pública
+
+Status: DECIDIDO
+
+As plataformas públicas e sociais do programa serão organizadas sob a marca Risco Cognitivo.
+
+Slug informado: risco-cognitivo.
+
+FQDN/domínio completo: A_DEFINIR.
+
+────────
+
+2. CONTEXTO
+
+O programa precisa de um modelo de governança que reduza dispersão de ferramentas, duplicidade de informação e desenvolvimento desnecessário.
+
+O modelo definido concentra a operação em três camadas:
+
+1. CLP para interação e execução.
+2. GitHub para registro canônico e rastreabilidade.
+3. Risco Cognitivo para publicação e distribuição externa.
+
+A camada de agentes, skills, workflows, plugins e conectores será associada aos owners das macroáreas.
+
+────────
+
+3. REGISTRO DE SISTEMAS E ENTRY POINTS
+
+|ID          |Sistema / Ativo                        |Papel                                  |Estado atual               |Regra                                             |
+|------------|---------------------------------------|---------------------------------------|---------------------------|--------------------------------------------------|
+|SYS-CLP-001 |Creator Lead Platform — CLP            |Entry point único e hub operacional    |HTML existente; sem backend|Deve concentrar operação diária                   |
+|SYS-GH-001  |GitHub `executar-23/PROGAMA-LANCAMENTO`|Fonte de verdade e registro            |Repositório existente      |Todo artefato governado deve ser referenciado aqui|
+|SYS-RC-001  |Risco Cognitivo                        |Marca, blog e superfície pública       |Parcialmente definido      |Publicação externa sob a marca                    |
+|SYS-AI-001  |`Cloud Code`                           |Ambiente informado para uso dos agentes|Nome a confirmar           |Normalizar somente após confirmação               |
+|SYS-WB-001  |Workbook físico                        |Consulta, registro e operação manual   |Estrutura parcial conhecida|Deve espelhar a governança definida               |
+|SYS-MAIL-001|`rotina-executar@outlook.com`          |E-mail operacional pessoal             |Informado                  |Usar para operação quando aplicável               |
+|SYS-MAIL-002|E-mail principal associado ao GitHub   |Identidade principal do repositório    |A_DEFINIR                  |Não inferir sem evidência                         |
+
+────────
+
+4. CLP — CREATOR LEAD PLATFORM
+
+4.1 Papel
+
+A CLP será o centro operacional do programa.
+
+4.2 Capacidades obrigatórias conhecidas
+
+|ID        |Capacidade                           |Obrigatória|Estado     |
+|----------|-------------------------------------|----------:|-----------|
+|CLP-FR-001|Escrever posts                       |Sim        |REQUIREMENT|
+|CLP-FR-002|Salvar ideias                        |Sim        |REQUIREMENT|
+|CLP-FR-003|Salvar conteúdo e banco editorial    |Sim        |REQUIREMENT|
+|CLP-FR-004|Agendar posts                        |Sim        |REQUIREMENT|
+|CLP-FR-005|Distribuir conteúdo entre plataformas|Sim        |REQUIREMENT|
+|CLP-FR-006|Exibir analytics de conteúdo         |Sim        |REQUIREMENT|
+|CLP-FR-007|Acessar agentes de AI                |Sim        |REQUIREMENT|
+|CLP-FR-008|Acessar skills                       |Sim        |REQUIREMENT|
+|CLP-FR-009|Executar workflows                   |Sim        |REQUIREMENT|
+|CLP-FR-010|Acessar workbook digital             |Sim        |REQUIREMENT|
+|CLP-FR-011|Exibir cronograma                    |Sim        |REQUIREMENT|
+|CLP-FR-012|Operar tarefas / to-do               |Provável   |A_VALIDAR  |
+
+4.3 Estado técnico atual
+
+• Frontend HTML existente.
+• Backend inexistente.
+• Deploy alvo: Cloudflare.
+• Stack final: A_DEFINIR.
+
+4.4 Regra template-first
+
+GOV-CODE-001
+
+Antes de escrever código, o agente deve:
+
+1. Listar os requisitos da CLP.
+2. Pesquisar templates oficiais da Cloudflare.
+3. Mapear requisito → template/capacidade existente.
+4. Selecionar o menor conjunto de templates que cubra o maior número de requisitos.
+5. Identificar somente os gaps reais.
+6. Personalizar templates antes de criar implementação do zero.
+7. Registrar a decisão técnica em ADR específico de código e implementação.
+
+GOV-CODE-002
+
+O agente não deve iniciar uma implementação ampla sem registrar evidência de que pesquisou os templates oficiais disponíveis.
+
+4.5 Candidatos informados pelo owner
+
+|ID        |Nome informado         |Papel esperado          |Verificação                    |
+|----------|-----------------------|------------------------|-------------------------------|
+|TPL-CF-001|SaaS Admin Template    |Administração / SaaS    |NOME_EXATO_NAO_VALIDADO        |
+|TPL-CF-002|Dashboard Template     |Dashboard central       |NOME_EXATO_NAO_VALIDADO        |
+|TPL-CF-003|Build with Astro       |Aplicação web / conteúdo|CAPACIDADE_VALIDADA            |
+|TPL-CF-004|Cloudflare DevOps Stack|Deploy / operação       |NOME_EXATO_NAO_VALIDADO        |
+|TPL-CF-005|To-Do List App         |Tarefas                 |CAPACIDADE_RELACIONADA_VALIDADA|
+
+Regra: nomes não confirmados não devem ser tratados como templates oficiais existentes até validação no catálogo atual da Cloudflare.
+
+4.6 Instrução para agente de código
+
+O termo falado CloudMD foi preservado como não confirmado.
+
+Se o ambiente pretendido for Claude Code, o arquivo canônico de instruções compartilhadas do projeto deve ser CLAUDE.md na raiz do repositório.
+
+ID de controle: GAP-TERM-001.
+
+────────
+
+5. DADOS, DOCUMENTOS E FONTE DE VERDADE
+
+GOV-DATA-001 — Repositório canônico
+
+executar-23/PROGAMA-LANCAMENTO
+
+GOV-DATA-002 — Conteúdo que deve estar no GitHub
+
+• ADRs.
+• Schemas.
+• Índices.
+• Documentos Markdown.
+• Configuração.
+• Código.
+• Metadados.
+• Manifestos.
+• Dados estruturados leves.
+• Referências para assets externos.
+• Evidências e logs compatíveis com Git.
+
+CONFLICT-001 — Grande volume de dados
+
+Estado: OPEN
+
+O requisito de armazenar “todo o grande volume de dados” diretamente no GitHub conflita com limites e recomendações operacionais da própria plataforma.
+
+Impacto: risco de degradação do repositório, bloqueio de arquivos grandes e lentidão de clone/fetch.
+
+Decisão provisória:
+
+• GitHub permanece como fonte de verdade lógica.
+• Objetos grandes devem ser referenciados por manifesto, checksum, ID e localização.
+• Storage físico de grande volume: A_DEFINIR.
+• Cloudflare R2 é uma possibilidade técnica, mas ainda não é uma decisão aprovada.
+
+GOV-DATA-003 — Manifesto obrigatório para objeto externo
+
+Todo objeto armazenado fora do GitHub deve possuir no repositório:
+
+• asset_id
+• filename
+• content_type
+• checksum
+• storage_uri
+• created_at
+• owner_area
+• source
+• status
+
+────────
+
+6. MODELO DE OWNERS
+
+Os nomes abaixo são codinomes operacionais de agentes/owners. Não representam pessoas reais responsáveis pelo programa.
+
+|Owner ID|Macroárea                             |Codinome   |Referência          |Função principal                                 |
+|--------|--------------------------------------|-----------|--------------------|-------------------------------------------------|
+|OWN-A01 |A01 Governança e Negócio              |OSTROM     |Elinor Ostrom       |Regras, decisões, negócio, risco e direção       |
+|OWN-A02 |A02 Produto e Engenharia              |LOVELACE   |Ada Lovelace        |Produto, requisitos, arquitetura e implementação |
+|OWN-A03 |A03 Operação Corporativa              |DEMING     |W. Edwards Deming   |Operação contínua, qualidade e capacidade        |
+|OWN-A04 |A04 Dados e Conhecimento              |SHANNON    |Claude Shannon      |Dados, conhecimento, pesquisa e evidência        |
+|OWN-A05 |A05 Conteúdo e Execução               |MILLER     |George A. Miller    |Conteúdo, comunicação, cognição e execução       |
+|OWN-A06 |A06 Documentação, Ferramentas e Ativos|BUSH       |Vannevar Bush       |Documentação, conhecimento e ativos reutilizáveis|
+|OWN-A07 |A07 Stakeholders e Ecossistema        |MEADOWS    |Donella Meadows     |Relações, sistema e ecossistema                  |
+|OWN-A08 |A08 Agentes, Skills e Workflows       |TURING     |Alan Turing         |Agentes, automação e workflows                   |
+|OWN-A09 |A09 Schemas                           |CODD       |Edgar F. Codd       |Modelagem e estruturas de dados                  |
+|OWN-A10 |A10 Workbook Operacional              |NIGHTINGALE|Florence Nightingale|Registro, leitura operacional e visualização     |
+
+GOV-OWNER-001
+
+Cada subárea herda o owner da macroárea enquanto não existir SUBOWNER_ID específico.
+
+GOV-OWNER-002
+
+Cada owner deve possuir um registro de stack com:
+
+• agent_id
+• skills[]
+• workflows[]
+• plugins[]
+• connectors[]
+• tools[]
+• permissions[]
+• inputs[]
+• outputs[]
+• evidence_required[]
+
+────────
+
+7. AGENTES, PLUGINS, FERRAMENTAS E CONECTORES
+
+7.1 Confirmado pelo owner
+
+|ID           |Item                 |Classe                 |Área       |Estado          |
+|-------------|---------------------|-----------------------|-----------|----------------|
+|AI-TOOL-001  |Cloud Code           |Ambiente de agentes    |Transversal|NOME_A_CONFIRMAR|
+|PLG-ENG-001  |Engineering plugin(s)|Plugin                 |A02        |A_DEFINIR       |
+|PLG-OPS-001  |Operations plugin(s) |Plugin                 |A03        |A_DEFINIR       |
+|TOOL-MKT-001 |ActiveCampaign       |Ferramenta / integração|A05 / GTM  |CANDIDATO       |
+|TOOL-PROD-001|Product Tracker      |Ferramenta / integração|A02        |CANDIDATO       |
+
+7.2 Regra de governança
+
+Nenhum plugin, conector ou ferramenta deve ser assumido como disponível apenas porque existe no mercado.
+
+Antes do uso, registrar:
+
+1. Nome exato.
+2. Owner.
+3. Capacidade.
+4. Permissão disponível.
+5. Dados acessados.
+6. Ação permitida.
+7. Limites.
+8. Evidência de conexão.
+
+────────
+
+8. WORKBOOK
+
+GOV-WB-001
+
+O workbook físico funciona como interface manual de consulta, escrita e acompanhamento do programa.
+
+GOV-WB-002
+
+O workbook digital deve estar acessível dentro da CLP.
+
+Estrutura conhecida neste momento
+
+• Estratégia.
+• Tática.
+• Operacional.
+• Objetivos.
+• Roadmap.
+• Operação Editorial.
+• Produção Editorial.
+
+O índice detalhado será tratado no ADR-008 — Workbook.
+
+────────
+
+9. REGISTRO DE PLATAFORMAS DE CONTEÚDO
+
+9.1 Regra geral
+
+Todas as contas e canais devem ser cadastrados em PLATFORM_REGISTRY antes de entrar em automação.
+
+Campos mínimos:
+
+platform_id, platform_name, handle, url, objective, formats, owner, credentials_owner, publishing_method, scheduling_support, analytics_source, status
+
+9.2 Inventário inicial
+
+|ID      |Plataforma                 |Objetivo no programa                                                     |Formatos principais                                                                        |
+|--------|---------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+|PLAT-001|Blog / site Risco Cognitivo|Fonte editorial própria, SEO, profundidade, conversão                    |Artigo, página pilar, landing page, guia, recurso, CTA                                     |
+|PLAT-002|LinkedIn                   |Autoridade profissional, relacionamento B2B, distribuição de conhecimento|Texto, imagem, múltiplas imagens, vídeo, documento/PDF, artigo, newsletter, enquete, evento|
+|PLAT-003|Instagram                  |Descoberta visual, marca, relacionamento e distribuição                  |Feed, imagem, carrossel, Reels, Stories, Live                                              |
+|PLAT-004|Facebook                   |Comunidade, redistribuição e alcance amplo                               |Post, texto, imagem, vídeo, Reels, Stories, Live, links                                    |
+|PLAT-005|YouTube                    |Educação profunda, busca, vídeo evergreen e descoberta                   |Vídeo longo, Shorts, Live, posts, imagem, enquete, quiz                                    |
+|PLAT-006|TikTok                     |Descoberta, alcance e conteúdo curto orientado a atenção                 |Vídeo curto, imagem/carrossel quando disponível, formatos de anúncio e Spark Ads           |
+|PLAT-007|X                          |Conversa em tempo real, distribuição rápida e comentários                |Texto, imagem, GIF, vídeo, enquete, links, Spaces                                          |
+|PLAT-008|Threads                    |Conversa curta, comunidade e distribuição textual                        |Texto, imagem, vídeo, links e respostas                                                    |
+|PLAT-009|Pinterest                  |Descoberta visual evergreen e tráfego de referência                      |Pin estático, vídeo Pin, carrossel, coleção, boards                                        |
+|PLAT-010|E-mail / newsletter        |Retenção, relacionamento direto e ativação                               |Newsletter, sequência, atualização, CTA                                                    |
+
+GOV-PLATFORM-001
+
+A lista acima é o inventário inicial. Nenhum handle foi inventado.
+
+GOV-PLATFORM-002
+
+O handle, URL e status real de cada conta devem ser verificados antes de publicar ou automatizar.
+
+────────
+
+10. IDENTIDADE E NAMING
+
+|ID     |Item                           |Valor                      |
+|-------|-------------------------------|---------------------------|
+|IDN-001|Marca pública                  |Risco Cognitivo            |
+|IDN-002|Slug informado                 |risco-cognitivo            |
+|IDN-003|Domínio completo               |A_DEFINIR                  |
+|IDN-004|Conta GitHub                   |executar-23                |
+|IDN-005|Repositório canônico           |PROGAMA-LANCAMENTO         |
+|IDN-006|E-mail operacional             |rotina-executar@outlook.com|
+|IDN-007|E-mail principal do repositório|A_DEFINIR                  |
+
+────────
+
+11. REGRAS DE GOVERNANÇA OBRIGATÓRIAS
+
+GOV-RULE-001 — Single Entry Point
+
+Operação diária deve começar pela CLP sempre que a capacidade existir.
+
+GOV-RULE-002 — Source of Truth
+
+Decisões, documentos e estados governados devem possuir registro no repositório canônico.
+
+GOV-RULE-003 — Template First
+
+Pesquisar e reutilizar templates antes de desenvolver do zero.
+
+GOV-RULE-004 — No Silent Inference
+
+Dado ausente deve ser marcado como A_DEFINIR.
+
+GOV-RULE-005 — Owner Required
+
+Nenhuma área governada pode ficar sem owner lógico.
+
+GOV-RULE-006 — Evidence Required
+
+DONE sem evidência não é aceito. O estado final operacional é VERIFIED.
+
+GOV-RULE-007 — Tool Registry
+
+Ferramentas, plugins e conectores precisam estar registrados antes de integrar workflows.
+
+GOV-RULE-008 — Platform Registry
+
+Nenhuma publicação automatizada pode usar uma plataforma sem registro de conta, método de publicação e analytics.
+
+GOV-RULE-009 — Least Custom Code
+
+Código customizado deve ser o mínimo necessário para fechar gaps reais.
+
+GOV-RULE-010 — Plain Language
+
+Documentação executiva deve usar linguagem clara, frases diretas, verbos de ação e termos explicados.
+
+────────
+
+12. RISCOS E CONFLITOS
+
+|ID           |Tipo        |Descrição                                                  |Impacto                                      |Estado |
+|-------------|------------|-----------------------------------------------------------|---------------------------------------------|-------|
+|CONFLICT-001 |Arquitetura |GitHub como storage de grande volume                       |Pode degradar repo e bloquear arquivos       |OPEN   |
+|GAP-TERM-001 |Terminologia|`CloudMD` não confirmado                                   |Pode gerar arquivo errado                    |OPEN   |
+|GAP-TERM-002 |Terminologia|`Cloud Code` pode significar `Claude Code`                 |Pode direcionar automação à ferramenta errada|OPEN   |
+|GAP-CF-001   |Template    |Nomes exatos de alguns templates Cloudflare não confirmados|Seleção técnica pode ser incorreta           |OPEN   |
+|GAP-PLAT-001 |Plataformas |Handles e URLs das contas não informados                   |Automação de publicação bloqueada            |OPEN   |
+|GAP-TOOLS-001|Ferramentas |Stack completo de plugins/conectores ainda não definido    |Workflows incompletos                        |OPEN   |
+|GAP-WB-001   |Workbook    |Índice físico detalhado ainda será fornecido               |ADR-008 incompleto                           |OPEN   |
+|BLOCK-GH-001 |Permissão   |Conexão GitHub atual sem `push`                            |Não é possível registrar este ADR no repo    |BLOCKED|
+
+────────
+
+13. DEPENDÊNCIAS
+
+|ID     |DEPENDS_ON                              |Resultado necessário          |
+|-------|----------------------------------------|------------------------------|
+|DEP-001|Permissão de escrita GitHub             |Commit do ADR-001             |
+|DEP-002|Confirmação `Claude Code` / `Cloud Code`|Instrução correta para agentes|
+|DEP-003|Catálogo atual de templates Cloudflare  |Seleção do stack CLP          |
+|DEP-004|Inventário real de contas sociais       |Automação editorial           |
+|DEP-005|Índice completo do workbook             |ADR-008                       |
+|DEP-006|Definição de storage de objetos grandes |Política de dados completa    |
+
+BLOCKS
+
+Este ADR desbloqueia:
+
+• ADR-002 Estratégia.
+• ADR-003 Tática.
+• ADR-004 Operacional.
+• ADR-005 Editorial / Conteúdo.
+• ADR-006 Go-to-Market.
+• ADR-007 Código e Implementação.
+• ADR-008 Workbook.
+
+────────
+
+14. CRITÉRIOS DE ACEITE
+
+O ADR-001 estará VERIFIED quando:
+
+☐ CLP estiver registrada como entry point oficial.
+☐ Repositório canônico estiver definido e gravável.
+☐ Regra template-first estiver registrada nas instruções dos agentes.
+☐ Owner de cada macroárea estiver aprovado.
+☐ Stack mínimo de cada owner estiver catalogado.
+☐ Política para objetos grandes estiver decidida.
+☐ Registro inicial de plataformas estiver validado.
+☐ E-mail operacional estiver registrado.
+☐ Termos Cloud Code e CloudMD estiverem normalizados.
+☐ ADR estiver salvo em docs/adr/ADR-001-governanca.md.
+☐ Commit SHA estiver registrado como evidência.
+
+────────
+
+15. EVIDÊNCIAS E REFERÊNCIAS
+
+Evidência interna
+
+• Fonte oral fornecida pelo owner em 30/09/2026.
+• Arquivo de trabalho Projeto Lancamento..md com macroáreas A01-A10 e estrutura inicial do workbook.
+• Repositório: executar-23/PROGAMA-LANCAMENTO.
+
+Referências externas verificadas
+
+• Cloudflare Workers Templates: templates oficiais funcionam como ponto de partida para novos projetos.
+• Cloudflare Workers/Pages + Astro: Astro é suportado para aplicações e sites de conteúdo.
+• GitHub Repository Limits: há limites e recomendações explícitas para tamanho de repositório e objetos.
+• Anthropic Claude Code: CLAUDE.md é usado para instruções compartilhadas de projeto, caso Claude Code seja de fato a ferramenta pretendida.
+• LinkedIn Help: posts suportam texto, imagens, vídeos, documentos e artigos/newsletters.
+• YouTube Help: suporta vídeo, Shorts, live e posts de comunidade.
+• X Help: suporta mídia, enquetes, links e Spaces.
+• Pinterest Business Help: suporta Pins estáticos, vídeo, carrossel e coleções.
+• Meta / TikTok Business: Reels, vídeo e carrossel são formatos suportados em seus contextos atuais.
+
+────────
+
+16. HANDOFF
+
+Próximo workflow preparado
+
+ADR-002 — Estratégia
+
+Antes de executar ADR-007 — Código e Implementação
+
+Executar obrigatoriamente:
+
+1. Validar catálogo atual de templates Cloudflare.
+2. Confirmar nome da ferramenta Claude Code ou Cloud Code.
+3. Definir política de storage para objetos grandes.
+4. Transformar requisitos CLP em matriz requirement → template → gap → custom code.
+
+Checkpoint
+
+• ADR: PREPARED
+• Conteúdo: estruturado
+• Pesquisa externa: executada
+• GitHub write: BLOCKED
+• Próxima ação automática disponível: nenhuma, até existir permissão de push

@@ -23,7 +23,7 @@ check("plugin: cópia íntegra 0.2.0", () => {
 	if (!existsSync(`${PLUGIN}/LICENSE`)) throw new Error("LICENSE ausente");
 	return `versão ${v}`;
 });
-check("plugin: 13 skills instaladas em .claude/skills", () => {
+check("plugin: 13 skills do Backend Design em .claude/skills", () => {
 	const names = readdirSync(`${PLUGIN}/skills`);
 	for (const n of names) if (!same(`${PLUGIN}/skills/${n}/SKILL.md`, `.claude/skills/${n}/SKILL.md`)) throw new Error(`${n} divergente/ausente`);
 	if (names.length !== 13) throw new Error(`${names.length} skills`);
@@ -49,6 +49,17 @@ check("hooks: python3 executa e sinaliza segredo (exit 0)", () => {
 	const input = JSON.stringify({ tool_name: "Write", tool_input: { file_path: "/x/a.ts", content: "const k='AKIAABCDEFGHIJKLMNOP'" } });
 	const out = execFileSync("python3", [".claude/hooks/check_security.py"], { input, encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] });
 	return out || "warn em stderr";
+});
+check("agent-handoff 0.4.2: 4 skills + hook + config", () => {
+	const H = "vendor/claude-plugins/agent-handoff";
+	const v = JSON.parse(readFileSync(`${H}/.claude-plugin/plugin.json`, "utf8")).version;
+	for (const s of ["setup-handoff", "plan", "execute", "verify"]) {
+		for (const f of readdirSync(`${H}/skills/${s}`)) if (!same(`${H}/skills/${s}/${f}`, `.claude/skills/${s}/${f}`)) throw new Error(`${s}/${f} divergente`);
+	}
+	if (!same(`${H}/hooks/auto-approve-handoff.js`, ".claude/hooks/auto-approve-handoff.js")) throw new Error("hook divergente");
+	if (!readFileSync(".claude/settings.json", "utf8").includes("auto-approve-handoff.js")) throw new Error("hook não configurado");
+	if (!existsSync(".handoff/config.md")) throw new Error(".handoff/config.md ausente");
+	return `versão ${v}`;
 });
 for (const t of ["workflows-starter-template", "chanfana-openapi-template", "d1-template", "openauth-template", "saas-admin-template", "remix-starter-template"]) {
 	check(`vendor: ${t} com STATUS.md`, () => {
