@@ -6,9 +6,10 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
 	plugins: [
-		cloudflare({ viteEnvironment: { name: "ssr" } }),
+		cloudflare({ configPath: "./wrangler.fullstack.jsonc", viteEnvironment: { name: "ssr" } }),
 		tailwindcss(),
 		reactRouter(),
 		tsconfigPaths({ projects: ["./tsconfig.cloudflare.json"] }),
 	],
 });
+

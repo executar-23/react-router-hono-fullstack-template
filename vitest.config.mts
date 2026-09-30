@@ -8,7 +8,7 @@ export default defineConfig({
 	plugins: [
 		cloudflareTest({
 			main: "./tests/worker.ts",
-			wrangler: { configPath: "./wrangler.jsonc" },
+			wrangler: { configPath: "./wrangler.fullstack.jsonc" },
 			miniflare: {
 				compatibilityFlags: ["nodejs_compat"],
 				bindings: { MIGRATIONS: migrations },

@@ -1,4 +1,4 @@
-name: CI
+name: Local preview checks
 
 on:
   pull_request:
@@ -9,21 +9,13 @@ permissions:
   contents: read
 
 jobs:
-  check:
+  preview:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run build
-      - run: npm run check:env
-      - run: npm run validate:workflow
-      # Sem credenciais: só valida o pacote dos Workers.
-      - run: npx wrangler deploy --dry-run
-      - run: npx wrangler deploy --dry-run -c auth/wrangler.jsonc
+      # Built-in Node modules only: no npm ci, env, secrets or Cloudflare resources.
+      - run: npm run check
+

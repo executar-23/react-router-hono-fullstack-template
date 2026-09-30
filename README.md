@@ -1,5 +1,32 @@
 # Hub Editorial — Risco Cognitivo
 
+## Preview local sem env — modo padrão atual
+
+```bash
+python scripts/preview-local.py
+```
+
+Abra **http://localhost:8080/**. Não execute `npm ci`, não copie `.env`/`.dev.vars` e não inicie
+OpenAuth, banco ou Workflows para este preview. É a aplicação EXECUTAR de duas visões publicada nesta conversa;
+o Hub React/Hono completo continua disponível apenas no modo fullstack.
+
+Alternativas: `npm run dev` ou `npm run preview` (Python 3); `npm run build` gera `dist-preview`
+com Node, sem pacotes externos. `npm run check` valida o preview e gera esse pacote. A CI usa somente esse fluxo.
+
+A configuração padrão `wrangler.jsonc` agora publica **somente arquivos estáticos**, sem `vars`,
+D1, KV, Workflows, API ou OpenAuth. No Workers Builds, use build `npm run build` e deploy `npm run deploy`
+(ou `npx wrangler deploy -c wrangler.jsonc`). No Pages, diretório de saída `dist-preview`.
+Publicação hospedada continua exigindo autenticação da conta Cloudflare; o uso local não exige.
+Nenhum deploy remoto foi executado nesta alteração.
+
+O modo completo foi preservado em `wrangler.fullstack.jsonc`, com comandos `dev:fullstack`,
+`build:fullstack`, `preview:fullstack`, `check:fullstack` e `deploy:fullstack`. Os arquivos de env antigos
+permanecem para esse modo, mas não são lidos nem exigidos pelo preview local. A configuração do painel Cloudflare
+não foi alterada: remova do comando de build qualquer `check:env` ou migração que tenha sido configurada lá.
+
+21 verificações de lógica e teste HTTP do servidor Python passaram. Testes visuais, instalação PWA e
+paginação em navegador continuam pendentes. Dados são salvos por navegador/origem; exporte backup antes de mudar a origem.
+
 Hub editorial (conteúdos, argumentos, evidências, derivados por canal, calendário, distribuição) sobre
 **React Router 7 + Hono + Cloudflare Workers**, com **D1**, **OpenAuth** e **Workflows**. Design system e tokens clonados do
 `Risco-cognitivo-blog` (`app/app.css`, `app/components/ui`, `app/components/plain`).
@@ -19,21 +46,21 @@ Hub editorial (conteúdos, argumentos, evidências, derivados por canal, calend�
 | `vendor/cloudflare-templates/` | os 6 templates Cloudflare preservados (ver `STATUS.md` de cada) |
 | `vendor/claude-plugins/backend-design/` + `.claude/` | plugin Backend Design instalado (skills, comandos, agentes, hooks) |
 
-## Desenvolvimento
+## Desenvolvimento fullstack (opcional, requer env)
 ```bash
 npm ci
 cp .dev.vars.example .dev.vars && cp auth/.dev.vars.example auth/.dev.vars
 npm run db:migrate:local && npm run db:seed:local
 npm run dev:auth      # terminal 1: OpenAuth em :8788 (o código de login sai no log)
-npm run dev           # terminal 2: app em :5173
+npm run dev:fullstack # terminal 2: app em :5173
 ```
 Sem login, a tela de entrada oferece o **modo local** (dados só no navegador).
 
 ## Qualidade
-`npm run check` roda lint, typecheck, testes, build, `check:env` e `wrangler deploy --dry-run` (app e `auth/`).
+`npm run check:fullstack` roda lint, typecheck, testes, build, `check:env` e `wrangler deploy --dry-run` (app e `auth/`).
 Também: `npm test`, `npm run lint`, `npm run check:env`, `npm run validate:workflow`.
 
-## ✅ Antes do lançamento (checklist — tudo que ainda precisa ser adicionado)
+## ✅ Antes do lançamento fullstack (checklist — tudo que ainda precisa ser adicionado)
 A estrutura, os arquivos de ambiente e os scripts já existem. Falta **somente** substituir placeholders por valores reais:
 
 ### 1. Segredos e chaves
@@ -57,7 +84,7 @@ D1 `hub-editorial-db` e `hub-auth-db` (schema aplicado) e KV `hub-auth-storage`.
 npm run db:migrate:remote && npm run db:migrate:auth:remote   # idempotentes
 npm run db:seed:remote                                        # opcional: dados de exemplo
 npm run deploy:auth                                           # Worker de autenticação
-npm run deploy                                                # app + API
+npm run deploy:fullstack                                       # app + API
 curl https://<seu-app>/api/health                             # {"success":true,...}
 ```
 
@@ -76,7 +103,7 @@ Habilitar o plugin **Cloudflare** e o **Backend Design** na conta (claude.ai →
 ## EXECUTAR · Scroll Task e plano mental
 
 A PWA local está em [`public/executar-editorial/index.html`](public/executar-editorial/index.html).
-Depois do build/deploy existente, abra `/executar-editorial/index.html` na mesma origem do Hub.
+No preview estático, abra `/executar-editorial/index.html` na mesma origem do Hub.
 Para testar isoladamente: `python -m http.server 8080 --directory public` e abra
 `http://localhost:8080/executar-editorial/index.html`.
 
@@ -89,3 +116,4 @@ O service worker fica restrito a `/executar-editorial/` e não intercepta o Hub 
 - [Component Registry Handoff original](docs/executar-editorial/handoff/README.md)
 
 A publicação destes arquivos no GitHub não comprova um deploy Cloudflare nem a instalação PWA.
+

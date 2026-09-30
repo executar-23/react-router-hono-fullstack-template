@@ -206,3 +206,8 @@ dist
 ### React Router ###
 .react-router/
 /build/
+
+# Preview estático gerado localmente
+dist-preview/
+__pycache__/
+

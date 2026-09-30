@@ -52,7 +52,7 @@ function parseEnvFile(path) {
 	return map;
 }
 
-const main = readJsonc("wrangler.jsonc");
+const main = readJsonc("wrangler.fullstack.jsonc");
 const auth = readJsonc("auth/wrangler.jsonc");
 const mainVars = new Set([
 	...usedVars([...walk("workers"), ...walk("app"), ...walk("shared")], bindingsOf(main)),
@@ -89,7 +89,7 @@ for (const [file, set] of [[".dev.vars.example", mainVars], ["auth/.dev.vars.exa
 	}
 }
 // Segredos não podem estar em wrangler vars.
-for (const [name, cfg] of [["wrangler.jsonc", main], ["auth/wrangler.jsonc", auth]]) {
+for (const [name, cfg] of [["wrangler.fullstack.jsonc", main], ["auth/wrangler.jsonc", auth]]) {
 	for (const k of Object.keys(cfg.vars ?? {})) if (SECRET_KEY.test(k)) problems.push(`${name}: segredo ${k} em vars`);
 }
 
@@ -98,3 +98,4 @@ if (problems.length) {
 	process.exit(1);
 }
 console.log(`check:env ok — ${all.size} variáveis em ${TEMPLATES.length + 2} arquivos`);
+
