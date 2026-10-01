@@ -103,6 +103,20 @@ da Cloudflare em `hub-editorial-auth` (POST de pedido de código) para evitar e-
 7. Habilitar o plugin Cloudflare na conta (opcional).
 
 ## 11. Recursos criados na conta Cloudflare
-D1 `hub-editorial-db` (`e1e1d9c4-3ff3-4055-bd11-0613b93ca2fe`, schema aplicado), D1 `hub-auth-db` (`12ace2c0-2d3f-4f6a-ac07-748af5a39ea7`, schema aplicado),
-KV `hub-auth-storage` (`3cae01e853154d62acd06d5e3be4664e`), D1 `hub-editorial-db-preview` (`4266dc35-c9f3-4f4e-83a8-8468f8da4478`, staging só para previews; `npm run db:migrate:preview`). Nenhum recurso existente foi alterado.
+**Conta canônica:** a dona do subdomínio `executar-rotina-8b7.workers.dev`, onde roda o Worker
+`react-router-hono-fullstack-template`. Recursos criados nela em 2026-10-01, com schema aplicado
+e migração registrada em `d1_migrations`:
+
+| Recurso | Nome | ID |
+|---|---|---|
+| D1 (app) | `hub-editorial-db` | `c76c6f9f-5f72-4398-9265-e251fac2c923` |
+| D1 (previews) | `hub-editorial-db-preview` | `dcf8650d-fa3b-4195-bb8d-93080326b7c2` |
+| D1 (auth) | `hub-auth-db` | `8d1752ee-1d1b-437d-9c6c-ddaf1d192f58` |
+| KV (auth) | `hub-auth-storage` | `e7af0103d9af49ebb329dc4fe98601b7` |
+
+Os IDs anteriores (`e1e1d9c4…`, `4266dc35…`, `12ace2c0…`, `3cae01e8…`) existem em **outra conta**
+(`hub-executar.workers.dev`), que não hospeda este Worker. Por isso o preview respondia
+`/api/health` → 503 "db unavailable". Esses recursos ficaram intocados e vazios.
+O token do proxy desta sessão (wrangler) acessa só a outra conta; na conta canônica, as
+migrações e o seed foram aplicados pelo conector Cloudflare.
 Previews não têm o binding do Workflow (só pode apontar para um Workflow já existente, isto é, depois do 1º deploy de produção); `POST /api/workflows/publish` responde 503 no preview.
