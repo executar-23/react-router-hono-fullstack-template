@@ -19,6 +19,8 @@ export default tseslint.config(
 			"app/components/plain/**",
 			"app/lib/plain/**",
 			"app/hooks/**",
+			"app/components/design-system/component-gallery.tsx",
+			"app/components/design-system/data-gallery.tsx",
 		],
 	},
 	js.configs.recommended,
