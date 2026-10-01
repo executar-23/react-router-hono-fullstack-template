@@ -103,6 +103,23 @@ antes do upload; se escolher essa opção, deixe o campo Build command vazio par
 Não inclua `check:env`, migrações, `deploy:auth` ou `deploy:fullstack` nesse fluxo estático.
 As configurações do painel não são alteradas por este commit.
 
+## Preview fullstack com D1 (branch `claude/modest-turing-678xav`)
+
+O preview dessa branch roda o modo fullstack (API + D1), não o estático. Configuração no
+Workers Builds (conta `88b77e62…`, Worker `react-router-hono-fullstack-template`, preview
+`33ef5f9e…`), ajustada em 2026-10-01:
+
+| Campo | Valor |
+|---|---|
+| Build command | `npm run build:fullstack` |
+| Deploy command | `npx wrangler preview -c build/server/wrangler.json` |
+
+Use a config gerada pelo build (`build/server/wrangler.json`), que já traz o bloco
+`previews` com o D1 `hub-editorial-db-preview`. Com `-c wrangler.fullstack.jsonc`, o
+wrangler tenta empacotar `virtual:react-router/server-build` e o build falha. Com o
+`wrangler.jsonc` estático, falta o bloco `previews`. Conferência:
+`/api/health` → `{"status":"ok"}`.
+
 ## Conferir após o deploy
 
 1. Verifique o URL apresentado pelo próprio Wrangler, sem inferir que um domínio antigo foi atualizado.
