@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "react-router-hono-fullstack-template",
+  "account_id": "92fdc1b556435f2e3d62517f3041422e",
+	"name": "react-router-hono-fullstack-template",
   "compatibility_date": "2025-10-08",
   "assets": {
     "directory": "./dist-preview",

@@ -116,7 +116,7 @@
 		"dev:fullstack": "react-router dev",
 		"preview:fullstack": "npm run build:fullstack && vite preview",
 		"check:fullstack": "npm run lint && npm run typecheck && npm run test && npm run build:fullstack && npm run check:env && wrangler deploy --dry-run -c wrangler.fullstack.jsonc && wrangler deploy --dry-run -c auth/wrangler.jsonc",
-		"deploy:fullstack": "npm run build:fullstack && wrangler deploy -c wrangler.fullstack.jsonc",
+		"deploy:fullstack": "npm run build:fullstack && wrangler deploy -c build/server/wrangler.json",
 		"check:wrangler": "npm exec --yes --package=wrangler@4.136.1 -- wrangler deploy --dry-run --config=wrangler.jsonc",
 		"deploy:check": "npm run check && npm run check:wrangler",
 		"deploy:version": "npm run build && npm exec --yes --package=wrangler@4.136.1 -- wrangler versions upload --config=wrangler.jsonc",

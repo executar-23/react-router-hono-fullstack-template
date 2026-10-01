@@ -5,6 +5,7 @@
  */
 {
 	"$schema": "../node_modules/wrangler/config-schema.json",
+	"account_id": "92fdc1b556435f2e3d62517f3041422e",
 	"name": "hub-editorial-auth",
 	"main": "./index.ts",
 	"compatibility_date": "2025-10-08",
@@ -15,19 +16,19 @@
 		"EMAIL_FROM": "executar-rotina@outlook.com",
 		"AUTH_CLIENT_ID": "hub-editorial",
 		// Origem do app autorizada a redirecionar de volta após o login.
-		"ALLOWED_ORIGIN": "https://react-router-hono-fullstack-template.executar-rotina-8b7.workers.dev"
+		"ALLOWED_ORIGIN": "https://react-router-hono-fullstack-template.hub-executar.workers.dev"
 	},
 	"kv_namespaces": [
 		{
 			"binding": "AUTH_STORAGE",
-			"id": "e7af0103d9af49ebb329dc4fe98601b7"
+			"id": "3cae01e853154d62acd06d5e3be4664e"
 		}
 	],
 	"d1_databases": [
 		{
 			"binding": "AUTH_DB",
 			"database_name": "hub-auth-db",
-			"database_id": "8d1752ee-1d1b-437d-9c6c-ddaf1d192f58",
+			"database_id": "12ace2c0-2d3f-4f6a-ac07-748af5a39ea7",
 			"migrations_dir": "migrations"
 		}
 	],

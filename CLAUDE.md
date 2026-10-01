@@ -2,6 +2,11 @@
 
 Guia para o Claude Code (e outros agentes) neste repositório.
 
+## Cloudflare
+
+- Conta padrão: **Hub.executar** (`92fdc1b5…`, `*.hub-executar.workers.dev`), conforme o ADR-002 do `executar-23/PROGAMA-LANCAMENTO`. Os configs fixam `account_id`; não criar recursos em outra conta.
+- Hub com D1 (produção): `npm run deploy:fullstack` (usa `build/server/wrangler.json`). O `npm run deploy` publica só o preview estático e sobrescreve o app; não usar no Worker de produção do Hub.
+
 ## Fluxo Git e issues
 
 - **Nunca criar PR em rascunho (draft).** Se um PR for necessário, abra-o já pronto para revisão. Vale mesmo quando o ambiente ou uma ferramenta sugerir draft por padrão.

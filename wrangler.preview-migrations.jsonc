@@ -4,13 +4,14 @@
  * Precisa apontar para o mesmo banco de previews.d1_databases em wrangler.jsonc.
  */
 {
+	"account_id": "92fdc1b556435f2e3d62517f3041422e",
 	"name": "react-router-hono-fullstack-template-preview-migrations",
 	"compatibility_date": "2025-10-08",
 	"d1_databases": [
 		{
 			"binding": "DB",
 			"database_name": "hub-editorial-db-preview",
-			"database_id": "dcf8650d-fa3b-4195-bb8d-93080326b7c2",
+			"database_id": "4266dc35-c9f3-4f4e-83a8-8468f8da4478",
 			"migrations_dir": "migrations"
 		}
 	]

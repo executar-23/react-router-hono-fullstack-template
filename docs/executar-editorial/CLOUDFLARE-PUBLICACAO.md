@@ -106,7 +106,7 @@ As configurações do painel não são alteradas por este commit.
 ## Preview fullstack com D1 (branch `claude/modest-turing-678xav`)
 
 O preview dessa branch roda o modo fullstack (API + D1), não o estático. Configuração no
-Workers Builds (conta `88b77e62…`, Worker `react-router-hono-fullstack-template`, preview
+Workers Builds (conta legada `88b77e62…`, ver ADR-002; Worker `react-router-hono-fullstack-template`, preview
 `33ef5f9e…`), ajustada em 2026-10-01:
 
 | Campo | Valor |

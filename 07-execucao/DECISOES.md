@@ -8,3 +8,4 @@
 | DEC-004 | Atores `A_DEFINIR` em STG-100/120/130 (visual, vídeo) | Estágios ficam `USER_ACTION_REQUIRED` no workflow |
 | DEC-005 | Remetente de e-mail `@outlook.com` não pode ser verificado no Resend | Pendente do usuário (domínio próprio) |
 | DEC-006 | IDs de D1/KV do repo apontavam para outra conta Cloudflare (`hub-executar`), e o Worker roda na conta `executar-rotina-8b7` → preview com `db unavailable` | Recursos recriados na conta do Worker (ADR-001 §11); preview fullstack com `build:fullstack` + `wrangler preview -c build/server/wrangler.json`; `/api/health` ok |
+| DEC-007 | Conta Cloudflare padrão | Hub.executar (`92fdc1b5…`), conforme o ADR-002 do PROGAMA-LANCAMENTO; bindings, URLs e `account_id` migrados; DEC-006 superada |
