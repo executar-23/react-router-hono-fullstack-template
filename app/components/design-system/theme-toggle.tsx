@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { Moon, Sun } from "lucide-react";
 
@@ -16,19 +16,17 @@ function readTheme(): Theme {
 	return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-/** Alterna a classe .dark no <html> (mesmo contrato do theme-toggle do Risco-cognitivo-blog). */
+/**
+ * Alterna a classe .dark no <html> (mesmo contrato do theme-toggle do Risco-cognitivo-blog).
+ * O estado vive só na classe do documento; os ícones trocam pelo variant dark: do Tailwind.
+ */
 export function ThemeToggle() {
-	const [theme, setTheme] = useState<Theme>("light");
-
 	useEffect(() => {
-		const initial = readTheme();
-		setTheme(initial);
-		document.documentElement.classList.toggle("dark", initial === "dark");
+		document.documentElement.classList.toggle("dark", readTheme() === "dark");
 	}, []);
 
 	const toggle = () => {
-		const next: Theme = theme === "light" ? "dark" : "light";
-		setTheme(next);
+		const next: Theme = document.documentElement.classList.contains("dark") ? "light" : "dark";
 		document.documentElement.classList.toggle("dark", next === "dark");
 		try {
 			localStorage.setItem("theme", next);
@@ -38,7 +36,7 @@ export function ThemeToggle() {
 	};
 
 	return (
-		<Button variant="outline" size="icon" className="relative size-8" onClick={toggle} data-testid="theme-toggle" aria-pressed={theme === "dark"}>
+		<Button variant="outline" size="icon" className="relative size-8" onClick={toggle} data-testid="theme-toggle">
 			<Sun className="size-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
 			<Moon className="absolute size-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
 			<span className="sr-only">Alternar tema claro/escuro</span>
